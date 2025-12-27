@@ -41,12 +41,16 @@ description: git statusとdiffを解析し、適切なブランチ作成・日�
   - **日本語**で記述すること。
   - **絵文字**をプレフィックスとして付与すること。
   - **3行程度の箇条書き**で詳細を含めること。
+  - **コミットメッセージの取り扱い**:
+    - **一時ファイル（`COMMIT_MSG.txt`）** にメッセージ内容を作成してからコミットしてください。
+    - `write_to_file` ツールなどを使用してファイルを作成・更新します。
+    - `-F` オプションを使用してファイルを指定します。
   - コマンド例:
     ```bash
     git add [ファイルA]
     ```
     ```bash
-    git commit -m "✨ feat: [機能] 日本語の要約" -m "- 詳細な変更点1" -m "- 詳細な変更点2"
+    git commit -F COMMIT_MSG.txt
     ```
 
 ## Step 5: 🔍 コミット確認 // turbo
@@ -57,9 +61,10 @@ description: git statusとdiffを解析し、適切なブランチ作成・日�
 
 ## Step 6: 🔄 develop へのマージ // turbo
 1. `develop` ブランチに切り替えます。
-2. `--no-ff` オプションを付けてマージします。
+2. `COMMIT_MSG.txt` にマージメッセージを作成します。
+3. `--no-ff` オプションと `-F` オプションを付けてマージします。
    ```bash
-   git merge --no-ff feature/[ブランチ名] -m "🔀 Merge: [タスク概要]"
+   git merge --no-ff feature/[ブランチ名] -F COMMIT_MSG.txt
    ```
 3. リモートへプッシュします。
 
