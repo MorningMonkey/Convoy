@@ -5,9 +5,9 @@
   "private": true,
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "header:crop": "pwsh ./scripts/crop-header.ps1 -InputPath assets/header.png -OutputPath assets/header_cropped.png -Force",
-    "header:add-text": "pwsh ./scripts/add-text-to-header.ps1 -Force"
+    "header:add-text": "pwsh ./scripts/add-text-to-header.ps1 -InputPath assets/header_cropped.png -OutputPath assets/header_cropped_text.png -Force",
+    "header:build": "pnpm header:crop && pnpm header:add-text"
   },
   "license": "ISC",
   "packageManager": "pnpm@10.26.2",
