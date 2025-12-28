@@ -1,14 +1,13 @@
 {
-  "name": "YOROZU_Workspace",
+  "name": "convoy-workspace",
   "version": "1.0.0",
   "type": "module",
+  "private": true,
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "header:add-text": "pwsh ./scripts/add-text-to-header.ps1 -Force"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.26.2",
   "dependencies": {
