@@ -1,7 +1,7 @@
 ---
-description: ユーザー指定のリポジトリを作成し、YOROZUブランド化、コミット、リリース作成までを一気通貫で行います
+description: ユーザー指定のリポジトリを作成し、Convoyブランド化、コミット、リリース作成までを一気通貫で行います
 ---
-# 🚀 YOROZU プロジェクト完全作成ワークフロー
+# 🚀 Convoy プロジェクト完全作成ワークフロー
 
 このワークフローは、既存のワークフロー（リポジトリ作成、ブランド化、コミット、リリース）を統合し、ゼロからリリース済みリポジトリを作成するためのマスターワークフローです。
 
@@ -14,23 +14,23 @@ description: ユーザー指定のリポジトリを作成し、YOROZUブラン�
 ## Step 2: 🏗️ アプリケーションの実装
 - `/build-app-simple` を実行します。
   - ユーザーの要件（作成したいアプリの内容）に基づいて、HTML/CSS/JSで実装を行います。
-  - **重要**: YOROZU Identityを適用する前に、まずアプリ自体の機能を完成させます。
+  - **重要**: Convoy Identityを適用する前に、まずアプリ自体の機能を完成させます。
 
-## Step 3: 🌸 YOROZU Identityの適用 // turbo
-- `/update-yorozu-identity` を実行します。
+## Step 3: 🌸 Convoy Identityの適用 // turbo
+- `/update-Convoy-identity` を実行します。
   1. **ヘッダー生成**: 「リポジトリ名」を含んだMiyabiスタイルのヘッダー画像を作成します。
   2. **README更新**: ヘッダー画像を最上部に配置し、GitHub Alertsを追加します。
 
 ## Step 4: 💾 変更のコミット // turbo
 - `/git-auto-commit` の戦略に基づき、Identity適用の変更をコミットします。
   - **Type**: `style` または `docs`
-  - **メッセージ**: "✨ style: Apply YOROZU identity and documentation"
+  - **メッセージ**: "✨ style: Apply Convoy identity and documentation"
 
   ```bash
   git add .
   ```
   ```bash
-  git commit -m "✨ style: YOROZUブランド（ヘッダー・README）を適用" -m "- Miyabiスタイルヘッダー画像の生成" -m "- READMEレイアウトの標準化とAlerts導入"
+  git commit -m "✨ style: Convoyブランド（ヘッダー・README）を適用" -m "- Miyabiスタイルヘッダー画像の生成" -m "- READMEレイアウトの標準化とAlerts導入"
   ```
   ```bash
   git push origin main
