@@ -69,3 +69,12 @@ ANTIGRAVITY_AGENT_CONTROL_SPEC.MD
 ANTIGRAVITY_AGENT_CONTROL_SPEC copy.MD
 COMMIT_MSG.txt
 release_notes.md
+
+# ==========================================
+# Generated headers
+# ==========================================
+assets/header*.png
+
+# Generated headers
+assets/header*.png
+
