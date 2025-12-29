@@ -1,0 +1,24 @@
+Create a modern industrial banner for a project named "Convoy".
+
+Text:
+- Only the English word "Convoy" (exactly). No other words.
+- No Japanese/Chinese/Korean characters.
+
+Theme:
+- Inspired by a heroic red/blue “command truck” vibe, but keep it generic.
+- Suggest a truck front abstractly using shapes: grille grid, headlight rectangles, windshield-like panels.
+- Add subtle road/lane or motion cues to imply a convoy in motion.
+- Clean, modern, tech-industrial style; readable and not busy.
+
+Colors & typography:
+- Palette: red + blue accents with metallic/silver neutrals and dark charcoal text.
+- Sans-serif, medium to bold weight, crisp letter spacing.
+
+Avoid:
+- Any recognizable Transformers/Optimus Prime depiction.
+- Any robot face/helmet silhouette, franchise logos, insignias, or trademarked iconography.
+- Traditional Japanese luxury motifs (wagara, gold leaf, ornate decoration).
+
+Composition:
+- Centered title with generous padding.
+- Keep important elements inside the middle band so it remains readable after 16:9 cropping.
