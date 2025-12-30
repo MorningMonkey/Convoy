@@ -1,5 +1,7 @@
 ﻿---
+slug: generate-header-image
 description: READMEやリリースノート用の高品質なヘッダー画像を生成します
+trigger: model_decision
 ---
 # 🎨 ヘッダー画像生成ワークフロー
 
@@ -9,10 +11,10 @@ description: READMEやリリースノート用の高品質なヘッダー画像�
 - **プロジェクト名の取得**: カレントディレクトリやREADMEからプロジェクト名を取得します。
 - **スタイル選択**:
   - **Standard**: プロジェクト名を冠したエレガントなデザイン。
-  - **Convoy (Miyabi)**: 和風、金箔、藍色（Indigo）、伝統文様（和柄）、ミニマリストな高級感を重視。
+  - **Mission Control**: ニュートラル基調 + 1–2アクセント（例: slate/gray + blue/red）、フラット、技術図表・管制塔のようにクリーンで可読性を重視。
 - **プロンプト作成**:
   - テキスト: **「画像を生成するプロンプト自体にそのリポジトリの名前（英語表記）を含める」** ことで、より自然な統合を目指します（例: "Text 'MyRepoName' elegantly displayed..."）。
-    - **重要**: 漢字や誤った文字生成を防ぐため、プロンプトには "NO Kanji, Hiragana, Katakana" と明記します。
+    - **重要**: 漢字や誤った文字生成を防ぐため、プロンプトには "English text only, no Japanese characters, no non-Latin scripts" と明記します。
   - 配置: **「絶対に中央配置 (Perfectly Centered)」** を強調します。
   - 構成: 上下がクロップされることを前提に、重要な要素を中央の帯状の領域に集中させます。
 
@@ -36,4 +38,3 @@ description: READMEやリリースノート用の高品質なヘッダー画像�
 ## Step 4: 💾 完了と保存
 - 生成に使用したプロンプトを `assets/header_prompt.txt` に保存します。
 - `README.md` のヘッダー画像リンクが有効であることを確認します。
-

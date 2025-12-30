@@ -5,7 +5,7 @@
     "tagline": "Mission Control workspace for agentic development"
   },
   "paths": {
-    "projectFactoryDir": "GAS_PROJECT",
+    "projectFactoryDir": "CONVOY_PROJECT",
     "docsDir": "docs",
     "scriptsDir": "scripts"
   },
@@ -29,8 +29,6 @@
     "neverCommitSecrets": true
   },
   "productId": "convoy",
-  "factoryDir": "d:/convoy",
-
   "header": {
     "promptFile": "assets/branding/{productId}/header_prompt.txt",
     "input": "assets/header.png",

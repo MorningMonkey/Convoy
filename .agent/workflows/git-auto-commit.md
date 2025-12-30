@@ -1,10 +1,12 @@
 ---
-description: git statusとdiffを解析し、適切なブランチ作成・日本語での粒度の細かいコミット・マージを自動化します
+slug: git-auto-commit
+description: git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化します
+trigger: model_decision
 ---
 
 # 🤖 Git 自動コミットワークフロー (V4.2 Lite)
 
-このワークフローは、[Sunwood-ai-labs MysticLibrary](https://github.com/Sunwood-ai-labs/MysticLibrary) のコミット戦略に基づき、変更内容を解析して適切な粒度でコミットを行います。
+このワークフローは、変更内容を解析して適切な粒度でコミットを行い、Convoy（Mission Control）の運用品質を安定させます。
 
 ## Step 1: 🔍 状態確認 // turbo
 以下のコマンドを順に実行して、現在の変更状態を確認してください。**コマンドはセミコロンで連結せず、必ず1つずつ実行してください。**
@@ -20,6 +22,8 @@ description: git statusとdiffを解析し、適切なブランチ作成・日�
    ```
 
 ## Step 2: 🌿 develop ブランチの準備 // turbo
+
+> Note: リポジトリ運用が `main` 直下（trunk-based）で `develop` を使わない場合は、`develop` を `main` に読み替えて同様に進めます。
 1. `develop` ブランチが存在するか確認します。
 2. 存在しない場合は作成し、プッシュします。
 3. 存在する場合はチェックアウトし、`git pull origin develop` で最新化します。
@@ -31,6 +35,8 @@ description: git statusとdiffを解析し、適切なブランチ作成・日�
   - **Issue番号は含めないでください**。
 
 ## Step 4: 💻 粒度の細かいコミット // turbo
+
+- **注意**: `COMMIT_MSG.txt` はコミット対象に含めません。作業後は削除するか、必要なら `.gitignore` に追加します。
 - `git diff` の内容を分析し、**作業の単位ごとに細かく分割してコミット**します。
 - **コミットメッセージのルール**:
   - **Type（型）**: 以下のリストから適切なものを選んでください。
@@ -72,7 +78,7 @@ description: git statusとdiffを解析し、適切なブランチ作成・日�
       ```
   - **コミットメッセージの取り扱い**:
     - **一時ファイル（`COMMIT_MSG.txt`）** にメッセージ内容を作成してからコミットしてください。
-    - `write_to_file` ツールなどを使用してファイルを作成・更新します。
+    - エディタ/自動化ツールを使用してファイルを作成・更新します（環境に `write_to_file` がある場合は使用可）。
     - `-F` オプションを使用してファイルを指定します。
   - コマンド例:
     ```bash

@@ -1,5 +1,7 @@
 ---
+slug: create-release
 description: Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します
+trigger: model_decision
 ---
 
 # 🚀 リリース作成ワークフロー
@@ -35,11 +37,12 @@ description: Semantic Versioningに基づくリリース作成と、バージョ
 ## Step 3: 🎨 リリース用ヘッダー画像生成
 - `assets/header_prompt.txt` の内容をベースに、**リポジトリ名とバージョン番号** を含む画像を生成します。
 - **プロンプト構築**:
-  - ベース: `assets/header_prompt.txt` (Miyabi style)
+  - ベース: `assets/header_prompt.txt` (Mission Control style: neutral + 1-2 accents, flat, readable)
   - 追加指示: "Include text '[RepoName] [Version]' elegantly..."
-  - **重要**: "NO Kanji" ルールを維持します。
+  - **重要**: リリース用ヘッダー画像の文字は **English only**（日本語・漢字は入れない）を原則とします。
 - **生成と保存**:
   - ツール: `generate_image`, `scripts/crop_header.ps1`
+  - （代替）画像生成ができない場合は画像添付を省略してリリース作成し、後から `gh release upload` で追加する
   - 保存先: `assets/release_header_[version].png`
 
 ## Step 4: 📝 洗練されたリリースノートの生成  // turbo
@@ -57,7 +60,8 @@ git log --format='%an' [前タグ]..HEAD | sort -u
 ```
 
 ### 4.2 テンプレート適用
-- `templates/release_notes_template.md` をベースに生成
+- `.agent/templates/release_notes_template.md` をベースに生成
+- テンプレの `{{...}}` 変数（VERSION/COMPARE_URL 等）を埋め、**Agent First（機械可読）＋人間可読**の両立を維持する
 - 各セクションをコミット分析結果で埋める
 - Breaking Changesがある場合はマイグレーションガイドを必須で含める
 
@@ -66,6 +70,8 @@ git log --format='%an' [前タグ]..HEAD | sort -u
 - [ ] 各変更にPR/Issueリンクがあるか
 - [ ] コード例が動作するか
 - [ ] 画像/GIFが適切に表示されるか
+- [ ] （推奨）CIまたはローカルで **Build / Test / Lint** が通っているか（可能な範囲で）
+- [ ] （推奨）変更点がユーザー影響（Breaking / Migration）として明確化されているか
 
 ## Step 5: 🚀 リリース作成 // turbo
 - `gh release create` コマンドを使用してリリースを作成します。

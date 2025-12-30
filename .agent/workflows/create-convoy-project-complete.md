@@ -1,5 +1,7 @@
 ---
+slug: create-convoy-project-complete
 description: ユーザー指定のリポジトリを作成し、Convoyブランド化、コミット、リリース作成までを一気通貫で行います
+trigger: model_decision
 ---
 # 🚀 Convoy プロジェクト完全作成ワークフロー
 
@@ -13,12 +15,12 @@ description: ユーザー指定のリポジトリを作成し、Convoyブラン�
 
 ## Step 2: 🏗️ アプリケーションの実装
 - `/build-app-simple` を実行します。
-  - ユーザーの要件（作成したいアプリの内容）に基づいて、HTML/CSS/JSで実装を行います。
+  - ユーザーの要件（作成したいアプリの内容）に基づいて、HTML/CSS/JSを基本に実装します（必要に応じて React + Tailwind も使用可）。
   - **重要**: Convoy Identityを適用する前に、まずアプリ自体の機能を完成させます。
 
 ## Step 3: 🌸 Convoy Identityの適用 // turbo
-- `/update-Convoy-identity` を実行します。
-  1. **ヘッダー生成**: 「リポジトリ名」を含んだMiyabiスタイルのヘッダー画像を作成します。
+- `/update-convoy-identity` を実行します。
+  1. **ヘッダー生成**: 「リポジトリ名」を含んだ **Mission Control スタイル（neutral + 1-2 accents / flat / readable）** のヘッダー画像を作成します。
   2. **README更新**: ヘッダー画像を最上部に配置し、GitHub Alertsを追加します。
 
 ## Step 4: 💾 変更のコミット // turbo
@@ -30,7 +32,7 @@ description: ユーザー指定のリポジトリを作成し、Convoyブラン�
   git add .
   ```
   ```bash
-  git commit -m "✨ style: Convoyブランド（ヘッダー・README）を適用" -m "- Miyabiスタイルヘッダー画像の生成" -m "- READMEレイアウトの標準化とAlerts導入"
+  git commit -m "✨ style: Convoyブランド（ヘッダー・README）を適用" -m "- Mission Control スタイルヘッダー画像の生成" -m "- READMEレイアウトの標準化とAlerts導入"
   ```
   ```bash
   git push origin main
