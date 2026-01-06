@@ -14,7 +14,7 @@
 
 **Google Antigravity エージェントと協働するための、究極の「エージェント主導開発（ADE）」ワークスペース**
 
-[コンセプトを読む](#concept) • [使い方](#getting-started) • [ワークフロー一覧](#workflow-catalog) • [技術仕様書](ANTIGRAVITY_AGENT_CONTROL_SPEC.MD)
+[コンセプトを読む](#concept) • [使い方](#getting-started) • [ワークフロー一覧](#workflow-catalog) • [管制仕様](ANTIGRAVITY_AGENT_CONTROL_SPEC.md)
 
 </div>
 
@@ -26,7 +26,7 @@
 これは、**「反復作業の重力」から開発者を解放するための、Google Antigravity専用の管制塔（Mission Control）** です。
 
 従来の開発環境が「コードを書く場所」であったのに対し、Convoyは「エージェントにタスクを委任し、指揮する場所」として設計されています。
-`Convoy_PROJECT` 配下に生成される全てのリポジトリは、ここで定義された **Rules（憲法）** と **Workflows（標準作業手順）** によって、統一された高品質な基準で管理されます。
+`CONVOY_PROJECT` 配下に生成される全てのリポジトリは、ここで定義された **Rules（憲法）** と **Workflows（標準作業手順）** によって、統一された高品質な基準で管理されます。
 
 ### Core Philosophy
 - **Automate Everything**: 初期化、コミット、リリース、品質チェックまで、あらゆるプロセスをWorkflowとして定義。
@@ -54,7 +54,8 @@
 
 Convoyは、複数のプロジェクトを統括する「メタ・ワークスペース」として機能します。
 
-- 図: [docs/architecture.drawio](docs/architecture.drawio)
+- 図（正本）: [docs/architecture.drawio](docs/architecture.drawio)
+- （任意）表示用: `docs/architecture.svg`（drawio からエクスポートして併置可）
 
 ```text
 d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
@@ -62,16 +63,16 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 │   ├── rules/                   <-- 憲法 (Coding Standards, Branding Rules)
 │   └── workflows/               <-- 手順書 (Deployment, Refactoring SOPs)
 │
-├── Convoy_PROJECT/                 <-- 🏭 Project Factory
+├── CONVOY_PROJECT/                 <-- 🏭 Project Factory
 │   ├── my-cool-project/         <-- 📦 Generated Repo 1
 │   ├── another-service/         <-- 📦 Generated Repo 2
 │   └── prompt-repo/             <-- 📦 Prompt Management
 │
-└── ANTIGRAVITY_AGENT_...Spec.md <-- 📜 Technical Whitepaper
+└── ANTIGRAVITY_AGENT_CONTROL_SPEC.md <-- 📜 管制仕様（Control Spec）
 ```
 
 - **Mission Control**: あなたはここで指令を出します。
-- **Project Factory**: エージェントは `Convoy_PROJECT` ディレクトリ内に成果物を生成します。
+- **Project Factory**: エージェントは `CONVOY_PROJECT` ディレクトリ内に成果物を生成します。
 - **Agent Brain**: エージェントの行動指針は全て `.agent` 内に集約されており、ここを修正するだけで全プロジェクトの挙動を調整できます。
 
 ---
@@ -91,6 +92,7 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 
 ### 🎨 Branding & Assets (意匠)
 - **[🌸 Update Convoy Identity](.agent/workflows/update-convoy-identity.md)**: 既存リポジトリを「Convoy」ブランドへ改装。
+- **[🎛 Branding Intake](.agent/workflows/branding-intake.md)**: 製作者への問いかけからアプリ別ブランディング（brief.md）を確定。
 - **[🎨 Generate Header Image](.agent/workflows/generate-header-image.md)**: 記事やREADME用のヘッダー画像生成。
 
 ### ✅ Quality & Release (品質・公開)
@@ -101,10 +103,10 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 
 ## ⚖️ Rules & Policies
 
-エージェントは以下のルール（[`.agent/rules`](.agent/rules/)）に従って自律的に判断を行います。
+エージェントは管制仕様（[ANTIGRAVITY_AGENT_CONTROL_SPEC.md](ANTIGRAVITY_AGENT_CONTROL_SPEC.md)）と、以下のルール（[`.agent/rules`](.agent/rules/)）に従って自律的に判断を行います。
 
 - **Repo Creation Rule**: 新規リポジトリ作成時は、自動的にConvoy標準の `.gitignore` とディレクトリ構成を適用。
-- **Branding Rule**: 「Mission Control」らしい工業的・高可読なデザインと言葉遣いを優先
+- **Branding Rule**: 「Mission Control」らしい工業的・高可読なデザインと言葉遣いを優先（アプリ別の詳細は `assets/branding/<productId>/brief.md` を正とする）。
 - **Safety First**: 破壊的なコマンド実行前には必ず確認を求め、安全性を担保。
 
 ---
@@ -116,10 +118,3 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 *Crafted with ❤️ in the Zero-gravity Zone*
 
 </div>
-
-
-## Architecture
-
-- 図: [docs/architecture.drawio](docs/architecture.drawio)（必要に応じて `/visualize-architecture` で生成/更新）
-
-
