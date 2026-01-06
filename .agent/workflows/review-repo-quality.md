@@ -3,6 +3,7 @@ slug: review-repo-quality
 description: リポジトリの品質（README, 構造, 設定）をチェックし、Convoy標準（Agent First / Automate Everything）に沿って改善点を提案します
 trigger: model_decision
 ---
+
 # ✅ リポジトリ品質レビュー
 
 このワークフローは、現在のリポジトリが品質基準を満たしているか確認します。

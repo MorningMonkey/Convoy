@@ -1,8 +1,9 @@
-﻿---
+---
 slug: create-prompt-repo
 description: 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します
 trigger: model_decision
 ---
+
 # 📂 フォルダからリポジトリを作成
 
 このワークフローは、既存のフォルダをGitHubリポジトリに変換します。

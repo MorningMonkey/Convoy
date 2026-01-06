@@ -1,12 +1,10 @@
 ---
 slug: build-app-simple
-description: シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可）。
+description: シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可）
 trigger: model_decision
 ---
 
----
-
-## スタック選定（最小ガイド）
+# スタック選定（最小ガイド）
 
 本ワークフローは「過剰設計しない」を意味します。**フレームワーク禁止ではありません**。  
 既定は Vanilla（HTML/CSS/JS）ですが、以下の条件では **React + Tailwind** を使用して構いません。

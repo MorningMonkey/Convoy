@@ -1,8 +1,9 @@
-﻿---
+---
 slug: generate-header-image
 description: READMEやリリースノート用の高品質なヘッダー画像を生成します
 trigger: model_decision
 ---
+
 # 🎨 ヘッダー画像生成ワークフロー
 
 このワークフローは、プロジェクト名を冠したエレガントで高品質なヘッダー画像をAIで生成し、スクリプトを用いて確実に16:9にクロップします。

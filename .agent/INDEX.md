@@ -21,17 +21,17 @@
 
 ## Rules
 
-| slug | description | file |
-| --- | --- | --- |
+| slug          | description                                         | file                          |
+| ------------- | --------------------------------------------------- | ----------------------------- |
 | repo-creation | Project Factory配下でのリポジトリ作成規約を強制する | .agent/rules/repo-creation.md |
 
 ---
 
 ## Templates
 
-| name | description | file |
-| --- | --- | --- |
-| release_notes_template.md | GitHub Release 用のリリースノートテンプレート（変数埋め込み式） | release_notes_template.md |
+| name                         | description                                                     | file                         |
+| ---------------------------- | --------------------------------------------------------------- | ---------------------------- |
+| release_notes_template.md    | GitHub Release 用のリリースノートテンプレート（変数埋め込み式） | release_notes_template.md    |
 | release_notes_template_ja.md | GitHub Release 用のリリースノートテンプレート（変数埋め込み式） | release_notes_template_ja.md |
 
 > Templates は frontmatter を持たず、本文コメント（変数契約）で運用します。
@@ -41,23 +41,26 @@
 ## Workflows
 
 | slug | description | trigger | file |
-| --- | --- | --- | --- |
+| ---- | ----------- | ------- | ---- |
 
 ---
 
 ## 推奨フロー（Project Complete）
 
-以下が Convoy 標準の一気通貫導線です。
+以下が Convoy 標準の一気通貫導線です。入口は **`/create-convoy-project-complete`** で固定します。
 
-- **1) リポジトリ作成（新規/既存）**: `[repo-creation]`（Rule）を遵守し、[create-repo-from-folder](.agent/workflows/create-repo-from-folder.md) または [create-prompt-repo](.agent/workflows/create-prompt-repo.md) を実行
-- **2) Identity 注入（ブランド/README）**: [update-convoy-identity](.agent/workflows/update-convoy-identity.md)（ヘッダー/README/Alerts/導線）
-- **3) 品質レビュー（出荷前点検）**: [review-repo-quality](.agent/workflows/review-repo-quality.md)（Pass/Risk/Action）
-- **4) アーキテクチャ可視化（任意）**: [visualize-architecture](.agent/workflows/visualize-architecture.md)（Draw.io XML）
-- **5) リリース作成**: [create-release](.agent/workflows/create-release.md)（テンプレ: `.agent/templates/release_notes_template.md`）
-- **6) コミット自動化（任意）**: [git-auto-commit](.agent/workflows/git-auto-commit.md)（変更量が多い場合の分割コミット）
+- **入口（統合）**: [create-convoy-project-complete](.agent/workflows/create-convoy-project-complete.md)
+- **呼び出し順（確定）**
+  - 必須: `create-repo-from-folder` → （必要なら）`build-app-simple` → `update-convoy-identity` → `review-repo-quality`
+  - 任意: `visualize-architecture` / `git-auto-commit` / `create-release` / `create-prompt-repo`
 
----
+### 条件分岐（要約）
 
+- **実装が必要**: `build-app-simple` を実行（Vanilla基本、React+Tailwind可）
+- **構成共有が必要**: `visualize-architecture`
+- **節目で配布する**: `create-release`
+- **変更が大きい**: `git-auto-commit`
+- **プロンプト資産を別管理**: `create-prompt-repo`
 ## よくある使い分け
 
 - **素早くUIを作る（単体アプリ）**: [build-app-simple](.agent/workflows/build-app-simple.md)
