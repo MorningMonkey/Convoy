@@ -1,6 +1,6 @@
 ---
 slug: git-auto-commit
-description: git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化します
+description: "git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化します"
 trigger: model_decision
 ---
 

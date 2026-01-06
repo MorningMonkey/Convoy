@@ -1,6 +1,6 @@
 ---
 slug: visualize-architecture
-description: Draw.io XMLでプロジェクトの論理構成図を生成する（AI生成）
+description: "Draw.io XMLでプロジェクトの論理構成図を生成する（AI生成）"
 trigger: model_decision
 ---
 

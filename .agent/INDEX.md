@@ -77,7 +77,9 @@
 ## 運用ルール（最低限）
 
 - Workflows は必ず frontmatter（`slug/description/trigger`）を持つ
-- 禁則ワード（例: `YOROZU`, `Miyabi`）はリポジトリ内に残さない（再発防止はCIで）
+- `description` は **原則クオートする**（YAML上 `: ` を含むとパースエラーになるため）
+  - OK: `description: "Vanilla: HTML/CSS/JS を基本とする"`
+  - NG: `description: Vanilla: HTML/CSS/JS を基本とする`
 - 生成物のコミット方針は、各workflowの「生成物の扱い（ポリシー）」に従う
 
 ---

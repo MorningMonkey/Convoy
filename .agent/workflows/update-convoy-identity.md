@@ -1,6 +1,6 @@
 ---
 slug: update-convoy-identity
-description: リポジトリの見た目と導線（README/ヘッダー/Alerts/運用メタ情報）をConvoy（Mission Control）標準に整流化します
+description: "リポジトリの見た目と導線（README/ヘッダー/Alerts/運用メタ情報）をConvoy（Mission Control）標準に整流化します"
 trigger: model_decision
 ---
 

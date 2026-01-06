@@ -1,6 +1,6 @@
 ---
 slug: create-convoy-project-complete
-description: リポジトリ作成→実装→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する
+description: "リポジトリ作成→実装→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する"
 trigger: model_decision
 ---
 

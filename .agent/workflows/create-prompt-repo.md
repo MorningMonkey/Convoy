@@ -1,6 +1,6 @@
 ---
 slug: create-prompt-repo
-description: 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します
+description: "既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します"
 trigger: model_decision
 ---
 

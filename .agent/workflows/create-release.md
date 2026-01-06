@@ -1,6 +1,6 @@
 ---
 slug: create-release
-description: Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します
+description: "Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します"
 trigger: model_decision
 ---
 

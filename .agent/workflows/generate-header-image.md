@@ -1,6 +1,6 @@
 ---
 slug: generate-header-image
-description: READMEやリリースノート用の高品質なヘッダー画像を生成します
+description: "READMEやリリースノート用の高品質なヘッダー画像を生成します"
 trigger: model_decision
 ---
 
