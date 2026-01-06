@@ -23,10 +23,10 @@
 ## Rules
 
 <!-- BEGIN: AUTO-GENERATED RULES -->
-| slug              | description                                                                                           | file                              |
-| ----------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------- |
-| agent-frontmatter | Agent assets の frontmatter 仕様（必須キー/slug形式/descriptionのクオート）を定義する                 | .agent/rules/agent-frontmatter.md |
-| repo-creation     | Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制する | .agent/rules/repo-creation.md     |
+| slug | description | file |
+| --- | --- | --- |
+| agent-frontmatter | Agent assets の frontmatter 仕様（必須キー/slug形式/descriptionのクオート）を定義する | .agent/rules/agent-frontmatter.md |
+| repo-creation | Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制する | .agent/rules/repo-creation.md |
 <!-- END: AUTO-GENERATED RULES -->
 
 
@@ -46,18 +46,19 @@
 ## Workflows
 
 <!-- BEGIN: AUTO-GENERATED WORKFLOWS -->
-| slug                           | description                                                                                                                            | trigger        | file                                               |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------------- |
-| build-app-simple               | シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可） | model_decision | .agent/workflows/build-app-simple.md               |
-| create-convoy-project-complete | リポジトリ作成→実装→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する                    | model_decision | .agent/workflows/create-convoy-project-complete.md |
-| create-prompt-repo             | 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します                                                                       | model_decision | .agent/workflows/create-prompt-repo.md             |
-| create-release                 | Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します                                              | model_decision | .agent/workflows/create-release.md                 |
-| create-repo-from-folder        | 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します                                                                       | model_decision | .agent/workflows/create-repo-from-folder.md        |
-| generate-header-image          | READMEやリリースノート用の高品質なヘッダー画像を生成します                                                                             | model_decision | .agent/workflows/generate-header-image.md          |
-| git-auto-commit                | git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化します                             | model_decision | .agent/workflows/git-auto-commit.md                |
-| review-repo-quality            | リポジトリの品質（README, 構造, 設定）をチェックし、Convoy標準（Agent First / Automate Everything）に沿って改善点を提案します          | model_decision | .agent/workflows/review-repo-quality.md            |
-| update-convoy-identity         | リポジトリの見た目と導線（README/ヘッダー/Alerts/運用メタ情報）をConvoy（Mission Control）標準に整流化します                           | model_decision | .agent/workflows/update-convoy-identity.md         |
-| visualize-architecture         | Draw.io XMLでプロジェクトの論理構成図を生成する（AI生成）                                                                              | model_decision | .agent/workflows/visualize-architecture.md         |
+| slug | description | trigger | file |
+| --- | --- | --- | --- |
+| branding-intake | 製作者への問いかけからアプリ別のブランド要件を定義し、brief.md と header_prompt.txt を生成する | manual | .agent/workflows/branding-intake.md |
+| build-app-simple | シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可） | model_decision | .agent/workflows/build-app-simple.md |
+| create-convoy-project-complete | リポジトリ作成→（任意）最小実装→（条件付き）ブランディング確定→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する | model_decision | .agent/workflows/create-convoy-project-complete.md |
+| create-prompt-repo | 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します | model_decision | .agent/workflows/create-prompt-repo.md |
+| create-release | Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します | model_decision | .agent/workflows/create-release.md |
+| create-repo-from-folder | 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します | model_decision | .agent/workflows/create-repo-from-folder.md |
+| generate-header-image | READMEやリリースノート用の高品質なヘッダー画像を生成します | model_decision | .agent/workflows/generate-header-image.md |
+| git-auto-commit | git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化します | model_decision | .agent/workflows/git-auto-commit.md |
+| review-repo-quality | リポジトリの品質（README, 構造, 設定）をチェックし、Convoy標準（Agent First / Automate Everything）に沿って改善点を提案します | model_decision | .agent/workflows/review-repo-quality.md |
+| update-convoy-identity | リポジトリの見た目と導線（README/ヘッダー/Alerts/運用メタ情報）をConvoy（Mission Control）標準に整流化します | model_decision | .agent/workflows/update-convoy-identity.md |
+| visualize-architecture | Draw.io XMLでプロジェクトの論理構成図を生成する（AI生成） | model_decision | .agent/workflows/visualize-architecture.md |
 <!-- END: AUTO-GENERATED WORKFLOWS -->
 
 ---
