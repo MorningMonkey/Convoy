@@ -30,6 +30,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      
+      - name: Generate .agent/INDEX.md (must be up-to-date)
+        run: |
+          python scripts/generate_agent_index.py --index .agent/INDEX.md --write
+          git diff --exit-code .agent/INDEX.md
 
       - name: Validate frontmatter (rules/workflows) + light markdown checks
         run: |
