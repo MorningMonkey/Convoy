@@ -31,7 +31,7 @@
 ### Core Philosophy
 - **Automate Everything**: 初期化、コミット、リリース、品質チェックまで、あらゆるプロセスをWorkflowとして定義。
 - **Agent First**: 人間が読みやすいだけでなく、AIエージェントが理解・実行しやすい構造を徹底。
-- **Miyabi (雅)**: 機能性だけでなく、美しさと品格（Branding）を自動的に注入。
+- **Convoy Identity**: 機能性だけでなく、Mission Controlとしての統一感（Branding）を自動的に注入。
 
 ---
 
@@ -104,7 +104,7 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 エージェントは以下のルール（[`.agent/rules`](.agent/rules/)）に従って自律的に判断を行います。
 
 - **Repo Creation Rule**: 新規リポジトリ作成時は、自動的にConvoy標準の `.gitignore` とディレクトリ構成を適用。
-- **Branding Rule**: 日本の「雅」を感じさせるデザインと言葉遣いを優先（ユーザー指定がない場合）。
+- **Branding Rule**: 「Mission Control」らしい工業的・高可読なデザインと言葉遣いを優先
 - **Safety First**: 破壊的なコマンド実行前には必ず確認を求め、安全性を担保。
 
 ---

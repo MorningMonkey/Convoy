@@ -98,4 +98,8 @@
   - NG: `description: Vanilla: HTML/CSS/JS を基本とする`
 - 生成物のコミット方針は、各workflowの「生成物の扱い（ポリシー）」に従う
 
+- **Task・walkthrough.md は日本語を正とする**
+  - 禁止: 「Result is in walkthrough.md ...」など英語の定型文での案内
+  - 必須: 結果報告は日本語で「完了内容 / 生成・更新ファイル / 次のアクション」を含める
+
 ---
