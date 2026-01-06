@@ -1,4 +1,4 @@
-#Requires -Version 7.0
+
 param(
   # 相対パス可（ワークスペースルート基準）
   [string]$InputPath = "assets/header.png",
