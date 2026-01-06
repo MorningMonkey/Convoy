@@ -1,0 +1,39 @@
+name: Agent Quality Gates
+
+on:
+  push:
+    paths:
+      - ".agent/**"
+      - "README.md"
+      - "docs/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - ".agent/**"
+      - "README.md"
+      - "docs/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-agent-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate frontmatter (rules/workflows) + light markdown checks
+        run: |
+          python scripts/validate_agent_markdown.py \
+            --rules-dir .agent/rules \
+            --workflows-dir .agent/workflows \
+            --markdown-scan ".agent" "README.md" "docs"
