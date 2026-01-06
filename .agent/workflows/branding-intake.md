@@ -40,7 +40,7 @@ trigger: manual
 
 ```md
 # Branding Brief: {productId}
-
+```
 ## 1. コンセプト（1文）
 {コンセプト}
 
