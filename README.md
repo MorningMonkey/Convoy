@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-![Header](assets/header.png)
+![Header](assets/header_cropped_text.png)
 
 # Convoy
 ### ～ Your Own Repository Organization Zero-gravity Utility ～
