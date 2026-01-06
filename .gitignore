@@ -59,13 +59,14 @@ logs/
 # ==========================================
 # Project Specific / Temporary Workspace
 # ==========================================
-Convoy_PROJECT/
+CONVOY_PROJECT/
 tmp/
 
 # ==========================================
 # Agent & Workflow Artifacts
 # ==========================================
-ANTIGRAVITY_AGENT_CONTROL_SPEC.MD
+AANTIGRAVITY_AGENT_CONTROL_SPEC.MD
+ANTIGRAVITY_AGENT_CONTROL_SPEC.md
 ANTIGRAVITY_AGENT_CONTROL_SPEC copy.MD
 COMMIT_MSG.txt
 release_notes.md
