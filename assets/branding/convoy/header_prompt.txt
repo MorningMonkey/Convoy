@@ -1,24 +1,24 @@
-Create a modern industrial banner for a project named "Convoy".
+Create a wide banner background for a project named "CONVOY".
+IMPORTANT: Do NOT include any text, letters, words, logos, watermarks, or typography in the image.
+The title will be added later by a separate script.
 
-Text:
-- Only the English word "Convoy" (exactly). No other words.
-- No Japanese/Chinese/Korean characters.
+Style:
+- Mission Control / industrial / high-readability background
+- Abstract “command truck” front vibe using generic shapes (grille grid, headlight rectangles, windshield-like panels)
+- Subtle grid / circuit traces / HUD lines, but keep it clean and not busy
+- Symmetric composition, centered focal point, large safe empty area in the middle for later title overlay
 
-Theme:
-- Inspired by a heroic red/blue “command truck” vibe, but keep it generic.
-- Suggest a truck front abstractly using shapes: grille grid, headlight rectangles, windshield-like panels.
-- Add subtle road/lane or motion cues to imply a convoy in motion.
-- Clean, modern, tech-industrial style; readable and not busy.
-
-Colors & typography:
-- Palette: red + blue accents with metallic/silver neutrals and dark charcoal text.
-- Sans-serif, medium to bold weight, crisp letter spacing.
+Colors:
+- Dark charcoal / metallic silver neutrals
+- Controlled red + blue accents (thin highlights)
+- No gold accents
 
 Avoid:
-- Any recognizable Transformers/Optimus Prime depiction.
-- Any robot face/helmet silhouette, franchise logos, insignias, or trademarked iconography.
-- Traditional Japanese luxury motifs (wagara, gold leaf, ornate decoration).
+- Any robot face/helmet silhouette
+- Any recognizable Transformers/Optimus Prime depiction
+- Any franchise-like insignias, emblems, or trademarked iconography
+- Heavy rust / distressed frame border / grunge vignette
 
-Composition:
-- Centered title with generous padding.
-- Keep important elements inside the middle band so it remains readable after 16:9 cropping.
+Output:
+- 16:9 wide banner, suitable for cropping to a centered strip
+- High contrast, clean edges, no clutter
