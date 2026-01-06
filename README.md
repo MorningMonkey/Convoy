@@ -54,7 +54,7 @@
 
 Convoyは、複数のプロジェクトを統括する「メタ・ワークスペース」として機能します。
 
-![Architecture Diagram](docs/Convoy-architecture.svg)
+- 図: [docs/architecture.drawio](docs/architecture.drawio)
 
 ```text
 d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
@@ -81,7 +81,7 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 利用可能な全ワークフロー（標準作業手順書）の一覧です。
 
 ### 🏗️ Project Creation (作成)
-- **[🚀 Create Convoy Project Complete](.agent/workflows/create-Convoy-project-complete.md)**: プロジェクト立ち上げの決定版。
+- **[🚀 Create Convoy Project Complete](.agent/workflows/create-convoy-project-complete.md)**: プロジェクト立ち上げの決定版。
 - **[📂 Create Repo from Folder](.agent/workflows/create-repo-from-folder.md)**: 既存フォルダのリポジトリ化。
 - **[🧠 Create Prompt Repo](.agent/workflows/create-prompt-repo.md)**: プロンプト管理専用リポジトリの作成。
 
@@ -90,7 +90,7 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 - **[💾 Git Auto Commit](.agent/workflows/git-auto-commit.md)**: 粒度の細かいコミットとブランチ管理の自動化。
 
 ### 🎨 Branding & Assets (意匠)
-- **[🌸 Update Convoy Identity](.agent/workflows/update-Convoy-identity.md)**: 既存リポジトリを「Convoy」ブランドへ改装。
+- **[🌸 Update Convoy Identity](.agent/workflows/update-convoy-identity.md)**: 既存リポジトリを「Convoy」ブランドへ改装。
 - **[🎨 Generate Header Image](.agent/workflows/generate-header-image.md)**: 記事やREADME用のヘッダー画像生成。
 
 ### ✅ Quality & Release (品質・公開)
