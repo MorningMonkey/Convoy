@@ -20,5 +20,8 @@ Avoid:
 - Heavy rust / distressed frame border / grunge vignette
 
 Output:
-- 16:9 wide banner, suitable for cropping to a centered strip
+- Ultra-wide banner suitable for README header
+- Target aspect ratio: ~3.8:1 (final will be standardized to 1600×420)
+- Recommended export size: 3200×840 (or larger) PNG for better downscaling quality
+- Composition must remain valid when cropped/resized to a centered 1600×420 strip
 - High contrast, clean edges, no clutter

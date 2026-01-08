@@ -5,13 +5,16 @@
   "private": true,
   "description": "",
   "scripts": {
-    "header:crop": "pwsh ./scripts/crop-header.ps1 -InputPath assets/header.png -OutputPath assets/header_cropped.png -Force",
-    "header:add-text": "pwsh ./scripts/add-text-to-header.ps1 -InputPath assets/header_cropped.png -OutputPath assets/header_cropped_text.png -Force",
-    "header:build": "pnpm header:crop && pnpm header:add-text"
+    "header:crop": "node ./scripts/header-crop.mjs --in assets/header.png --out assets/header_cropped.png --w 1600 --h 420",
+    "header:add-text": "node ./scripts/header-add-text.mjs --in assets/header_cropped.png --out assets/header_cropped_text.png --title \"Convoy\" --subtitle \"Mission Control workspace for agentic development\"",
+    "header:build": "pnpm run header:crop && pnpm run header:add-text",
+    "legacy:header:crop:ps1": "powershell -ExecutionPolicy Bypass -File ./scripts/crop-header.ps1 -InputPath assets/header.png -OutputPath assets/header_cropped.png -Force",
+    "legacy:header:add-text:ps1": "powershell -ExecutionPolicy Bypass -File ./scripts/add-text-to-header.ps1 -InputPath assets/header_cropped.png -OutputPath assets/header_cropped_text.png -Force"
   },
   "license": "ISC",
   "packageManager": "pnpm@10.26.2",
   "dependencies": {
-    "@fal-ai/client": "^1.8.1"
+    "@fal-ai/client": "^1.8.1",
+    "sharp": "^0.34.1"
   }
 }

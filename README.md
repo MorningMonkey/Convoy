@@ -1,9 +1,12 @@
-﻿<div align="center">
+<div align="center">
 
-![Header](assets/header_cropped_text.png)
+<img src="assets/header_cropped_text.png" alt="Header" />
 
 # Convoy
 ### ～ Your Own Repository Organization Zero-gravity Utility ～
+
+
+> Note: ヘッダー画像は `pnpm header:build` により README用バナー規格（1600×420）へ自動で固定されます。
 
 <p align="center">
   <img src="https://img.shields.io/badge/Agent-Google%20Antigravity-blue?style=for-the-badge&logo=google" alt="Agent">
@@ -46,6 +49,7 @@
 | :------------------------------------ | :--------------------------------------------------------------------------------------------------------- |
 | **`/create-convoy-project-complete`** | 🆕 **最強のスターター**<br>リポジトリ作成からブランド化、初期コミット、リリースまでを一撃で完了します。     |
 | **`/build-app-simple`**               | 🏗️ **アプリ実装**<br>要件を伝えるだけで、モダンで美しいWebアプリケーションを実装します。                    |
+| **`/build-app-flutter`**              | 📱 **Flutter アプリ雛形**<br>Flutterプロジェクト生成、Riverpod / go_router 導入、README反映まで標準化します。 |
 | **`/create-release`**                 | 📦 **リリース自動化**<br>変更差分を解析し、美しいリリースノートとヘッダー画像を生成してGitHubへ公開します。 |
 
 ---
@@ -88,6 +92,7 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 
 ### 💻 Development (開発)
 - **[🏗️ Build App Simple](.agent/workflows/build-app-simple.md)**: 高速なプロトタイプ・アプリ開発。
+- **[📱 Build App Flutter](.agent/workflows/build-app-flutter.md)**: Flutterアプリ雛形の生成と初期品質の標準化。
 - **[💾 Git Auto Commit](.agent/workflows/git-auto-commit.md)**: 粒度の細かいコミットとブランチ管理の自動化。
 
 ### 🎨 Branding & Assets (意匠)
@@ -100,6 +105,16 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 - **[✅ Review Repo Quality](.agent/workflows/review-repo-quality.md)**: リポジトリの健康診断と改善提案。
 
 ---
+
+
+## 🧱 Stack Policy（方針の正本）
+
+本プロジェクトのスタック判断は、**/branding-intake で確定する `assets/branding/<productId>/brief.md` を唯一の正本（SoT）**とします。
+
+- **スマホアプリ（iOS/Android）**: Flutter 推奨（状態管理: Riverpod / ルーティング: go_router を統一）
+- **Webアプリ**: React 標準（例外可）
+- **iOS運用**: ビルド/署名は macOS（Xcode）で実施（CIは必要時のみ macOS）
+
 
 ## ⚖️ Rules & Policies
 

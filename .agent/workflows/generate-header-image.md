@@ -4,38 +4,57 @@ description: "READMEやリリースノート用の高品質なヘッダー画像
 trigger: model_decision
 ---
 
-# 🎨 ヘッダー画像生成ワークフロー
+# ヘッダー画像生成ワークフロー
 
-このワークフローは、プロジェクト名を冠したエレガントで高品質なヘッダー画像をAIで生成し、スクリプトを用いて確実に16:9にクロップします。
+このワークフローは、プロジェクト名を冠した高品質なヘッダー画像をAIで生成し、**スクリプトで最終成果物の寸法（SoT）を固定**して、README表示のブレをなくします。
 
-## Step 1: 📝 プロンプト構築
-- **プロジェクト名の取得**: カレントディレクトリやREADMEからプロジェクト名を取得します。
-- **スタイル選択**:
-  - **Standard**: プロジェクト名を冠したエレガントなデザイン。
-  - **Mission Control**: ニュートラル基調 + 1–2アクセント（例: slate/gray + blue/red）、フラット、技術図表・管制塔のようにクリーンで可読性を重視。
-- **プロンプト作成**:
-  - テキスト: **「画像を生成するプロンプト自体にそのリポジトリの名前（英語表記）を含める」** ことで、より自然な統合を目指します（例: "Text 'MyRepoName' elegantly displayed..."）。
-    - **重要**: 漢字や誤った文字生成を防ぐため、プロンプトには "English text only, no Japanese characters, no non-Latin scripts" と明記します。
-  - 配置: **「絶対に中央配置 (Perfectly Centered)」** を強調します。
-  - 構成: 上下がクロップされることを前提に、重要な要素を中央の帯状の領域に集中させます。
+---
 
-## Step 2: 🎨 画像生成 // turbo
-- `generate_image` ツールを使用して画像を生成します。
-  - **リトライ**: エラーが発生したり、予期せぬ結果が出た場合は、最大 **5回** までリトライしてください。
-- **フォールバック**: 5回のリトライ後も失敗する場合は、以下の手順でスクリプト実行に切り替えます。
-  1. コマンド `node scripts/generate_image.js --prompt "..." --aspect-ratio "16:9" --output-format "png"` を実行します（プロンプトはStep 1で作成したものを使用）。
-  2. スクリプトの出力から画像URL（例: `Image 1: https://...` by regex `Image \d+: (https?://\S+)`）を取得します。
-  3. そのURLから画像をダウンロードし、一時ファイル `assets/header_temp.png` として保存します（`curl` や `wget`、`Invoke-WebRequest`、またはブラウザツールを使用可能）。
-- プロンプトには「16:9 composition squeezed into square」といった指示を含め、生成モデルが要素を中央に寄せるように誘導します。（ツール・スクリプト共通）
-- 一時ファイル `assets/header_temp.png` として保存します。
+## SoT（最終成果物の規格）
+- README用バナー（標準）: **1600×420 px（約 3.8:1）**
+- 生成画像（生）は任意の解像度でよいが、**最終出力は必ず固定px**に揃える
 
-## Step 3: ✂️ クロップ処理 // turbo
-- `scripts/crop_header.ps1` を実行して、画像を 16:9 (1024x576) にクロップします。
-  - 入力: `assets/header_temp.png`
-  - 出力: `assets/header.png`
-- このスクリプトはDPIを考慮し、画像の中央部分を正確に切り出します。
-- クロップ完了後、一時ファイルを削除します。
+出力ファイル:
+- `assets/header.png`（AI生成の“生”）
+- `assets/header_cropped.png`（SoTバナーに固定）
+- `assets/header_cropped_text.png`（テキスト重畳済み）
 
-## Step 4: 💾 完了と保存
-- 生成に使用したプロンプトを `assets/header_prompt.txt` に保存します。
-- `README.md` のヘッダー画像リンクが有効であることを確認します。
+---
+
+## Step 1: プロンプト構築
+- プロジェクト名を取得（README、カレントディレクトリ等）
+- スタイル選択（Standard / Mission Control など）
+- `header_prompt.txt` を土台に、必要最小限の差分で生成プロンプトを作成
+
+---
+
+## Step 2: 生成
+- AIで画像を生成し `assets/header.png` に保存
+
+---
+
+## Step 3: クロップ処理（寸法固定）
+`pnpm header:crop` を実行し、**bannerモード（既定）**で SoT に固定します。
+
+- 入力: `assets/header.png`
+- 出力: `assets/header_cropped.png`（1600×420）
+
+仕組み:
+- `scripts/crop-header.ps1` が **coverリサイズ → 中央クロップ**で厳密に 1600×420 に揃えます。
+- 互換用途として `-Mode 16x9` も利用可能（ただしREADME標準は banner）。
+
+---
+
+## Step 4: テキスト重畳（自動フィット）
+必要に応じて `pnpm header:add-text` を実行し、テキストを重畳します。
+
+- 出力: `assets/header_cropped_text.png`（1600×420）
+
+仕組み:
+- `scripts/add-text-to-header.ps1` は **safe area** を確保しつつ、テキストが横幅からはみ出さないように**自動縮小（fit）**します。
+
+---
+
+## Step 5: 完了・保存
+- 生成に使用した最終プロンプトを `assets/branding/<productId>/brief.md` もしくは `assets/` 配下に履歴として残す（運用に合わせて）
+- READMEは `assets/header_cropped_text.png` を参照（固定pxのため、サイズ指定は原則不要）
