@@ -51,8 +51,8 @@
 | slug | description | trigger | file |
 | --- | --- | --- | --- |
 | branding-intake | 製作者への問いかけからアプリ別のブランド要件を定義し、brief.md と header_prompt.txt を生成する | manual | .agent/workflows/branding-intake.md |
+| build-app-flutter | Flutterプロジェクトを標準構成（Riverpod/go_router）で生成し、SoT（assets/branding/<productId>/brief.md）に基づく前提をREADMEへ反映、品質最小ライン（pub get/analyze/test）を満たす | Flutterアプリの標準雛形を生成し、初期品質とディレクトリ標準を整える | .agent/workflows/build-app-flutter.md |
 | build-app-simple | シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可） | model_decision | .agent/workflows/build-app-simple.md |
-| build-app-flutter | Flutterアプリの標準プロジェクト骨格を生成し、最小品質ライン（analyze/test/README）まで整える | model_decision | .agent/workflows/build-app-flutter.md |
 | create-convoy-project-complete | リポジトリ作成→（任意）最小実装→（条件付き）ブランディング確定→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する | model_decision | .agent/workflows/create-convoy-project-complete.md |
 | create-prompt-repo | 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します | model_decision | .agent/workflows/create-prompt-repo.md |
 | create-release | Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します | model_decision | .agent/workflows/create-release.md |
