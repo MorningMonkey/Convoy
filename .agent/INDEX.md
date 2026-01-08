@@ -38,6 +38,8 @@
 | ---------------------------- | --------------------------------------------------------------- | ---------------------------- |
 | release_notes_template.md    | GitHub Release 用のリリースノートテンプレート（変数埋め込み式） | release_notes_template.md    |
 | release_notes_template_ja.md | GitHub Release 用のリリースノートテンプレート（変数埋め込み式） | release_notes_template_ja.md |
+| flutter-quality-gates.yml    | Flutter用CI（Ubuntu）: pub get → analyze → test を実行する品質ゲートテンプレ | .agent/templates/ci/flutter-quality-gates.yml |
+| ios-build.yml                | iOSビルド（macOS）: 手動/タグ等でのみ実行するビルドテンプレ（no-codesign） | .agent/templates/ci/ios-build.yml |
 
 > Templates は frontmatter を持たず、本文コメント（変数契約）で運用します。
 
@@ -50,6 +52,7 @@
 | --- | --- | --- | --- |
 | branding-intake | 製作者への問いかけからアプリ別のブランド要件を定義し、brief.md と header_prompt.txt を生成する | manual | .agent/workflows/branding-intake.md |
 | build-app-simple | シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可） | model_decision | .agent/workflows/build-app-simple.md |
+| build-app-flutter | Flutterアプリの標準プロジェクト骨格を生成し、最小品質ライン（analyze/test/README）まで整える | model_decision | .agent/workflows/build-app-flutter.md |
 | create-convoy-project-complete | リポジトリ作成→（任意）最小実装→（条件付き）ブランディング確定→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する | model_decision | .agent/workflows/create-convoy-project-complete.md |
 | create-prompt-repo | 既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します | model_decision | .agent/workflows/create-prompt-repo.md |
 | create-release | Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化します | model_decision | .agent/workflows/create-release.md |
@@ -75,6 +78,7 @@
 ### 条件分岐（要約）
 
 - **実装が必要**: `build-app-simple` を実行（Vanilla基本、React+Tailwind可）
+- **実装が必要（モバイル/Flutter）**: `build-app-flutter` を実行（Riverpod + go_router を標準採用）
 - **ブランディングを確定したい / brief.md が無い**: `branding-intake` を実行（brief.md を正本化）
 - **構成共有が必要**: `visualize-architecture`
 - **節目で配布する**: `create-release`
@@ -94,6 +98,8 @@
 ---
 
 ## 運用ルール（最低限）
+
+- **モバイルはFlutter推奨。スタックとビルド環境（iOSはmacOS）は assets/branding/<productId>/brief.md を正として決める。**
 
 - Workflows は必ず frontmatter（`slug/description/trigger`）を持つ
 - `description` は **原則クオートする**（YAML上 `: ` を含むとパースエラーになるため）
