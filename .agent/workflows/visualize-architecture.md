@@ -1,39 +1,78 @@
 ---
-slug: visualize-architecture
-description: "Draw.io XMLでプロジェクトの論理構成図を生成する（AI生成）"
-trigger: model_decision
+slug: "visualize-architecture"
+description: "リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。"
+trigger: "model_decision"
 ---
 
-# 🧩 Visualize Architecture (Draw.io)
+# 🧩 visualize-architecture
 
-このワークフローは、リポジトリ内容を解析し、アーキテクチャ図（Draw.io形式）を生成・保存します。
+## 🌌 Overview
+本ワークフローは、リポジトリ内容を解析し、プロジェクトの**論理構成**（目的・主要コンポーネント・依存関係・データの流れ）を
+プロフェッショナルな Draw.io 図として可視化する。
+ファイルツリーの写経ではなく、README・ドキュメントから読み取れる概念（例: Mission Control / Factory / Brain）を優先し、
+設計の共有とオンボーディングを高速化する。
 
-## Step 1: 🔎 プロジェクトの解析 // turbo
-   - `list_dir` や `view_file` ツールを使用して、プロジェクトの構造、主要なファイル（README.md, package.json, main scripts等）を確認します。
-   - アプリケーションの目的、主要なコンポーネント、データの流れ、依存関係を特定してください。
-   - **重要**: 物理的なファイル構造ではなく、READMEやドキュメントから読み取れる**論理的な概念**（Mission Control, Factory, Brainなど）を優先します。
+## ⚖️ Rules / Constraints
+- **解析の優先順位**: 物理的なファイル構造より、READMEやドキュメントに現れる**論理概念**を優先する。fileciteturn12file0L12-L16
+- **出力言語**: 図中のラベル・説明は **English only** とする。fileciteturn12file0L22-L24
+- **スタイル規律**: Mission Control 風の洗練された図。ニュートラル基調 + アクセント1〜2色。グラデーションは禁止（Flat design only）。fileciteturn12file0L24-L31
+- **構成要件**:
+  - Block Diagram として境界を明示する（Container / Swimlane を使用）。fileciteturn12file0L31-L34
+  - Flow は矢印で接続し、データ/制御の流れを明確にする。fileciteturn12file0L33-L35
+  - 余白は十分に確保する（要素間 최소 40px、コンテナ内も広めのパディング）。fileciteturn12file0L35-L41
+- **形式の厳守**: 出力は Draw.io で読み込める完全な XML（`<mxfile>` 〜 `</mxfile>`）。fileciteturn12file0L41-L43
+- **保存先のSoT**: 生成物は `docs/architecture.drawio` を正本とする。fileciteturn12file0L46-L49
+- **保存の扱い**: `docs/` が無い場合は作成して保存する（作成不可ならユーザーに作成を促す）。fileciteturn12file0L47-L49
 
-## Step 2: 🧱 Draw.io XMLの生成 // turbo
-   - 解析した情報を基に、Draw.ioで読み込み可能なXMLテキストを生成します。
-   - **デザイン要件 (Strict Requirements)**:
-     - **言語**: **英語 (English)** で統一すること。
-     - **スタイル**: **Mission Control**で対話形式での決定を基本とし、洗練されたプロフェッショナルな図にすること。
-       - *配色*: ニュートラル＋アクセント1〜2色（例：slate/gray基調 + blue/redアクセント）
-       - **グラデーション禁止 (Flat Design Only)**: フラットなデザインにすること。
-     - **構成**:
-       - **Block Diagram**: コンテナやSwimlaneを使用して明確な境界を示す。
-       - **Flow**: データの流れを矢印で分かりやすく繋ぐ。
-       - **Spacing (余白の美)**: 
-         - **要素間は十分な余白（最低40px以上）を取ること。**
-         - コンテナ内部のパディングも広めに取り、窮屈な印象を与えないこと。
-         - 全体的にゆったりとした配置にすること。
-     - **形式**: 完全で有効なXML形式（`<mxfile>`〜`</mxfile>`）。
+## 🚀 Workflow / SOP
 
-## Step 3: 💾 保存 // turbo
-   - 生成したXMLコンテンツを `docs/architecture.drawio` というファイル名で保存します。
-     - ※ `docs` ディレクトリが存在しない場合は、ユーザーに作成を促すか、`write_to_file` で親ディレクトリ作成が可能ならそのまま保存します。
-   - 保存完了後、ユーザーに通知します。
+### Step 1: 🔎 プロジェクト解析（Decision）
+1. `list_dir` / `view_file` 相当の手段で、README、主要設定（例: `package.json`, `pubspec.yaml`）、主要スクリプトを確認する。fileciteturn12file0L10-L13
+2. 目的、主要コンポーネント、データの流れ、依存関係を特定する。fileciteturn12file0L13-L14
+3. 構造は「論理概念」を中心に抽象化して整理する（ファイル階層そのものは図の中心にしない）。fileciteturn12file0L12-L16
 
-## Step 4: (Optional) SVGのエクスポートと埋め込み
-   - 生成された `architecture.drawio` をDraw.ioで開き、スタイルを微調整した上で **SVG形式** としてエクスポート (`docs/architecture.svg`) することを推奨します。
-   - SVG画像は `README.md` の Architecture セクションに埋め込むことで、視覚的なドキュメントとして機能します。
+**出力**
+- 図に載せる論理ブロック一覧（名前・役割・相互関係）
+- Flow（矢印）の一覧（from → to、データ/制御の種別）
+
+---
+
+### Step 2: 🧱 Draw.io XML 生成（Action）
+1. Step 1 の結果をもとに、Draw.io で読み込み可能な XML を生成する。fileciteturn12file0L18-L22
+2. 以下を必ず満たす:
+   - English only（図中ラベル）
+   - Flat design（no gradients）
+   - Container/Swimlane で境界明示
+   - 十分な余白（≥40px）
+   - Flow を矢印で接続
+3. 出力は `<mxfile>` で始まり `</mxfile>` で終わる完全な XML とする。fileciteturn12file0L41-L43
+
+**出力**
+- Draw.io XML（完全版）
+
+---
+
+### Step 3: 💾 保存（Action）
+1. `docs/architecture.drawio` に保存する。fileciteturn12file0L46-L49
+2. `docs/` が無い場合は作成してから保存する（できない場合は作成を依頼する）。fileciteturn12file0L47-L49
+3. 保存完了を通知する。
+
+**出力**
+- `docs/architecture.drawio`
+
+---
+
+### Step 4: 📎 SVG エクスポートと README 埋め込み（任意）
+1. `architecture.drawio` を Draw.io で開き、必要なら微調整する。fileciteturn12file0L51-L54
+2. SVG としてエクスポートする（`docs/architecture.svg`）。fileciteturn12file0L52-L54
+3. `README.md` の Architecture セクションに SVG を埋め込み、視覚ドキュメントとして機能させる。fileciteturn12file0L54-L55
+
+**出力**
+- `docs/architecture.svg`（任意）
+- README の埋め込み（任意）
+
+## ✅ Checklist
+- [ ] 図がファイルツリーではなく論理概念を中心に構成されている
+- [ ] 図中のテキストが English only で、Flat design（no gradients）を満たしている
+- [ ] XML が有効（`<mxfile>`〜`</mxfile>`）で、`docs/architecture.drawio` に保存されている
+- [ ] 要素間余白（≥40px）と Flow（矢印接続）が確保され、読みやすい

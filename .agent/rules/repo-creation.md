@@ -1,97 +1,43 @@
 ---
-slug: repo-creation
-description: "Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制する"
-trigger: model_decision
+slug: "repo-creation"
+description: "Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制・自動実行する。"
+trigger: "model_decision"
 ---
 
-# 🆕 リポジトリ作成ルール（Convoy）
+# 🏗️ Repository Creation Policy
 
-本ルールは、ユーザーが以下を要求した場合に必ず適用する。
+## 🌌 Overview
+Convoy におけるリポジトリ作成は、単なる `git init` ではありません。それは「反復作業の重力」から解放された、標準化された開発拠点のセットアップを意味します。
 
-- 新しいリポジトリの作成（新規プロジェクトの開始）
-- 既存フォルダを Git リポジトリとして初期化（リポジトリ化）
-- 既存プロジェクトを「Convoy 管理下」に移行
+本ファイルは、すべてのプロジェクトが Convoy 規格（Mission Control 準拠）で開始され、エージェント主導開発（ADE）が円滑に進行することを保証するためのガイドラインです。
 
----
+## ⚖️ Rules / Constraints
+エージェントは、リポジトリの生成および移行において以下の制約を「憲法」として厳守しなければなりません。
 
-## 1. 定義（Source of Truth）
+- **所在地（SoT）**: すべてのリポジトリは `workspace.config.json` の `paths.projectFactoryDir`（既定: `CONVOY_PROJECT`）直下に配置すること。
+- **命名規則**: リポジトリ名は必ず **kebab-case** とし、プロジェクトの内容を具体的かつ簡潔に示す名称であること（`test`, `tmp` 等の曖昧な名称は禁止）。
+- **独立性**: 各プロジェクトは独立した `.git` ディレクトリを持ち、単体で動作・完結可能であること。
+- **必須構成**: 最小構成資産として、適切な `.gitignore` および `README.md` を必ず初期段階で含めること。
+- **リモート同期**: GitHub 利用時は `gh repo create` 等のツールを用い、ローカルとリモートの状態を完全に同期させること。
 
-### 1.1 Project Factory ディレクトリ
-Convoy 配下で生成される **すべてのリポジトリは、Project Factory ディレクトリ直下に作成する**。
+## 🚀 Workflow / SOP
+ユーザーからの要求（新規作成または既存移行）に基づき、以下の手順を自律的に実行します。
 
-- 設定ファイル: `workspace.config.json`（ワークスペース直下）
-- 参照キー: `paths.projectFactoryDir`
-- 推奨既定値: `CONVOY_PROJECT`
+### Step 1: 準備（Preparation）
+`workspace.config.json` を読み込み、展開先となる Factory パスを確定します。既存フォルダを移行する場合は、その内容を分析して最適なリポジトリ名を commander（ユーザー）へ提案します。
 
-**禁止**:
-- `paths.projectFactoryDir` 以外の場所に新規リポジトリを作らない
-- 絶対パス（例: `d:/...`）をルールに固定しない
+### Step 2: 初期化（Initialization）
+ターゲットディレクトリを作成し、`git init` を実行します。続いて、プロジェクトの言語やスタックに適した `.gitignore` を生成し、プロダクトの目的を明記した `README.md` を初期生成します。
 
-### 1.2 ワークスペースルート
-「ワークスペースルート」は、ユーザーが作業している現在の作業ディレクトリ（リポジトリ群を包含する基点）を指す。  
-パス解決は常に以下を前提とする。
+### Step 3: Convoy 化（Branding & Sync）
+初回コミットを行い、履歴の基点（Initial commit）を作成します。必要に応じて GitHub リモートリポジトリを作成し、`origin` を設定して push を実行します。
 
-`<workspace-root>/<paths.projectFactoryDir>/<repo-name>/`
+※ ユーザーが一気通貫の処理を求めている場合は、上位 Workflow（例: `create-convoy-project-complete`）へ処理を委譲します。
 
----
+## ✅ Checklist
+エージェントは最終出力の前に、以下の項目が満たされているか確認してください。
 
-## 2. 要点（強制事項）
-
-### 2.1 命名規則
-- リポジトリ名は **kebab-case**（例: `convoy-mission-control`）
-- 「内容を表さない仮名（例: `test`, `new`, `tmp`）」は禁止
-- 既存フォルダをリポジトリ化する場合も、**コード/README/設定ファイル等を分析**し、適切な名称へ変更提案を行う（必要なら実施）
-
-### 2.2 Git の独立性（Multi-repo 前提）
-- Project Factory 配下の各プロジェクトは **独立した `.git` を持つ**
-- 親（`<paths.projectFactoryDir>`）はワークスペース側で ignore 対象でも良いが、**子リポジトリは常に独立運用可能**であること
-
-### 2.3 必須ファイル
-新規作成・移行いずれの場合も、最低限以下を揃える。
-
-- `.gitignore`（言語/実行環境に合わせて）
-- `README.md`（プロダクト目的・実行方法・運用手順の最小限）
-- `LICENSE`（ユーザーの指示がある場合。未指定なら提案のみ）
-
-### 2.4 GitHub（Remote 作成と同期）
-ユーザーが GitHub 管理を前提としている場合、以下を徹底する。
-
-- `gh repo create` を用いてリモートを作成（または既存リモートに接続）
-- `origin` 設定と初回 push を実施し、**ローカルとリモートを同期**
-- 既存リポジトリ移行の場合は、`origin` が期待通りかを検証（誤接続は重大事故）
-
----
-
-## 3. 標準手順（推奨フロー）
-
-### 3.1 新規リポジトリ作成（Bootstrap）
-1. `workspace.config.json` を確認し、`paths.projectFactoryDir` を確定する  
-   - 不在の場合は **既定値 `CONVOY_PROJECT` を提案**し、以後その値を Source of Truth とする
-2. リポジトリ名を決める（kebab-case、内容に即す）
-3. `<projectFactoryDir>/<repo-name>/` を作成
-4. `git init`、`.gitignore`、`README.md` を作成
-5. 初回コミット
-6. GitHub リモート作成（必要なら）
-7. 初回 push
-
-### 3.2 既存フォルダのリポジトリ化（Convoy 化）
-1. 対象フォルダが `Project Factory` 配下にあるか確認  
-   - 配下でない場合は、**移動（または複製）計画を提示**し、原則として配下に揃える
-2. 既存に `.git` がある場合
-   - 既存履歴を尊重しつつ、Convoy 規約（README/ignore 等）へ整流化
-3. `.git` がない場合
-   - 新規リポジトリとして `git init` → 初回コミット → リモート作成/接続
-
----
-
-## 4. 自動化（Automate Everything）
-
-ユーザーが「作成」ではなく「一気通貫の整備（初期化→品質→リリース）」を求めた場合、手動作業を分解して実行するのではなく、**該当 Workflows を最優先で起動**する。
-
-- 推奨: `project-complete`（リポジトリ作成〜Convoy化〜初回リリースまで）
-- 代替: 作業を `repo-bootstrap` / `quality-check` / `release` に分割して順に実行
-
-> 重要: Convoy は「コードを書く場所」ではなく「タスクを委任し、指揮する場所」である。  
-> よって、リポジトリ作成は単体作業ではなく、必ず **運用可能な状態（再現性・品質・自動化）**まで引き上げる。
-
----
+- [ ] 作成先ディレクトリは `workspace.config.json` の設定値に準拠しているか？
+- [ ] 名称は kebab-case であり、プロジェクトの内容を正しく反映しているか？
+- [ ] 独立した `.git` が存在し、親（Convoy 自体）の Git 履歴と混同されていないか？
+- [ ] 設定された `origin` は、既存の他プロジェクトと重複していないか？

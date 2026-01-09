@@ -1,85 +1,99 @@
-# ==========================================
-# System & OS Defaults
-# ==========================================
+﻿# ============================================================
+# Convoy / Mission Control .gitignore (SoT)
+# - Final header asset MUST be committed: assets/header_cropped_text.png
+# - Intermediate header assets SHOULD be ignored
+# ============================================================
+
+# ------------------------------------------------------------
+# OS / Editor junk
+# ------------------------------------------------------------
 .DS_Store
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# ==========================================
-# IDE & Editor Configuration
-# ==========================================
-# VS Code
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-
-# IntelliJ / WebStorm
-.idea/
-*.iml
-
-# Vim / Others
 *.swp
 *.swo
+*~
+.idea/
+.vscode/
+*.iml
 
-# ==========================================
-# Node.js & Dependencies
-# ==========================================
-node_modules/
+# ------------------------------------------------------------
+# Logs
+# ------------------------------------------------------------
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# ==========================================
-# Build & Distribution
-# ==========================================
+# ------------------------------------------------------------
+# Environment / Secrets (never commit)
+# ------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+
+# ------------------------------------------------------------
+# Convoy / Agent specs (not for repo commits)
+# ------------------------------------------------------------
+*_SPEC.MD
+*_SPEC.md
+
+# If you keep a local copy of the control spec, ignore it here.
+# (Corrected: removed accidental leading 'A')
+ANTIGRAVITY_AGENT_CONTROL_SPEC.MD
+ANTIGRAVITY_AGENT_CONTROL_SPEC.md
+
+# ------------------------------------------------------------
+# Temporary files created during commits
+# ------------------------------------------------------------
+COMMIT_MSG.txt
+
+# ------------------------------------------------------------
+# Node / JS
+# ------------------------------------------------------------
+node_modules/
 dist/
 build/
+out/
+.next/
 coverage/
+*.tsbuildinfo
 
-# ==========================================
-# Environment & Secrets (Security)
-# ==========================================
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.pem
+# ------------------------------------------------------------
+# Flutter / Dart
+# ------------------------------------------------------------
+.dart_tool/
+.packages
+.pub/
+build/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+android/.gradle/
+android/app/build/
 
-# ==========================================
-# Logs
-# ==========================================
-*.log
-logs/
+# ------------------------------------------------------------
+# Header image pipeline (SoT handling)
+# ------------------------------------------------------------
+# Ignore intermediates
+assets/header.png
+assets/header_cropped.png
 
-# ==========================================
-# Project Specific / Temporary Workspace
-# ==========================================
+# Commit final header used by README
+!assets/header_cropped_text.png
+
+# ------------------------------------------------------------
+# Convoy Project Factory (generated projects)
+# ------------------------------------------------------------
 CONVOY_PROJECT/
-tmp/
 
-# ==========================================
-# Agent & Workflow Artifacts
-# ==========================================
-AANTIGRAVITY_AGENT_CONTROL_SPEC.MD
-ANTIGRAVITY_AGENT_CONTROL_SPEC.md
-ANTIGRAVITY_AGENT_CONTROL_SPEC copy.MD
-COMMIT_MSG.txt
-release_notes.md
-
-!ANTIGRAVITY_AGENT_CONTROL_SPEC.MD
-!ANTIGRAVITY_AGENT_CONTROL_SPEC.md
-
-# ==========================================
-# Generated headers
-# ==========================================
-assets/header*.png
-
-# ==========================================
-# UI prompt runs (generated logs)
-# ==========================================
-ui-lab/runs/
+# If you generate versioned release headers, keep them committed by default.
+# (Uncomment to ignore them)
+# assets/release_header_*.png

@@ -1,60 +1,75 @@
 ---
-slug: generate-header-image
-description: "READMEやリリースノート用の高品質なヘッダー画像を生成します"
-trigger: model_decision
+slug: "generate-header-image"
+description: "READMEおよびリリース向けのヘッダー画像を生成し、1600x420の規格へクロップして成果物を固定する。"
+trigger: "model_decision"
 ---
 
-# ヘッダー画像生成ワークフロー
+# 🖼️ generate-header-image
 
-このワークフローは、プロジェクト名を冠した高品質なヘッダー画像をAIで生成し、**スクリプトで最終成果物の寸法（SoT）を固定**して、README表示のブレをなくします。
+## 🌌 Overview
+本ワークフローは、プロジェクトの視覚的アイデンティティを担うヘッダー画像を生成し、
+README 表示のブレをなくすために最終成果物の寸法（SoT）を固定する。
+生成からクロップ、必要に応じたテキスト重畳までを一度で成立させる。
 
----
+## ⚖️ Rules / Constraints
+- **SoT（最終寸法）**: README 用バナーは **1600×420 px** を唯一の規格とする（約 3.8:1）。
+- **成果物の固定**: 生成画像の解像度は任意だが、最終出力は必ず SoT に揃える。
+- **出力パスの固定**: 出力ファイルは以下に限定し、勝手な命名・配置をしない。  
+  - `assets/header.png`（生成の生）  
+  - `assets/header_cropped.png`（SoT へ固定）  
+  - `assets/header_cropped_text.png`（テキスト重畳）
+- **クロップ方法の固定**: クロップは **cover リサイズ → 中央クロップ**で実行し、
+  1600×420 を厳密に満たすこと。
+- **README 標準**: README が参照する既定は `assets/header_cropped_text.png` とする。
+  固定 px のため、README 側のサイズ指定は原則不要。
+- **プロンプトの追跡性**: 生成に用いた最終プロンプトは履歴として残す
+  （`assets/branding/<productId>/brief.md` または `assets/` 配下）。
 
-## SoT（最終成果物の規格）
-- README用バナー（標準）: **1600×420 px（約 3.8:1）**
-- 生成画像（生）は任意の解像度でよいが、**最終出力は必ず固定px**に揃える
+## 🚀 Workflow / SOP
 
-出力ファイル:
-- `assets/header.png`（AI生成の“生”）
-- `assets/header_cropped.png`（SoTバナーに固定）
-- `assets/header_cropped_text.png`（テキスト重畳済み）
+### Step 1: 事前確認と入力収集（Decision）
+1. プロジェクト名を取得する（README、カレントディレクトリ名等）。
+2. スタイルを選択する（例: Standard / Mission Control）。
+3. `header_prompt.txt` を土台に、必要最小限の差分で生成プロンプトを構築する。
 
----
+**出力**
+- 最終生成プロンプト（テキスト）
+- 取得したプロジェクト名 / スタイル
 
-## Step 1: プロンプト構築
-- プロジェクト名を取得（README、カレントディレクトリ等）
-- スタイル選択（Standard / Mission Control など）
-- `header_prompt.txt` を土台に、必要最小限の差分で生成プロンプトを作成
+### Step 2: 画像生成（Action）
+1. AI で画像を生成する。
+2. 生成結果を `assets/header.png` として保存する。
 
----
+**出力**
+- `assets/header.png`
 
-## Step 2: 生成
-- AIで画像を生成し `assets/header.png` に保存
+### Step 3: クロップで SoT 固定（Action）
+1. `pnpm header:crop` を実行し、banner モード（既定）で SoT に固定する。
+2. 入力と出力は以下で固定する。  
+   - 入力: `assets/header.png`  
+   - 出力: `assets/header_cropped.png`（1600×420）
 
----
+**出力**
+- `assets/header_cropped.png`（1600×420）
 
-## Step 3: クロップ処理（寸法固定）
-`pnpm header:crop` を実行し、**bannerモード（既定）**で SoT に固定します。
+### Step 4: テキスト重畳（条件付き / Action）
+1. 画像にタイトル等のテキストが必要な場合のみ、`pnpm header:add-text` を実行する。
+2. safe area を確保しつつ、横幅からはみ出さないよう自動フィットさせる。
 
-- 入力: `assets/header.png`
-- 出力: `assets/header_cropped.png`（1600×420）
+**出力**
+- `assets/header_cropped_text.png`（1600×420）
 
-仕組み:
-- `scripts/crop-header.ps1` が **coverリサイズ → 中央クロップ**で厳密に 1600×420 に揃えます。
-- 互換用途として `-Mode 16x9` も利用可能（ただしREADME標準は banner）。
+### Step 5: 履歴保存と README 反映（Action）
+1. 最終プロンプトを履歴として保存する（推奨: `assets/branding/<productId>/brief.md`）。
+2. README が `assets/header_cropped_text.png` を参照することを確認する。
 
----
+**出力**
+- 履歴（最終プロンプト）
+- README の参照先確認
 
-## Step 4: テキスト重畳（自動フィット）
-必要に応じて `pnpm header:add-text` を実行し、テキストを重畳します。
-
-- 出力: `assets/header_cropped_text.png`（1600×420）
-
-仕組み:
-- `scripts/add-text-to-header.ps1` は **safe area** を確保しつつ、テキストが横幅からはみ出さないように**自動縮小（fit）**します。
-
----
-
-## Step 5: 完了・保存
-- 生成に使用した最終プロンプトを `assets/branding/<productId>/brief.md` もしくは `assets/` 配下に履歴として残す（運用に合わせて）
-- READMEは `assets/header_cropped_text.png` を参照（固定pxのため、サイズ指定は原則不要）
+## ✅ Checklist
+- [ ] 最終成果物が 1600×420 px（SoT）に固定されている
+- [ ] `assets/header.png` / `assets/header_cropped.png` / `assets/header_cropped_text.png`
+      が所定のパスに存在する
+- [ ] 生成プロンプトが履歴として保存され、後から再現できる
+- [ ] README が `assets/header_cropped_text.png` を参照している

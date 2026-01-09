@@ -1,138 +1,88 @@
 ---
-slug: update-convoy-identity
-description: "リポジトリの見た目と導線（README/ヘッダー/Alerts/運用メタ情報）をConvoy（Mission Control）標準に整流化します"
-trigger: model_decision
+slug: "update-convoy-identity"
+description: "READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。"
+trigger: "model_decision"
 ---
 
-# Convoy Identity Update
+# 🧭 update-convoy-identity
 
-このワークフローは、リポジトリの **READMEレイアウト** と **ヘッダー画像** を整備し、Convoy（Mission Control）管理下であることが分かる導線（Docs / .agent / Workflows 等）を注入します。
+## 🌌 Overview
+本ワークフローは、リポジトリの「顔」となる README とヘッダー画像を Convoy（Mission Control）標準へ整流化し、
+初見で目的が分かり、すぐ起動でき、運用ルールへ到達できる状態を最短で成立させる。
+Convoy は multi-repo 運用を前提とし、各リポジトリが独立して起動・品質チェック可能であることを守る。
 
-- 目的: 「初見で何のリポジトリか分かる」「すぐに動かせる」「運用ルールへ辿れる」を最短で実現する
-- 前提: Convoyは multi-repo 運用を想定し、各リポジトリは独立して起動・品質チェックできること
+## ⚖️ Rules / Constraints
+- **SoT（Brand Brief）**: `assets/branding/<productId>/brief.md` を正本とする。存在しない場合は続行しない（先に `/branding-intake` を実行）。fileciteturn11file0L18-L33
+- **ヘッダー出力のSoT**: README が参照するヘッダー画像は `assets/header_cropped_text.png` を既定とする。fileciteturn11file0L24-L27
+- **画像内テキストの制約**: ヘッダー画像内の文字は **English only / no non-Latin scripts**（日本語・漢字・非ラテン文字禁止）。fileciteturn11file0L38-L45
+- **スタイル規律**: Mission Control（neutral + 1–2 accents / flat / readable）。過度な装飾・強いテクスチャ・強いグラデは避け、可読性を優先する。fileciteturn11file0L38-L46
+- **Convoy導線の必須**: README から Docs / `.agent/INDEX` / Workflows 等の運用導線へ到達できることを必須とする。fileciteturn11file0L58-L72
+- **中間生成物の扱い**: `assets/header_cropped_text.png` はコミット可（表示安定のため）。それ以外の中間生成物は原則 `.gitignore` で除外する。fileciteturn11file0L48-L52
+- **機密排除**: README / 画像 / 設定に Tokens/Keys/Secrets 等の機密を含めない。fileciteturn11file0L96-L99
+- **最終応答の言語**: 最終報告は日本語のみ。英語の定型文で終えない。fileciteturn11file0L137-L146
 
----
+## 🚀 Workflow / SOP
 
-## Inputs（必須）
+### Step 1: Preflight（Branding Brief の確認）
+1. `assets/branding/<productId>/brief.md` の存在を確認する。
+2. 存在しない場合は本ワークフローを停止し、`/branding-intake` の実行を指示する。
 
-- `assets/branding/<productId>/brief.md`（Brand Brief / 正本）
-- `assets/branding/<productId>/header_prompt.txt`（ヘッダー生成用プロンプト）
-- 既存の `README.md`
+**出力**
+- Preflight 結果（OK / Stop）
+- brand brief のパス（SoT）
 
-## Outputs（期待成果物）
+### Step 2: Header（README用バナー）の準備
+1. `pnpm header:build` を実行し、crop → text 付与までを一括生成する。fileciteturn11file0L35-L41
+2. 生成物のうち README 用の最終成果物を `assets/header_cropped_text.png` として確定する。
+3. 画像内テキストが English only であること、意図しない透かしやテンプレ文字が無いことを確認する。fileciteturn11file0L88-L95
 
+**出力**
 - `assets/header.png`（入力/元画像）
-- `assets/header_cropped_text.png`（READMEに貼る最終ヘッダー画像）
-- 更新された `README.md`
+- `assets/header_cropped_text.png`（README に貼る最終ヘッダー）
 
----
+### Step 3: README更新（Convoyレイアウトへ整流化）
+1. 既存の README 内容を尊重しつつ、以下の順で整流化する。fileciteturn11file0L55-L67
+   - ヘッダー画像（最上部）
+   - One-liner（1行説明）
+   - Quick Start（3〜6行で起動）
+   - Core Features（3〜7項目）
+   - GitHub Alerts（必要時）
+   - Convoy Note（SoT 明記）
+   - Links（Docs / `.agent/INDEX` / Workflows / Issues / Releases への導線）
+2. `.agent/` を持たない方針の場合は、`.agent/INDEX` リンクを削除するか「Convoy 側の INDEX を参照」と注記する。fileciteturn11file0L69-L72
 
-## Preflight: Branding Brief（必須）
+**出力**
+- 更新された `README.md`（導線と起動手順を含む）
 
-- `assets/branding/<productId>/brief.md` の存在を確認します。
-- 存在しない場合は、先に `/branding-intake` を実行して brief を作成してください。
-- brief が無い状態では本ワークフローを続行しません（ブランディングの一貫性を守るため）。
+### Step 4: 検証（強制）
+1. README プレビューで崩れがないことを確認する（画像/改行/Alerts/リンク）。fileciteturn11file0L84-L87
+2. ヘッダー画像の禁止要素混入を確認する（日本語・非ラテン文字、意図しない文字）。fileciteturn11file0L88-L95
+3. 機密情報が含まれていないことを確認する。fileciteturn11file0L96-L99
+4. README から運用導線へ到達できることを確認する。fileciteturn11file0L100-L102
 
----
+**出力**
+- 検証結果（OK / 要修正）
+- 要修正の場合の最小修正ポイント（ファイル/行/見出し）
 
-## Step 1: Header（README用バナー）の準備 // turbo
+### Step 5: コミット（任意）
+1. 変更が妥当なら最小粒度でコミットする（README/asset/設定は分割が望ましい）。fileciteturn11file0L110-L123
+2. `COMMIT_MSG.txt` 等の一時ファイルはコミットしない（必要なら `.gitignore`）。fileciteturn11file0L124-L127
+3. 中間生成物は原則コミットしない（ポリシーに従う）。fileciteturn11file0L128-L129
 
-- 目的: README最上部に置く「リポジトリ用ヘッダー画像」を統一する
-- 実行（例）:
-  - `pnpm header:build`（crop → text付与）
-- 制約:
-  - **English only / no non-Latin scripts**（日本語・漢字・非ラテン文字を入れない）
-  - スタイルは **Mission Control**（neutral + 1–2 accents / flat / readable）
-  - 過度な装飾・テクスチャ（箔/模様/強いグラデ）を避け、情報の可読性を優先
+**出力**
+- コミット一覧（任意）
+- コミットに含めたファイル一覧（README / 最終ヘッダー 等）
 
-### 生成物の扱い（ポリシー）
-- 推奨: `assets/header_cropped_text.png` は **コミット可**（README表示の安定目的）
-- それ以外の中間生成物は `.gitignore`（差分ノイズ削減）
+### Step 6: 最終報告（日本語）
+固定フォーマットで、完了内容・更新ファイル・次アクションを日本語で報告する。fileciteturn11file0L148-L152
 
----
-
-## Step 2: README更新（Convoyレイアウト） // turbo
-
-`README.md` を以下の順で整備します（既存内容がある場合は尊重しつつ整流化）。
-
-1. **ヘッダー画像**: 最上部に配置
-2. **One-liner**: 何のプロダクトか1行で説明
-3. **Quick Start**: 3〜6行で起動まで到達
-4. **Core Features**: 3〜7項目で要点
-5. **GitHub Alerts**: 重要注意（Breaking/Experimental 等）がある場合
-6. **Convoy Note**: Convoy管理であることと Source of Truth を明記
-7. **Links**: Docs / .agent/INDEX / Workflows / Issues / Releases への導線
-
-### READMEヘッダー例（コピペ用）
-
-```md
-<div align="center">
-  <img src="assets/header_cropped_text.png" alt="<PROJECT_NAME> Header" width="100%" />
-</div>
-
-# <PROJECT_NAME>
-
-<ONE_LINE_DESCRIPTION>
-
-[Docs](<DOCS_URL>) · [.agent/INDEX](.agent/INDEX.md) · [Workflows](.agent/workflows) · [Issues](<ISSUES_URL>) · [Releases](<RELEASES_URL>)
-```
-
-> 補足:
-> - `Issues/Releases` は GitHub リモートが無い段階では未確定になり得ます（必要なら後で差し替え）。
-> - `.agent/INDEX` は Convoy 本体repoの導線が正本です。生成物repoで `.agent/` を持たない方針の場合は、このリンクを削除または「Convoy側のINDEXを参照」と注記します。
-
-### GitHub Alerts（例・日本語）
-
-```md
-> [!IMPORTANT]
-> このリポジトリは Convoy（Mission Control）標準で管理されています。変更は Rules と Workflows に従ってください。
-```
-
-### Convoy Note（固定テンプレ・日本語）
-
-```md
-> [!NOTE]
-> このリポジトリは Convoy（Mission Control workspace）で管理されています。
-> Source of Truth: `workspace.config.json`（`paths.projectFactoryDir`）
-```
-
----
-
-## Step 3: 検証（強制） // turbo
-
-- READMEのプレビューでレイアウト崩れがないこと（画像/改行/Alerts/リンク）
-- ヘッダー画像に以下が混入していないこと
-  - 余計な文字（意図しない透かし/テンプレ文字）
-  - 日本語・非ラテン文字（English only）
-- 機密情報が含まれていないこと（Tokens/Keys/Secrets 等）
-- 運用導線が README から辿れること（Docs / Rules / Workflows / INDEX 等、方針に沿った導線）
-
----
-
-## Step 4: コミット（任意） // turbo
-
-変更が妥当なら最小粒度でコミットします（README/asset/設定を分けるのが望ましい）。
-
-例:
-```bash
-git add README.md assets/header_cropped_text.png
-git commit -m "style: apply Convoy identity (README/header/alerts)"
-```
-
-注意:
-- `COMMIT_MSG.txt` 等の一時ファイルはコミットしない（必要なら `.gitignore`）
-- 中間生成物は原則コミットしない（ポリシーに従う）
-
----
-
-## 最終応答（必須・日本語のみ）
-
-- 結果報告は日本語で「完了内容 / 生成・更新ファイル / 次のアクション」を含める
-- 「結果は walkthrough.md を参照してください」の一文だけで終えない（本文に要点を要約）
-- 英語の定型文（例: "Result is in walkthrough.md ..."）は禁止
-
-### 出力フォーマット（固定）
-
+**出力（固定）**
 - 完了:
 - 生成・更新ファイル:
 - 次のアクション:
+
+## ✅ Checklist
+- [ ] `assets/branding/<productId>/brief.md` が存在し、SoT に基づいて整流化されている
+- [ ] `assets/header_cropped_text.png` が生成され、English only を満たしている
+- [ ] README が Convoy レイアウトに整い、Docs / Workflows 等の導線が通っている
+- [ ] 機密情報や一時ファイル、中間生成物の混入がない

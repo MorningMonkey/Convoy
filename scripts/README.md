@@ -1,67 +1,106 @@
+---
+slug: "convoy-scripts"
+description: "Convoy（Mission Control）ワークスペースの運用スクリプトを単一の入口として整理し、ヘッダー生成とリリース導線を再現可能にする。"
+trigger: "manual"
+---
+
 # Convoy Scripts
 
-## Prerequisites
-- Node.js (LTS)
-- pnpm (Corepack 推奨)
-- Optional: PowerShell 7+ (`pwsh`) — `header:add-text`（テキスト重畳）を使う場合のみ
+## 🌌 Overview
+本READMEは、Convoy（Mission Control）ワークスペースに含まれる運用スクリプトの入口を固定し、
+「ヘッダー画像生成」「リリース作成」を迷いなく実行できる状態を提供する。
+実装の詳細（Node/CLIの内部）は隠蔽し、利用者は **pnpm scripts** のみを正として扱う。
 
-> Note（互換性）  
-> 画像の「リサイズ/クロップ（1600×420固定）」は Node（sharp）で行うため、非Windows環境（Antigravity等）でも動作します。  
-> 旧 `scripts/crop-header.ps1`（System.Drawing 依存）は legacy 扱いです。
+## ⚖️ Rules / Constraints
+- **SoT（設定）**: `workspace.config.json` を正本とする。ローカル上書きは `workspace.config.local.json`（Git管理しない）。
+- **正規導線の固定**: 入口は `header:build` / `create-release` などの **pnpm scripts** に固定する（直叩き・独自手順を増やさない）。
+- **ヘッダー規格（SoT）**: README用バナー最終成果物は **1600×420 px** とする。
+- **出力パスの固定**:
+  - 入力: `assets/header.png`
+  - 中間: `assets/header_cropped.png`
+  - 最終: `assets/header_cropped_text.png`（README が参照する既定）
+- **レガシー禁止**: `legacy:*` の scripts / 手順は運用で使用しない（入口を増やさない）。
+- **プレースホルダー禁止**: `package.json` の scripts に `...` 等の省略記号を残さない（そのままでは実行不能となるため）。
+- **Git運用**: `.gitignore` により中間生成物は除外し、最終成果物（`assets/header_cropped_text.png`）はコミットする。
 
-## Config
-- `workspace.config.json` is the source of truth.
-- Optional: `workspace.config.local.json` (ignored by git)
+## 🚀 Workflow / SOP
 
-## Commands
+### Step 1: Prerequisites（環境）
+- Node.js（LTS 推奨）
+- pnpm（Corepack 推奨）
 
-### Build header images (recommended)
-背景の生成と（可能なら）テキスト重畳までを行います。
+> 補足  
+> 本READMEでは OS 依存の実装（PowerShell 等）を前提にしない。実行は `pnpm` のみを正とする。
 
-```powershell
-pnpm run header:build
+---
+
+### Step 2: Config（SoT）
+1. `workspace.config.json` を確認する（ヘッダー入出力パス、生成先ディレクトリ等）。
+2. ローカル差分が必要な場合のみ `workspace.config.local.json` を作成する（Git管理しない）。
+
+**出力**
+- SoT がどこか（`workspace.config.json`）を明確化
+
+---
+
+### Step 3: Header build（正規導線）
+ヘッダー画像の生成・規格化・（必要なら）テキスト重畳までを一括で行う。
+
+```bash
+pnpm header:build
 ```
 
-Outputs:
-- `assets/header_cropped.png`（標準出力・**1600×420固定**）
-- `assets/header_cropped_text.png`（任意・テキスト重畳。`pwsh` がある場合のみ）
+**Outputs**
+- `assets/header_cropped.png`（1600×420固定）
+- `assets/header_cropped_text.png`（最終・README既定）
 
-### Crop only (always works)
-入力画像（任意サイズ）から、README用の標準サイズへ規格化します。
+---
 
-```powershell
-pnpm run header:crop
+### Step 4: Crop only（切り出しのみ）
+入力画像（任意サイズ）を、README用の標準サイズへ規格化する。
+
+```bash
+pnpm header:crop
 ```
 
-### Add text only (optional)
-`pwsh` がある環境でのみ使用してください。
+---
 
-```powershell
-pnpm run header:add-text
+### Step 5: Add text only（テキストのみ）
+テキスト重畳のみを実行する（前提: `assets/header_cropped.png` が存在）。
+
+```bash
+pnpm header:add-text
 ```
 
-## Header image workflow (Antigravity)
+---
 
-### SoT（README用バナー規格）
-- 標準サイズ: **1600 × 420 px（約3.8:1）**
-- 入力画像は任意サイズでOK（後段でリサイズ/クロップして規格化）
-- 重要要素は中央寄せ（左右と上下端は切れても成立する構図を推奨）
+### Step 6: Verify / Clean（運用コスト削減）
+事前チェックと後片付け（生成物の掃除）を提供する。
 
-### Steps
-1) Update branding sources:
-- `assets/branding/convoy/brief.md`
-- `assets/branding/convoy/header_prompt.txt`
+```bash
+pnpm header:verify
+pnpm header:clean
+```
 
-2) Generate image in Antigravity（テキストなし推奨）
-- Export as PNG
-- 推奨: 横 1600px 以上（可能なら 3200px 以上。後段のリサイズで品質が落ちにくい）
+---
 
-3) Replace input image:
-- Save as `assets/header.png`
+### Step 7: Header image workflow（Antigravity連携の標準手順）
+1. Branding ソースを更新  
+   - `assets/branding/<productId>/brief.md`  
+   - `assets/branding/<productId>/header_prompt.txt`
+2. Antigravity で背景画像を生成（推奨: **テキストなし**）
+   - PNG で書き出し
+   - 推奨: 横 1600px 以上（可能なら 3200px 以上）
+3. 入力画像を差し替え  
+   - `assets/header.png` として保存
+4. 正規導線で生成  
+   - `pnpm header:build`
 
-4) Build header outputs:
-- `pnpm run header:build`
+**出力**
+- README 表示に耐える最終ヘッダー（`assets/header_cropped_text.png`）
 
-### Notes（テキスト重畳）
-- `assets/header_cropped_text.png` は、`add-text-to-header.ps1` により safe area 内へ自動フィットします。  
-- `pwsh` が無い環境では、背景（`assets/header_cropped.png`）のみが生成されます。
+## ✅ Checklist
+- [ ] `workspace.config.json` が SoT として参照され、ローカル差分は `workspace.config.local.json` に隔離されている
+- [ ] 入口は `pnpm header:build` を正として運用し、`legacy:*` を使用していない
+- [ ] `assets/header_cropped_text.png` が 1600×420 で生成され、Git管理対象としてコミットされる
+- [ ] `package.json` の scripts に `...` 等の省略表記が残っておらず、実行可能になっている

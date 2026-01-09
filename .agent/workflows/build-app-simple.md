@@ -1,74 +1,47 @@
 ---
-slug: build-app-simple
-description: "シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可）"
-trigger: model_decision
+slug: "build-app-simple"
+description: "シンプルな Web アプリを迅速に構築するための技術選定基準と実装手順を定義する。"
+trigger: "model_decision"
 ---
 
+# 🏗️ Simple Web App Build Policy & SOP
 
-# スタック選定（最小ガイド）
+## 🌌 Overview
+本ワークフローは、特定のフレームワークの制約（重力）に縛られず、プロジェクトの目的（スピード・機能・将来性）に合わせて最適な技術スタックを自律的に選択するための指針です。
 
-本ワークフローは「過剰設計しない」を意味します。**フレームワーク禁止ではありません**。  
-既定は Vanilla（HTML/CSS/JS）ですが、以下の条件では **React + Tailwind** を使用して構いません。
+高品質な Web プロトタイプを最小限の工数で構築し、Commander（ユーザー）のアイデアを即座に形にすることを目的とします。
 
-- 画面状態が複雑（一覧/フィルタ/ダイアログ/複数状態など）
-- コンポーネント分割が必要
-- Tailwind によるデザイン規格統一が必要
-- 将来の拡張（画面追加・テスト導入）を見越す
+## ⚖️ Rules / Constraints
+エージェントは、Web アプリ構築において以下の制約を「憲法」として厳守しなければなりません。
 
-> React/Tailwind を選ぶ場合でも、まずは「最小の画面・最小の状態」から実装し、肥大化を避けます。
-# 🏗️ Simple Web App Build Workflow
+- **スタック選定の規律**: 
+  - 基本は **Vanilla (HTML/CSS/JS)** を採用し、不要な抽象化や過剰設計を徹底的に排除すること。
+  - 複雑な状態管理、高度なコンポーネント分割、または長期的な保守性が必要な場合に限り、**React + Tailwind CSS** を選択すること。
+- **モダン・エステティクス（意匠品質）**: 
+  - ブラウザのデフォルトスタイルをそのまま使用することを禁ずる。Google Fonts や CSS 変数、洗練されたカラーパレットを用い、工業的でモダンな美学を適用すること。
+- **レスポンシブ保証**: 
+  - Flexbox または CSS Grid を活用し、モバイル・PC 両対応のレイアウトを標準として提供すること。
+- **アクセシビリティと構造**: 
+  - セマンティックな HTML 構造（`header`, `main`, `footer`, `section` 等）を徹底し、機械可読性とユーザビリティを両立させること。
 
-このワークフローは、フレームワークを使わずに、標準的なWeb技術（HTML5, CSS3, ES6+ JavaScript）のみを用いて、美しく機能的なWebアプリケーションを迅速に構築します。
+## 🚀 Workflow / SOP
+エージェントは以下のステップに従い、アプリケーションの実装と検証を自律的に進めます。
 
-## Step 1: 🎨 デザインと構造の設計
-1. **要件分析**: ユーザーが求めているアプリの機能と「雰囲気」を理解します。
-2. **デザイン方針**:
-   - **Modern Aesthetics**: 安っぽいデフォルトのスタイルは禁止です。
-   - **Typography**: Google Fonts（Inter, Poppins, Noto Sans JPなど）を使用します。
-   - **Color**: 洗練されたカラーパレット（グラデーション、ダークモード対応など）をCSS変数で定義します。
-   - **Layout**: Flexbox または CSS Grid を使用したレスポンシブデザインにします。
+### Step 1: 構想とスタック確定
+ユーザーの要件を詳細に分析し、機能・雰囲気・拡張性を多角的に評価します。評価に基づき「Vanilla」か「React + Tailwind」かを決定し、その根拠とともに選択したスタックをユーザーへ宣言します。
 
-## Step 2: 💻 コアファイルの実装
-以下の3つのファイルをルートディレクトリ（または適切なサブディレクトリ）に作成します。
+### Step 2: 実装（Execution）
+選択したスタックに応じ、以下の構造で実装を開始します。
+- **Vanilla の場合**: `index.html` (構造), `style.css` (意匠), `script.js` (論理) の 3 層構造を基本とする。
+- **React + Tailwind の場合**: Vite 等を用いて最小構成の環境を構築し、Tailwind CSS を導入してデザイン規格を統一する。
 
-1. **`index.html`**:
-   - セマンティックなHTML構造（header, main, footer）。
-   - 必要なメタタグ（viewport, description）。
-   - Google Fonts と `style.css`, `script.js` の読み込み。
+### Step 3: 検証と納品
+ブラウザ実行環境（サブエージェント等）を利用し、表示崩れや挙動の不備を自律的に確認します。完了後、`walkthrough.md` に日本語で「採用した技術」「実装の工夫」「具体的な実行方法」を詳細に記録します。
 
-2. **`style.css`**:
-   - CSSリセット。
-   - ルート変数（`--primary-color`, etc.）の定義。
-   - ホバーエフェクトやトランジションを含めたインタラクティブなスタイル。
-   - UIパーツ（ボタン、カード、入力フォーム）のスタイリング。
+## ✅ Checklist
+エージェントは最終出力の前に、以下の項目が満たされているか自己検閲してください。
 
-3. **`script.js`**:
-   - アプリケーションのロジック。
-   - DOM操作による動的なUI更新。
-   - イベントリスナーの適切な設定。
-
-## Step 3: 👀 ブラウザでの動作検証
-1. 作成した `index.html` をブラウザサブエージェントで開きます。
-2. ページの表示崩れがないか、インタラクションが正しく動作するかを目視で確認します。
-3. 問題があれば修正し、再度確認します。
-
-## Step 4: 📝 完了確認
-- 実装したアプリの概要をユーザーに報告します。
-
-
-### React + Tailwind（任意）クイックスタート（例: Vite）
-
-```bash
-# TypeScript 推奨（不要なら --template react）
-npm create vite@latest my-app -- --template react-ts
-cd my-app
-npm install
-
-# Tailwind
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-```
-
-- `tailwind.config.*` の `content` を Vite 構成に合わせる
-- `src/index.css` に `@tailwind base; @tailwind components; @tailwind utilities;` を追加
-- 起動: `npm run dev`
+- [ ] プロジェクトの規模に対して、不要に重いライブラリや依存関係を導入していないか？
+- [ ] CSS 変数や Tailwind ユーティリティを活用し、一貫性のあるカラーパレットで管理されているか？
+- [ ] 画面サイズを変更した際、レイアウトが崩れずレスポンシブに対応しているか？
+- [ ] 最終報告には日本語で、実装内容の要約と「次のステップ（追加機能案など）」が含まれているか？

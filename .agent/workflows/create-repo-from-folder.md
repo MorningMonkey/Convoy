@@ -1,45 +1,82 @@
 ---
-slug: create-repo-from-folder
-description: "既存のフォルダをCONVOY_PROJECT配下のGitHubリポジトリに変換します"
-trigger: model_decision
+slug: "create-repo-from-folder"
+description: "既存フォルダをConvoy規格のGitHubリポジトリへ整流化し、Private作成・origin検証・main標準化までを完了する。"
+trigger: "model_decision"
 ---
 
-# 📂 フォルダからリポジトリを作成
+# 📂 create-repo-from-folder
 
-このワークフローは、既存のフォルダをGitHubリポジトリに変換します。
+## 🌌 Overview
+本ワークフローは、既存フォルダを Convoy（Mission Control）の統制下へ移行し、出荷前提の GitHub リポジトリとして整流化する。
+対象は `workspace.config.json` の SoT に従い、命名・除外・履歴保護・リモート同期を一度で成立させる。
 
-## Step 1: 分析と名前提案 // turbo
-- **場所確認**: 現在のディレクトリが `CONVOY_PROJECT` 内にあるか確認します。
-  - `CONVOY_PROJECT` 外の場合はユーザーに警告し、確認または移動を求めます。
-- **Source of Truth**: 作成先は原則 `workspace.config.json` の `paths.projectFactoryDir`（推奨: `CONVOY_PROJECT`）に従います。
-- **コンテンツ分析**: フォルダ内のファイル（README, ソースコード等）を読み込み、このプロジェクトが何をするものなのか理解します。
-- **リネーム提案**: 現在のフォルダ名は「適当なもの」であるという前提に立ち、プロジェクトの本質を表す最適なリポジトリ名を考案します。
-  - たとえ現在の名前が `kebab-case` であっても、より適切な名前があれば提案します（例: `test` -> `ai-agent-controller`）。
-  - ユーザーに改名を確認し、承認されたらフォルダ名を変更します。
+## ⚖️ Rules / Constraints
+- **SoT（作成先）**: 生成・運用対象は `workspace.config.json` の `paths.projectFactoryDir` を唯一の基準とする（既定: `CONVOY_PROJECT`）。
+- **範囲外禁止**: 対象フォルダが SoT 配下に無い場合は続行しない。警告し、移動または例外承認を求める。
+- **履歴破壊禁止**: `.git` が存在する場合は `git init` を実行しない（再初期化禁止）。履歴は保持し、整流化のみ実施する。
+- **既定は Private**: 明示指示が無い限り GitHub リポジトリは `--private` を既定とする。
+- **origin の安全性**: 既存 `origin` がある場合は URL を検証する。不一致・不明時の付け替えは破壊的操作として扱い、必ず確認を取る。
+- **除外設定は強制**: `.gitignore` に `*_SPEC.MD`、OS ゴミ（`.DS_Store` / `Thumbs.db`）を必ず含める。依存物・生成物・秘密情報（`.env` 等）もスタックに応じて追加する。
+- **ブランチ標準**: 既定ブランチは `main` を原則とする。`master` からの移行は条件付きで行う。
+- **削除は確認必須**: 旧ブランチ削除（GitHub 側含む）は破壊的操作のため、必ず明示確認を取る。
 
-## Step 2: Gitの初期化 // turbo
-- 既に `.git` が存在する場合は **再初期化しない**（履歴を尊重し、必要な整流化のみ実施）。
-- `git init` を実行します。
-- `.gitignore` を作成し、以下の項目を必ず除外設定に追加します：
-  - `CONVOY_PROJECT/` (親プロジェクトの管理フォルダ)
-  - `ANTIGRAVITY_AGENT_CONTROL_SPEC.MD` (エージェント仕様書)
-  - `CONVOY_AGENT_CONTROL_SPEC.MD`（Convoy仕様書がある場合）
-  - `*_SPEC.MD`
-  - その他OS標準の除外ファイル（.DS_Store, Thumbs.db等）
+## 🚀 Workflow / SOP
 
-## Step 3: 初回コミット // turbo
-- `git add .` を実行してファイルをステージングします。
-- `git commit -m "Initial commit"` でコミットします。
+### Step 1: 対象確認と命名（Decision）
+1. 対象フォルダが SoT（`paths.projectFactoryDir`）配下かを判定する。
+2. README / ソース / 設定ファイルを読み、プロジェクトの目的とスタックを把握する。
+3. フォルダ名が不適切（例: `test`, `tmp`）または改善余地がある場合、`kebab-case` の候補名を提示し、改名の是非を確認する。
 
-## Step 4: GitHubリポジトリの作成 // turbo
-- 既存の `origin` がある場合は、誤接続を防ぐため **事前にURLを確認**し、必要なら `origin` を付け替えます。
-- `gh repo create` を実行します。
-  - デフォルトで **Private** リポジトリとして作成します（`--private`）。
-  - ソースは現在のディレクトリ（`--source=.`）。
-  - リモート名は `origin`。
+**出力**
+- 採用するリポジトリ名（確定）
+- SoT 適合の判定結果（OK/要移動/例外）
 
-## Step 5: ブランチ設定とプッシュ // turbo
-- デフォルトブランチを `main` に設定します。
-  - `git branch -m master main`
-- `git push -u origin main` を実行します。
-- 必要に応じて GitHub 上のデフォルトブランチ設定も `main` に更新し、古い `master` ブランチがあれば削除します。
+### Step 2: Git 状態の判定と .gitignore 整流化（Decision）
+1. `.git` の有無を判定する。
+   - 無い場合のみ `git init` を実行する。
+   - ある場合は `git init` を実行せず、履歴を保持して整流化へ進む。
+2. `.gitignore` を生成/更新し、Convoy 必須除外を入れる。
+   - `*_SPEC.MD`
+   - `.DS_Store`, `Thumbs.db`
+   - 依存物/生成物（例: `node_modules/`, `dist/`, `build/`）
+   - 秘密情報（例: `.env`, `*.pem`, `*.key`）
+
+**出力**
+- 更新された `.gitignore`
+- `git status` が示す差分の要約（危険物混入が無いこと）
+
+### Step 3: 初回コミットの作成（Action）
+1. 既存履歴の有無を確認する。
+2. コミットが無い場合は初回コミットを作成する。既存履歴がある場合は整流化コミットとして作成する。
+
+**出力**
+- コミットハッシュ
+- コミットメッセージ（例: `Initial commit` / `chore: normalize repository`）
+
+### Step 4: GitHub リポジトリ作成と origin 設定（Decision → Action）
+1. 既存 `origin` がある場合、URL を検証する。
+   - 一致: 継続
+   - 不一致/不明: 付け替えは確認を取ってから実施
+2. `gh repo create` を用いて Private リポジトリを作成し、`origin` を設定する（未設定の場合）。
+
+**出力**
+- 作成した GitHub リポジトリ情報（owner/repo）
+- `origin` URL
+
+### Step 5: ブランチ標準化と push（Decision → Action）
+1. ブランチ状況を確認し、既定ブランチを `main` に整流化する。
+   - `main` が存在: そのまま `main`
+   - `main` が無く `master` が存在: `master → main` をリネーム
+   - その他: 既定ブランチ方針を確認し、確定後に整流化
+2. `git push -u origin main` を実行し、同期を完了する。
+3. 旧 `master` の削除は標準フローに含めない。実施する場合は必ず確認を取る。
+
+**出力**
+- push 結果（成功/失敗と要因）
+- 既定ブランチ名（`main`）
+
+## ✅ Checklist
+- [ ] 対象が `paths.projectFactoryDir` 配下であり、範囲外で続行していない
+- [ ] `.git` 既存時に `git init` を実行していない（履歴を破壊していない）
+- [ ] `.gitignore` に `*_SPEC.MD` と OS ゴミの除外が含まれている
+- [ ] `origin` URL を検証し、`main` で `git push -u origin main` が完了している

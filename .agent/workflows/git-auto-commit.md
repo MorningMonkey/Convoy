@@ -1,110 +1,151 @@
 ---
-slug: git-auto-commit
-description: "git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化します"
-trigger: model_decision
+slug: "git-auto-commit"
+description: "git statusとdiffを根拠に、Convoy標準の作業ブランチ作成・粒度の細かいコミット・マージまでを安全に自動化する。"
+trigger: "model_decision"
 ---
 
-# 🤖 Git 自動コミットワークフロー (V4.2 Lite)
+# 🤖 git-auto-commit
 
-このワークフローは、変更内容を解析して適切な粒度でコミットを行い、Convoy（Mission Control）の運用品質を安定させます。
+## 🌌 Overview
+本ワークフローは、リポジトリの変更内容を解析し、Convoy（Mission Control）の運用品質を崩さない形で
+「作業ブランチ作成 → 変更の分割コミット → 統合ブランチへマージ → 後始末」までを一気通貫で行う。
+判断の根拠は `git status` と `git diff` を SoT（Source of Truth）として固定し、意図しない混入や粗いコミットを防ぐ。
 
-## Step 1: 🔍 状態確認 // turbo
-以下のコマンドを順に実行して、現在の変更状態を確認してください。**コマンドはセミコロンで連結せず、必ず1つずつ実行してください。**
+## ⚖️ Rules / Constraints
+- **SoT（差分の根拠）**: 判断の根拠は `git status` と `git diff`（必要に応じて `--stat`）とする。推測で分割しない。
+- **コマンド連結禁止**: Git 操作はセミコロン（`;`）で連結しない。必ず 1 コマンドずつ実行し、結果を確認して次へ進む。fileciteturn9file0L16-L21
+- **統合ブランチ方針**: 既定は `develop` 統合。トランク運用で `develop` を使わない場合は、以後の `develop` を `main` に読み替える。fileciteturn9file0L25-L27
+- **作業ブランチ命名**: `feature/<topic>-<YYYYMMDD>` を採用する。Issue 番号は含めない。fileciteturn9file0L32-L37
+- **一時ファイルの混入禁止**: `COMMIT_MSG.txt` はコミット対象に含めない。必要なら削除または `.gitignore` に追加する。fileciteturn9file0L41-L43
+- **コミット粒度**: `git diff` を分析し、作業単位ごとに分割してコミットする（「全部まとめて 1 コミット」を禁止）。fileciteturn9file0L44-L45
+- **コミットメッセージ規律**:
+  - Type は `feat|fix|docs|style|refactor|perf|test|chore` から選ぶ。fileciteturn9file0L49-L58
+  - メッセージは **必ず日本語**、先頭に **絵文字**、本文は **3行程度の箇条書き**で具体を書く。fileciteturn9file0L59-L63
+  - メッセージは `COMMIT_MSG.txt` に作成し、`git commit -F COMMIT_MSG.txt` で適用する。fileciteturn9file0L104-L114
+- **マージ規律**: 統合ブランチへのマージは `--no-ff` を原則とし、マージメッセージも `COMMIT_MSG.txt` を使用する。fileciteturn9file0L124-L132
 
-1. ステータスの確認
-   ```bash
-   git status
-   ```
+## 🚀 Workflow / SOP
 
-2. 差分の統計確認
-   ```bash
-   git --no-pager diff --stat
-   ```
+### Step 1: 状態確認（Decision）
+1. 作業ツリーの状態を確認する。
+2. 差分の規模を把握し、分割コミットの粒度を設計する。
 
-## Step 2: 🌿 develop ブランチの準備 // turbo
+**実行**
+```bash
+git status
+git --no-pager diff --stat
+```
 
-> Note: リポジトリ運用が `main` 直下（trunk-based）で `develop` を使わない場合は、`develop` を `main` に読み替えて同様に進めます。
-1. `develop` ブランチが存在するか確認します。
-2. 存在しない場合は作成し、プッシュします。
-3. 存在する場合はチェックアウトし、`git pull origin develop` で最新化します。
+**出力**
+- 変更対象ファイル一覧（追加/変更/削除）
+- 変更の塊（例: ドキュメント更新、設定変更、実装修正など）の分割方針
 
-## Step 3: 🌿 作業用ブランチの作成 // turbo
-- 変更内容に基づき、適切な英語のブランチ名を提案・作成します。
-  - 命名規則: `feature/[機能名]-[日付]`
-  - 例: `feature/update-readme-alerts-20251227`
-  - **Issue番号は含めないでください**。
+---
 
-## Step 4: 💻 粒度の細かいコミット // turbo
+### Step 2: 統合ブランチの準備（Decision → Action）
+1. `develop` の有無を確認する（トランク運用なら `main` を統合ブランチとして扱う）。
+2. 無ければ作成して push、有れば checkout して最新化する。
 
-- **注意**: `COMMIT_MSG.txt` はコミット対象に含めません。作業後は削除するか、必要なら `.gitignore` に追加します。
-- `git diff` の内容を分析し、**作業の単位ごとに細かく分割してコミット**します。
-- **コミットメッセージのルール**:
-  - **Type（型）**: 以下のリストから適切なものを選んでください。
-    - `feat`: 新機能
-    - `fix`: バグ修正
-    - `docs`: ドキュメントの変更
-    - `style`: コードスタイルの変更（動作に影響しない）
-    - `refactor`: リファクタリング
-    - `perf`: パフォーマンス改善
-    - `test`: テストの追加・修正
-    - `chore`: ビルドプロセスやツールの変更
-  - **必ず日本語**で記述すること。（英語の思考であっても、最終的なコミットメッセージは必ず日本語にすること）
-  - **絵文字**をプレフィックスとして付与すること。
-  - **3行程度の箇条書き**で詳細を含めること。
-  - **良いコミットメッセージの例**:
-    - `feat` (新機能):
-      ```text
-      ✨ feat: ユーザーログイン機能の実装
+**実行（例）**
+```bash
+git branch --list develop
+git checkout develop
+git pull origin develop
+```
 
-      - ログインフォームのUIコンポーネントを作成
-      - メールアドレスとパスワードのバリデーションロジックを追加
-      - 認証APIとの連携処理を実装
-      ```
-    - `fix` (バグ修正):
-      ```text
-      🐛 fix: ヘッダー画像のレスポンシブ崩れを修正
+**出力**
+- 採用した統合ブランチ名（`develop` または `main`）
+- 最新化が完了したこと（fast-forward / 競合有無）
 
-      - モバイル画面での高さを `auto` に変更
-      - フレックスボックスの配置設定を調整
-      - 不要なマージンを削除
-      ```
-    - `docs` (ドキュメント):
-      ```text
-      📝 docs: インストール手順の更新
+---
 
-      - Node.jsの推奨バージョンをv20に更新
-      - 環境変数の設定例 `.env.example` を追加
-      - トラブルシューティングの項目を追記
-      ```
-  - **コミットメッセージの取り扱い**:
-    - **一時ファイル（`COMMIT_MSG.txt`）** にメッセージ内容を作成してからコミットしてください。
-    - エディタ/自動化ツールを使用してファイルを作成・更新します（環境に `write_to_file` がある場合は使用可）。
-    - `-F` オプションを使用してファイルを指定します。
-  - コマンド例:
-    ```bash
-    git add [ファイルA]
-    ```
-    ```bash
-    git commit -F COMMIT_MSG.txt
-    ```
+### Step 3: 作業ブランチの作成（Decision → Action）
+1. 差分内容から、英語のトピック語を抽出してブランチ名を提案する。
+2. `feature/<topic>-<YYYYMMDD>` で作成し、チェックアウトする（Issue 番号は入れない）。
 
-## Step 5: 🔍 コミット確認 // turbo
-- 全ての変更がコミットされたか確認します。
-  ```bash
-  git status
-  ```
+**実行（例）**
+```bash
+git checkout -b feature/<topic>-<YYYYMMDD>
+```
 
-## Step 6: 🔄 develop へのマージ // turbo
-1. `develop` ブランチに切り替えます。
-2. `COMMIT_MSG.txt` にマージメッセージを作成します。
-3. `--no-ff` オプションと `-F` オプションを付けてマージします。
-   ```bash
-   git merge --no-ff feature/[ブランチ名] -F COMMIT_MSG.txt
-   ```
-3. リモートへプッシュします。
+**出力**
+- 作業ブランチ名（確定）
 
-## Step 7: 🗑️ 作業ブランチの削除 // turbo
-- マージ済みの作業ブランチを削除します。
-  ```bash
-  git branch -d feature/[ブランチ名]
-  ```
+---
+
+### Step 4: 粒度の細かいコミット（Decision → Action）
+1. `git diff` を見て、作業単位ごとにコミット対象ファイルを分割する。
+2. 各コミットごとに `COMMIT_MSG.txt` を作成し、`-F` でコミットする。
+3. `COMMIT_MSG.txt` が追跡対象に入らないように自己検閲する（必要なら `.gitignore` へ追加）。
+
+**実行（最小手順）**
+```bash
+git --no-pager diff
+git add <fileA> <fileB>
+git commit -F COMMIT_MSG.txt
+```
+
+**COMMIT_MSG.txt（例）**
+```text
+📝 docs: インストール手順を更新
+
+- 推奨ランタイムの記載を最新化
+- 設定例と注意点を追記
+- 手順の順序を整理
+```
+
+**出力**
+- コミット一覧（ハッシュ/要約）
+- 分割の根拠（どの変更をどのコミットに入れたか）
+
+---
+
+### Step 5: コミット完了確認（Decision）
+1. 変更が残っていないか確認する。
+2. 残っている場合は Step 4 に戻り、追加分割または追従コミットを作成する。
+
+**実行**
+```bash
+git status
+```
+
+**出力**
+- 作業ツリーがクリーンであること（または残差分の内訳）
+
+---
+
+### Step 6: 統合ブランチへマージ（Decision → Action）
+1. 統合ブランチへ切り替える。
+2. マージメッセージを `COMMIT_MSG.txt` に作成する。
+3. `--no-ff` と `-F` を用いてマージする。
+4. リモートへ push する。
+
+**実行（例）**
+```bash
+git checkout develop
+git merge --no-ff feature/<topic>-<YYYYMMDD> -F COMMIT_MSG.txt
+git push origin develop
+```
+
+**出力**
+- マージ結果（成功/競合の有無）
+- push 成功（リモート反映済み）
+
+---
+
+### Step 7: 作業ブランチの後始末（Action）
+1. マージ済みの作業ブランチをローカルから削除する。
+
+**実行**
+```bash
+git branch -d feature/<topic>-<YYYYMMDD>
+```
+
+**出力**
+- ブランチ削除完了
+
+## ✅ Checklist
+- [ ] `git status` / `git diff` を根拠に、変更を作業単位で分割してコミットできている
+- [ ] `COMMIT_MSG.txt` がコミット対象に含まれておらず、必要に応じて削除または `.gitignore` 済み
+- [ ] コミットメッセージが「絵文字 + 日本語 + 3行程度の箇条書き + 正しいType」を満たしている
+- [ ] 統合ブランチへ `--no-ff` でマージし、push まで完了している
