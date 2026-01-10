@@ -1,6 +1,6 @@
 ---
-slug: "create-repo-from-folder"
-description: "既存のフォルダを Convoy 規格（CONVOY_PROJECT 配下）の GitHub リポジトリへ変換・整流化する。"
+slug: "create-prompt-repo"
+description: "プロンプト資産を別リポジトリとして管理するため、既存フォルダをGitHubリポジトリへ変換・同期する。"
 trigger: "model_decision"
 ---
 
