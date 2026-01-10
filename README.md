@@ -51,6 +51,7 @@
 | **`/build-app-simple`**               | 🏗️ **アプリ実装**<br>要件を伝えるだけで、モダンで美しいWebアプリケーションを実装します。                    |
 | **`/build-app-flutter`**              | 📱 **Flutter アプリ雛形**<br>Flutterプロジェクト生成、Riverpod / go_router 導入、README反映まで標準化します。 |
 | **`/create-release`**                 | 📦 **リリース自動化**<br>変更差分を解析し、美しいリリースノートとヘッダー画像を生成してGitHubへ公開します。 |
+| **`/projects-sync`**              | 🔁 **配下プロダクト同期**<br>`projects/manifest.json` を正として `CONVOY_PROJECT` 配下を clone/pull で一括更新します。|
 
 ---
 
@@ -94,6 +95,9 @@ d:/Prj/Convoy/            <-- 🛰️ Mission Control (Current)
 - **[🏗️ Build App Simple](.agent/workflows/build-app-simple.md)**: 高速なプロトタイプ・アプリ開発。
 - **[📱 Build App Flutter](.agent/workflows/build-app-flutter.md)**: Flutterアプリ雛形の生成と初期品質の標準化。
 - **[💾 Git Auto Commit](.agent/workflows/git-auto-commit.md)**: 粒度の細かいコミットとブランチ管理の自動化。
+
+### 🛰️ Operations (運用)
+- **[🔁 Projects Sync (Polyrepo / CONVOY_PROJECT)](.agent/workflows/projects-sync.md)**: manifest を正として配下プロダクトを clone/pull で一括同期。
 
 ### 🎨 Branding & Assets (意匠)
 - **[🌸 Update Convoy Identity](.agent/workflows/update-convoy-identity.md)**: 既存リポジトリを「Convoy」ブランドへ改装。
