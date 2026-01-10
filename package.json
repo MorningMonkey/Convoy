@@ -9,13 +9,19 @@
     "header:add-text": "node ./scripts/header-add-text.mjs --in assets/header_cropped.png --out assets/header_cropped_text.png --title \"Convoy\" --subtitle \"Mission Control workspace for agentic development\"",
     "header:build": "pnpm run header:verify && pnpm run header:crop && pnpm run header:add-text",
     "header:clean": "node -e \"const fs=require('fs');['assets/header_cropped.png','assets/header_cropped_text.png'].forEach(p=>{try{fs.rmSync(p,{force:true});}catch(e){}});\"",
-    "header:verify": "node -e \"const fs=require('fs');const req=['assets/header.png','assets/header_cropped.png','assets/header_cropped_text.png'];const miss=req.filter(p=>!fs.existsSync(p));if(miss.length){console.error('Missing:',miss.join(', '));process.exit(1);}console.log('OK:',req.join(', '));\""
+    "header:verify": "node -e \"const fs=require('fs');const req=['assets/header.png','assets/header_cropped.png','assets/header_cropped_text.png'];const miss=req.filter(p=>!fs.existsSync(p));if(miss.length){console.error('Missing:',miss.join(', '));process.exit(1);}console.log('OK:',req.join(', '));\"",
+    "projects:sync": "pwsh ./scripts/projects-sync.ps1",
+    "projects:validate": "node ./scripts/validate-manifest.mjs",
+    "projects:add": "node ./scripts/manifest-add.mjs",
+    "projects:ci": "pnpm run projects:validate"
   },
-  "license": "ISC",
   "packageManager": "pnpm@10.26.2",
   "dependencies": {
     "@fal-ai/client": "^1.8.1",
     "sharp": "^0.34.1"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1"
   },
   "engines": {
     "node": ">=20"

@@ -1,0 +1,26 @@
+name: Validate manifest
+
+on:
+  pull_request:
+    paths:
+      - "projects/manifest.json"
+      - "projects/manifest.schema.json"
+      - "scripts/validate-manifest.mjs"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: corepack enable
+      - shell: bash
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm install --frozen-lockfile
+          else
+            pnpm install
+          fi
+      - run: pnpm projects:validate

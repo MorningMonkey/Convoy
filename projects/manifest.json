@@ -1,0 +1,10 @@
+{
+  "rootDir": "CONVOY_PROJECT",
+  "projects": [
+    {
+      "name": "Aqua_Ritual",
+      "repo": "git@github.com:MorningMonkey/Aqua_Ritual.git",
+      "branch": "main"
+    }
+  ]
+}
