@@ -66,10 +66,10 @@ trigger: "manual"
 ## Rules
 
 <!-- BEGIN: AUTO-GENERATED RULES -->
-| slug              | description                                                                                           | file                              |
-| ----------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------- |
-| agent-frontmatter | Agent assets の frontmatter 仕様（必須キー/slug形式/descriptionのクオート）を定義する                 | .agent/rules/agent-frontmatter.md |
-| repo-creation     | Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制する | .agent/rules/repo-creation.md     |
+| slug | description | file |
+| --- | --- | --- |
+| agent-frontmatter | Agent 資産の Frontmatter 仕様（必須キー、slug 形式、description のクオート）を定義・検証する。 | .agent/rules/agent-frontmatter.md |
+| repo-creation | Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制・自動実行する。 | .agent/rules/repo-creation.md |
 <!-- END: AUTO-GENERATED RULES -->
 
 ---
@@ -90,20 +90,21 @@ trigger: "manual"
 ## Workflows
 
 <!-- BEGIN: AUTO-GENERATED WORKFLOWS -->
-| slug                           | description                                                                                                                                                                        | trigger        | file                                               |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------------- |
-| branding-intake                | 製作者への問いかけからアプリ別のブランド要件を定義し、brief.md と header_prompt.txt を生成する                                                                                     | manual         | .agent/workflows/branding-intake.md                |
-| build-app-flutter              | Flutterプロジェクトを標準構成（Riverpod/go_router）で生成し、SoT（assets/branding/<productId>/brief.md）に基づく前提をREADMEへ反映、品質最小ライン（pub get/analyze/test）を満たす | model_decision | .agent/workflows/build-app-flutter.md              |
-| build-app-simple               | シンプルなWebアプリを素早く構築する（Vanilla: HTML/CSS/JS を基本としつつ、必要に応じて React + Tailwind（任意で TypeScript）も利用可）                                             | model_decision | .agent/workflows/build-app-simple.md               |
-| create-convoy-project-complete | リポジトリ作成→（任意）最小実装→（条件付き）ブランディング確定→Identity注入→品質レビュー→（任意）可視化/リリースまでを、Convoy標準の一気通貫導線として実行する                     | model_decision | .agent/workflows/create-convoy-project-complete.md |
-| create-prompt-repo             | プロンプト資産を別リポジトリとして管理するため、既存フォルダをGitHubリポジトリへ変換・同期する                                                                                     | model_decision | .agent/workflows/create-prompt-repo.md             |
-| create-release                 | Semantic Versioningに基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化する                                                                                            | model_decision | .agent/workflows/create-release.md                 |
-| create-repo-from-folder        | 既存のフォルダをConvoy規格（CONVOY_PROJECT配下）のGitHubリポジトリへ変換・整流化する                                                                                               | model_decision | .agent/workflows/create-repo-from-folder.md        |
-| generate-header-image          | READMEやリリースノート用の高品質なヘッダー画像を生成する                                                                                                                           | model_decision | .agent/workflows/generate-header-image.md          |
-| git-auto-commit                | git statusとdiffを解析し、Convoy標準に沿って適切なブランチ作成・粒度の細かいコミット・マージを自動化する                                                                           | model_decision | .agent/workflows/git-auto-commit.md                |
-| review-repo-quality            | リポジトリの品質（README, 構造, 設定）をチェックし、Convoy標準に沿って出荷可否と改善点を提示する                                                                                   | model_decision | .agent/workflows/review-repo-quality.md            |
-| update-convoy-identity         | リポジトリの見た目と導線（README/ヘッダー/Alerts/運用メタ情報）をConvoy標準に整流化する                                                                                            | model_decision | .agent/workflows/update-convoy-identity.md         |
-| visualize-architecture         | Draw.io XMLでプロジェクトの論理構成図を生成する（AI生成）                                                                                                                          | model_decision | .agent/workflows/visualize-architecture.md         |
+| slug | description | trigger | file |
+| --- | --- | --- | --- |
+| branding-intake | 製作者への対話的ヒアリングを通じてアプリ別のブランド要件（brief.md / header_prompt.txt）を定義・生成する。 | manual | .agent/workflows/branding-intake.md |
+| build-app-flutter | Flutter プロジェクトを標準構成（Riverpod/go_router）で生成し、ブランド正本に基づき品質最小ラインを確保する。 | manual | .agent/workflows/build-app-flutter.md |
+| build-app-simple | シンプルな Web アプリを迅速に構築するための技術選定基準と実装手順を定義する。 | model_decision | .agent/workflows/build-app-simple.md |
+| create-convoy-project-complete | リポジトリ作成から品質レビュー、リリースまでを Convoy 標準の一気通貫導線で実行する統合 SOP。 | model_decision | .agent/workflows/create-convoy-project-complete.md |
+| create-release | Semantic Versioning に基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化する。 | model_decision | .agent/workflows/create-release.md |
+| create-repo-from-folder | 既存のフォルダを Convoy 規格（CONVOY_PROJECT 配下）の GitHub リポジトリへ変換・整流化する。 | model_decision | .agent/workflows/create-prompt-repo.md |
+| create-repo-from-folder | 既存フォルダをConvoy規格のGitHubリポジトリへ整流化し、Private作成・origin検証・main標準化までを完了する。 | model_decision | .agent/workflows/create-repo-from-folder.md |
+| generate-header-image | READMEおよびリリース向けのヘッダー画像を生成し、1600x420の規格へクロップして成果物を固定する。 | model_decision | .agent/workflows/generate-header-image.md |
+| git-auto-commit | git statusとdiffを根拠に、Convoy標準の作業ブランチ作成・粒度の細かいコミット・マージまでを安全に自動化する。 | model_decision | .agent/workflows/git-auto-commit.md |
+| projects-sync | Convoy母艦の manifest を正として、CONVOY_PROJECT 配下の独立プロダクト群を clone/pull で同期する。新規プロダクト追加はGitHub ActionsでPR自動生成する。 | manual | .agent/workflows/projects-sync.md |
+| review-repo-quality | リポジトリのREADME・設定・構造・実行ゲートを点検し、Pass/Risk/Actionで出荷可否と改善手順を提示する。 | model_decision | .agent/workflows/review-repo-quality.md |
+| update-convoy-identity | READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。 | model_decision | .agent/workflows/update-convoy-identity.md |
+| visualize-architecture | リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。 | model_decision | .agent/workflows/visualize-architecture.md |
 <!-- END: AUTO-GENERATED WORKFLOWS -->
 
 ---
