@@ -13,16 +13,16 @@ trigger: "model_decision"
 
 ## ⚖️ Rules / Constraints
 - **SoT（差分の根拠）**: 判断の根拠は `git status` と `git diff`（必要に応じて `--stat`）とする。推測で分割しない。
-- **コマンド連結禁止**: Git 操作はセミコロン（`;`）で連結しない。必ず 1 コマンドずつ実行し、結果を確認して次へ進む。fileciteturn9file0L16-L21
-- **統合ブランチ方針**: 既定は `develop` 統合。トランク運用で `develop` を使わない場合は、以後の `develop` を `main` に読み替える。fileciteturn9file0L25-L27
-- **作業ブランチ命名**: `feature/<topic>-<YYYYMMDD>` を採用する。Issue 番号は含めない。fileciteturn9file0L32-L37
-- **一時ファイルの混入禁止**: `COMMIT_MSG.txt` はコミット対象に含めない。必要なら削除または `.gitignore` に追加する。fileciteturn9file0L41-L43
-- **コミット粒度**: `git diff` を分析し、作業単位ごとに分割してコミットする（「全部まとめて 1 コミット」を禁止）。fileciteturn9file0L44-L45
+- **コマンド連結禁止**: Git 操作はセミコロン（`;`）で連結しない。必ず 1 コマンドずつ実行し、結果を確認して次へ進む。
+- **統合ブランチ方針**: 既定は `develop` 統合。トランク運用で `develop` を使わない場合は、以後の `develop` を `main` に読み替える。
+- **作業ブランチ命名**: `feature/<topic>-<YYYYMMDD>` を採用する。Issue 番号は含めない。
+- **一時ファイルの混入禁止**: `COMMIT_MSG.txt` はコミット対象に含めない。必要なら削除または `.gitignore` に追加する。
+- **コミット粒度**: `git diff` を分析し、作業単位ごとに分割してコミットする（「全部まとめて 1 コミット」を禁止）。
 - **コミットメッセージ規律**:
-  - Type は `feat|fix|docs|style|refactor|perf|test|chore` から選ぶ。fileciteturn9file0L49-L58
-  - メッセージは **必ず日本語**、先頭に **絵文字**、本文は **3行程度の箇条書き**で具体を書く。fileciteturn9file0L59-L63
-  - メッセージは `COMMIT_MSG.txt` に作成し、`git commit -F COMMIT_MSG.txt` で適用する。fileciteturn9file0L104-L114
-- **マージ規律**: 統合ブランチへのマージは `--no-ff` を原則とし、マージメッセージも `COMMIT_MSG.txt` を使用する。fileciteturn9file0L124-L132
+  - Type は `feat|fix|docs|style|refactor|perf|test|chore` から選ぶ。
+  - メッセージは **必ず日本語**、先頭に **絵文字**、本文は **3行程度の箇条書き**で具体を書く。
+  - メッセージは `COMMIT_MSG.txt` に作成し、`git commit -F COMMIT_MSG.txt` で適用する。
+- **マージ規律**: 統合ブランチへのマージは `--no-ff` を原則とし、マージメッセージも `COMMIT_MSG.txt` を使用する。
 
 ## 🚀 Workflow / SOP
 
