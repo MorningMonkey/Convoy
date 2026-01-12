@@ -139,3 +139,5 @@ pnpm projects:sync
 - `CONVOY_PROJECT/<RepoName>` 配下に各プロダクトが存在
 - `pnpm projects:sync` 実行で "Update" または "Clone" が正常に進む
 - 新規追加は Actions → PR → Merge → ローカル sync で反映される
+
+

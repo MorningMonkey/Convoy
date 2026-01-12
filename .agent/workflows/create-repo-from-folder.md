@@ -80,3 +80,5 @@ trigger: "model_decision"
 - [ ] `.git` 既存時に `git init` を実行していない（履歴を破壊していない）
 - [ ] `.gitignore` に `*_SPEC.MD` と OS ゴミの除外が含まれている
 - [ ] `origin` URL を検証し、`main` で `git push -u origin main` が完了している
+
+

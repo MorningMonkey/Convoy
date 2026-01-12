@@ -155,3 +155,5 @@ Convoyリポジトリの `docs/products/<productId>/` を正本として更新�
 - [ ] docs/products/<productId>/00〜04 が整合した内容で更新されている
 - [ ] ADR-0002 が作成され、主要決定が記録されている
 - [ ] 次工程（build-app-flutter）へ渡せる状態になっている
+
+

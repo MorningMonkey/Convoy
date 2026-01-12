@@ -1,6 +1,7 @@
 ---
-trigger: always_on
+slug: japanese-rule
 description: "エージェントの思考・計画・応答・コミットメッセージなど、全ての出力を日本語に統一するルール。"
+trigger: always_on
 ---
 
 # 🇯🇵 Japanese Language Rules
@@ -60,3 +61,4 @@ description: "エージェントの思考・計画・応答・コミットメッ
 > **Output**:
 > "I have checked the file. Here is the proposal."
 > (Or asking user: "Can I speak English?")
+

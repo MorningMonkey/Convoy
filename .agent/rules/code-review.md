@@ -1,7 +1,7 @@
 ---
-trigger: model_decision
-description: コードレビュー、PRレビュー、コードの品質チェックを求められた場合に適用する。
 slug: code-review
+description: コードレビュー、PRレビュー、コードの品質チェックを求められた場合に適用する。
+trigger: model_decision
 ---
 # 🕵️ Code Review Standards
 
@@ -24,4 +24,6 @@ slug: code-review
 ## 🛡️ エラーハンドリング (Error Handling)
 - 適切な例外処理が実装されているか
 - エッジケースが考慮されているか
+
+
 

@@ -1,7 +1,7 @@
 ---
-trigger: model_decision
-description: 新しいワークフローの作成、タスク自動化の設計、作業手順書の定義について言及された場合に適用する。
 slug: meta-workflow-creation
+description: 新しいワークフローの作成、タスク自動化の設計、作業手順書の定義について言及された場合に適用する。
+trigger: model_decision
 ---
 # 🌊 Workflow Creation Guidelines
 
@@ -275,4 +275,6 @@ run_command で pnpm build を実行せよ。
 - [ ] browser_action でUIに404エラーが出ていないか確認
 - [ ] 期待される動作をしている
 ```
+
+
 

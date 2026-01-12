@@ -132,3 +132,5 @@ Web/React と Mobile/Flutter の両基準を維持し、リポジトリの実態
 - [ ] README に Convoy 導線（`.agent/` への到達）があり、Quick Start が実行可能である
 - [ ] 機密情報・一時ファイル・生成物の混入が無く、`.gitignore` が適切である
 - [ ] 実行ゲート（Flutter または Web/React）が確認され、結果が Pass/Risk/Action に落ちている
+
+

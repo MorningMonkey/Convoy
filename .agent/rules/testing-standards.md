@@ -1,7 +1,7 @@
 ---
-trigger: model_decision
-description: テストの作成、テスト戦略、テストカバレッジについて言及された場合に適用する。
 slug: testing-standards
+description: テストの作成、テスト戦略、テストカバレッジについて言及された場合に適用する。
+trigger: model_decision
 ---
 # 🧪 Testing Standards
 
@@ -25,4 +25,6 @@ test_<対象機能>_<条件>_<期待結果>
 - 各テストは他のテストに依存せず、単独で実行可能であること
 - テストデータはテスト内で生成・クリーンアップすること
 - 外部サービスはモック化すること
+
+
 

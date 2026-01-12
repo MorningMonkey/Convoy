@@ -86,3 +86,5 @@ Convoy は multi-repo 運用を前提とし、各リポジトリが独立して�
 - [ ] `assets/header_cropped_text.png` が生成され、English only を満たしている
 - [ ] README が Convoy レイアウトに整い、Docs / Workflows 等の導線が通っている
 - [ ] 機密情報や一時ファイル、中間生成物の混入がない
+
+
