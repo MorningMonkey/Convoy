@@ -18,7 +18,7 @@ trigger: "model_decision"
 - **構成要件**:
   - Block Diagram として境界を明示する（Container / Swimlane を使用）。
   - Flow は矢印で接続し、データ/制御の流れを明確にする。
-  - 余白は十分に確保する（要素間 최소 40px、コンテナ内も広めのパディング）。
+  - 余白は十分に確保する（要素間 最小 40px、コンテナ内も広めのパディング）。
 - **形式の厳守**: 出力は Draw.io で読み込める完全な XML（`<mxfile>` 〜 `</mxfile>`）。
 - **保存先のSoT**: 生成物は `docs/architecture.drawio` を正本とする。
 - **保存の扱い**: `docs/` が無い場合は作成して保存する（作成不可ならユーザーに作成を促す）。
@@ -61,20 +61,25 @@ trigger: "model_decision"
 
 ---
 
-### Step 4: 🎨 SVG 生成と README への反映（必須）
-Draw.io XMLの生成に加え、READMEでのプレビュー用に SVG ファイルも生成し、埋め込みまでを自動化する。
+### Step 4: 🎨 SVG/PNG 生成と README への反映（必須）
+Draw.io XMLの生成に加え、READMEでのプレビュー用に画像ファイル（SVG/PNG）を生成し、埋め込みまでを自動化する。
 
-1. **SVG 生成**: Pythonスクリプト等を用いて、論理構成図と同等の内容を持つ `docs/architecture.svg` を作成する。（XMLの完全再現が難しい場合は、簡易版でも良いので概念が伝わる図を生成する）
-2. **README 埋め込み**: `README.md` の Architecture セクションに画像を埋め込む。
+1. **SVG 生成**: Pythonスクリプト or Node.js (`sharp`) 等を用いて、論理構成図と同等の内容を持つ `docs/architecture.svg` を作成する。（`class="box"` 等の属性が正しいか注意する）
+2. **PNG 生成**: SVG から `docs/architecture.png` を生成する（GitHubのダークモード/ライトモード互換性やプレビュー用）。
+3. **README 埋め込み**: `README.md` の Architecture セクションに `<picture>` タグを用いて埋め込む。
 
 ```markdown
 ## Architecture
-- Source: [docs/architecture.drawio](docs/architecture.drawio)
-![Architecture Diagram](docs/architecture.svg)
+<!-- Source: docs/architecture.drawio -->
+<picture>
+  <source type="image/svg+xml" srcset="docs/architecture.svg">
+  <img src="docs/architecture.png" alt="Architecture Diagram" width="900">
+</picture>
 ```
 
 **出力**
 - `docs/architecture.svg`
+- `docs/architecture.png`
 - `README.md` (Updated)
 
 ## ✅ Checklist

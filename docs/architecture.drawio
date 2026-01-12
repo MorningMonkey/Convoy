@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2026-01-06T00:00:00.000Z" agent="Convoy" version="22.1.3">
+<mxfile host="app.diagrams.net" modified="2026-01-12T00:00:00.000Z" agent="Convoy" version="22.1.3">
   <diagram id="convoy-architecture" name="Architecture">
     <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -7,67 +7,65 @@
 
         <!-- Containers -->
         <mxCell id="ws" value="Mission Control Workspace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#334155;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="1080" height="700" as="geometry"/>
+          <mxGeometry x="40" y="40" width="1080" height="800" as="geometry"/>
         </mxCell>
 
+        <!-- Left Column -->
         <mxCell id="agent" value=".agent&#xa;Rules / Templates / Workflows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#1E3A8A;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="110" width="320" height="200" as="geometry"/>
+          <mxGeometry x="80" y="100" width="320" height="150" as="geometry"/>
         </mxCell>
 
-        <mxCell id="cfg" value="workspace.config.json&#xa;(Source of Truth)&#xa;paths.projectFactoryDir = CONVOY_PROJECT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#334155;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="330" width="320" height="130" as="geometry"/>
+        <mxCell id="cfg" value="workspace.config.json&#xa;[Workspace Path SoT]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#334155;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="320" height="80" as="geometry"/>
         </mxCell>
 
-        <mxCell id="pf" value="Project Factory&#xa;CONVOY_PROJECT/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="450" y="110" width="620" height="350" as="geometry"/>
+        <mxCell id="manifest" value="projects/manifest.json&#xa;[Project List SoT]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#334155;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="390" width="320" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="branding" value="assets/branding/.../brief.md&#xa;[Product Spec SoT]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FECACA;strokeColor=#B91C1C;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="500" width="320" height="80" as="geometry"/>
         </mxCell>
 
-        <mxCell id="repo1" value="Generated Repo A" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="490" y="170" width="260" height="90" as="geometry"/>
+        <!-- Right Column (Factory & Docs) -->
+        <mxCell id="boundary" value="⚠️ Safety Boundary: Agent edits mostly here" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#EF4444;strokeWidth=3;strokeDasharray=4 4;" vertex="1" parent="1">
+          <mxGeometry x="440" y="90" width="640" height="420" as="geometry"/>
         </mxCell>
 
-        <mxCell id="repo2" value="Generated Repo B" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="780" y="170" width="260" height="90" as="geometry"/>
+        <mxCell id="pf" value="Project Factory&#xa;CONVOY_PROJECT/ (.gitignore)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#065F46;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="450" y="100" width="620" height="380" as="geometry"/>
         </mxCell>
 
-        <mxCell id="repo3" value="Prompt Repo (optional)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="490" y="280" width="550" height="90" as="geometry"/>
+        <mxCell id="repo1" value="Generated Repo A&#xa;(.git / src)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="490" y="150" width="260" height="120" as="geometry"/>
         </mxCell>
 
-        <mxCell id="docs" value="docs/&#xa;architecture.drawio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#9A3412;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="450" y="500" width="620" height="190" as="geometry"/>
+        <mxCell id="repo2" value="Generated Repo B&#xa;(.git / src)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="780" y="150" width="260" height="120" as="geometry"/>
         </mxCell>
 
-        <mxCell id="readme" value="README.md&#xa;Links to .agent/INDEX.md and docs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEFCE8;strokeColor=#92400E;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="500" width="320" height="190" as="geometry"/>
+        <mxCell id="prompt_repo" value="Prompt Repo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#065F46;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="490" y="310" width="550" height="130" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="docs" value="docs/&#xa;products/&lt;id&gt; (Discovery) | adr/ (Decisions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#9A3412;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="500" width="620" height="180" as="geometry"/>
         </mxCell>
 
         <!-- Edges -->
         <mxCell id="e1" value="governs" style="endArrow=block;html=1;rounded=0;strokeColor=#1E3A8A;strokeWidth=2;" edge="1" parent="1" source="agent" target="pf">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-
-        <mxCell id="e2" value="defines" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;strokeWidth=2;" edge="1" parent="1" source="cfg" target="pf">
+        
+        <mxCell id="e2" value="locates" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;strokeWidth=2;" edge="1" parent="1" source="cfg" target="pf">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
 
-        <mxCell id="e3" value="documents" style="endArrow=block;html=1;rounded=0;strokeColor=#92400E;strokeWidth=2;" edge="1" parent="1" source="readme" target="docs">
+        <mxCell id="e3" value="links" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;strokeWidth=2;dashed=1" edge="1" parent="1" source="manifest" target="docs">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-
-        <mxCell id="e4" value="indexes" style="endArrow=block;html=1;rounded=0;strokeColor=#1E3A8A;strokeWidth=2;" edge="1" parent="1" source="readme" target="agent">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e5" value="contains" style="endArrow=block;html=1;rounded=0;strokeColor=#065F46;strokeWidth=2;" edge="1" parent="1" source="pf" target="repo1">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e6" value="contains" style="endArrow=block;html=1;rounded=0;strokeColor=#065F46;strokeWidth=2;" edge="1" parent="1" source="pf" target="repo2">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e7" value="optional" style="endArrow=block;html=1;rounded=0;strokeColor=#065F46;strokeWidth=2;" edge="1" parent="1" source="pf" target="repo3">
+        
+        <mxCell id="e4" value="defines spec" style="endArrow=block;html=1;rounded=0;strokeColor=#B91C1C;strokeWidth=2;" edge="1" parent="1" source="branding" target="docs">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
 
