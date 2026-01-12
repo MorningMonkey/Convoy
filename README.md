@@ -6,8 +6,6 @@
 ### ～ Your Own Repository Organization Zero-gravity Utility ～
 
 
-> Note: ヘッダー画像は `pnpm header:build` により README用バナー規格（1600×420）へ自動で固定されます。
-
 <p align="center">
   <img src="https://img.shields.io/badge/Agent-Google%20Antigravity-blue?style=for-the-badge&logo=google" alt="Agent">
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge&logo=activitypub" alt="Status">
@@ -108,10 +106,10 @@ Convoy のワークフローは、**企画→実装→リリース** の順で�
 
 Convoyは、複数のプロジェクトを統括する「メタ・ワークスペース」として機能します。
 
-- 図（正本）: [docs/architecture.drawio](docs/architecture.drawio)
-- （任意）表示用: `docs/architecture.svg`（drawio からエクスポートして併置可）
-
-![Convoy Architecture](docs/convoy-architecture.svg)
+<picture>
+  <source type="image/svg+xml" srcset="docs/architecture.svg">
+  <img src="docs/architecture.png" alt="Convoy Architecture" width="900">
+</picture>
 
 ```text
 d:/Prj/Convoy/                 <-- 🛰️ Mission Control (Current)
@@ -131,6 +129,23 @@ d:/Prj/Convoy/                 <-- 🛰️ Mission Control (Current)
 - **Mission Control**: あなたはここで指令を出します。
 - **Project Factory**: エージェントは `CONVOY_PROJECT` ディレクトリ内に成果物を生成します。
 - **Agent Brain**: エージェントの行動指針は全て `.agent` 内に集約されており、ここを修正するだけで全プロジェクトの挙動を調整できます。
+
+### 🛡️ Safety & Boundaries (安全機構)
+
+Convoyは複雑な操作を自動化するため、強力な安全装置（Safety Guards）を設けています。
+
+#### 1. Single of Truth (SoT) の分離
+情報の混乱を防ぐため、以下の通り「正本（Source of Truth）」を明確に分離しています。
+
+- **Project List SoT**: [projects/manifest.json](projects/manifest.json) (リポジトリのURL・パス管理)
+- **Workspace Path SoT**: [workspace.config.json](workspace.config.json) (Project Factoryの物理パス定義)
+- **Product Spec SoT**: `assets/branding/<productId>/brief.md` (各アプリの仕様・ブランド定義)
+
+#### 2. Nested Git Strategy (入れ子リポジトリ)
+`CONVOY_PROJECT/` 配下のプロダクトは、Mission Control (Convoy) とは**完全に独立したGitリポジトリ**として管理されます。
+- Convoy側 `.gitignore` で `CONVOY_PROJECT/` を除外済みです（誤コミット防止）。
+- エージェントは**「指定された単一のプロジェクト」にスコープを限定して**作業を行います。
+
 
 ---
 
