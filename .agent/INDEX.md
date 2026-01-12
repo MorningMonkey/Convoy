@@ -101,6 +101,7 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 | code-review | コードレビュー、PRレビュー、コードの品質チェックを求められた場合に適用する。 | .agent/rules/code-review.md |
 | command-rules | コマンドの連結実行（&&, ;）を禁止し、1ステップごとの確実な実行と結果確認を義務付けるルール。 | .agent/rules/command-rules.md |
 | documentation | ドキュメント作成、README更新、API仕様書、技術文書について言及された場合に適用する。 | .agent/rules/documentation.md |
+| git-policy | Convoyプロジェクトのバージョン管理におけるコミット粒度、Push義務、メッセージ規約、および事故防止のための品質基準を定義する。 | .agent/rules/git-policy.md |
 | japanese-rule | エージェントの思考・計画・応答・コミットメッセージなど、全ての出力を日本語に統一するルール。 | .agent/rules/japanese-rule.md |
 | meta-rule-creation | 新しいルールの作成、ルールファイルの設計、エージェント制約の定義について言及された場合に適用する。 | .agent/rules/meta-rule-creation.md |
 | meta-workflow-creation | 新しいワークフローの作成、タスク自動化の設計、作業手順書の定義について言及された場合に適用する。 | .agent/rules/meta-workflow-creation.md |
