@@ -3,7 +3,6 @@ slug: "projects-sync"
 description: "Convoy母艦の manifest を正として、CONVOY_PROJECT 配下の独立プロダクト群を clone/pull で同期する。新規プロダクト追加はGitHub ActionsでPR自動生成する。"
 trigger: "manual"
 ---
-
 # 🔁 Convoy Projects Sync（Product Factory / Polyrepo）
 
 ## 🎯 Goal

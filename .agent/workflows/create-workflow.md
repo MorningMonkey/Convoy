@@ -3,7 +3,6 @@ slug: "create-workflow"
 description: "ユーザー要求から新しいワークフロー（.agent/workflows/*.md）をConvoy標準（SoT参照・安全ガード・再利用・検証）で対話的に作成する。"
 trigger: "manual"
 ---
-
 # 🧭 create-workflow — ワークフロー作成
 
 Convoy の workflow は「手順書」ではなく、**迷いなく安全に実行できる運用資産**です。  

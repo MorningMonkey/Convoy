@@ -3,7 +3,6 @@ slug: "run-tests"
 description: "プロジェクトの単体/自動テストをSoT（brief.md）に従って実行し、PASS/FAIL/PASS_WITH_SKIPPED を根拠（失敗/スキップ要約）つきで報告する原子ワークフロー。"
 trigger: "manual"
 ---
-
 # 🧪 run-tests — テスト実行
 
 このワークフローは **実行と報告のみ** を行います。  

@@ -3,7 +3,6 @@ slug: "verify-code"
 description: "Lint / 型チェック / テスト（任意でセキュリティ）を既存の原子ワークフローで順次実行し、結果を集約してPASS/FAILを判定する統合ワークフロー。"
 trigger: "manual"
 ---
-
 # ✅ verify-code — コード検証（必須ワークフロー）
 
 `verify-code` は、リポジトリの健全性を確認するための **統合チェック**です。  

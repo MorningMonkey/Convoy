@@ -3,7 +3,6 @@ slug: "create-rule"
 description: "ユーザーの要求から新しいルール（.agent/rules/*.md）をConvoy標準（SoT参照・trigger方針・整合チェック）で対話的に作成する。"
 trigger: "manual"
 ---
-
 # 🧩 create-rule — ルール作成ワークフロー
 
 Convoy のルールは「縛るため」ではなく、**迷いを減らして品質を守る**ための資産です。  

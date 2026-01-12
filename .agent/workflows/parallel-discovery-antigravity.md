@@ -3,7 +3,6 @@ slug: "parallel-discovery-antigravity"
 description: "Antigravity Managerで UI/データ/CI の3エージェントを並列稼働し、ArtifactsをConvoyの正本ドキュメント（docs/products/<productId>/）へ収束させる。"
 trigger: "manual"
 ---
-
 # 🧭 Parallel Discovery SOP (UI / Data / CI) via Antigravity Manager
 
 ## 🌌 Overview

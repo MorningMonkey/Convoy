@@ -3,7 +3,6 @@ slug: "define-state-machines"
 description: "アプリのコアロジックを解析し、Mermaidステートマシン図とUIマッピング図を生成して整合性を担保する。"
 trigger: "manual"
 ---
-
 # 🧠 State Machine & UI Mapping Definition
 
 ## 🌌 Overview

@@ -3,7 +3,6 @@ slug: "security-mandates"
 description: "シークレット管理、危険な関数の禁止、入力検証、出力エンコーディングなど、コード実装における必須セキュリティ基準を定義する。"
 trigger: "always_on"
 ---
-
 # 🛡️ Security Mandates
 
 すべてのコードは以下のセキュリティ基準を満たすこと。

@@ -3,7 +3,6 @@ slug: "health-check"
 description: "Convoy/GA-Workspace の .agent 構成（rules/workflows/INDEX/README/参照整合・frontmatter・重複・呼び出し依存）を検査し、Pass/Risk/Action の健康診断レポートを出す。"
 trigger: "manual"
 ---
-
 # 🏥 health-check — GA-Workspace 健全性チェック
 
 ---

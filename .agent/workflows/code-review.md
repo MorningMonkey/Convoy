@@ -3,7 +3,6 @@ slug: "code-review"
 description: "PRやコード変更に対して、SoT参照・差分根拠・安全ガードつきで体系的なレビューを実施し、Must Fix / Should Fix / Suggestion / Good Pointsで報告する。"
 trigger: "manual"
 ---
-
 # ✅ code-review — コードレビュー
 
 Convoy のコードレビューは「雰囲気」ではなく、**根拠・再現・影響範囲**で判断します。  

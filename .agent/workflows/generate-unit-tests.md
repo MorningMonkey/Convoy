@@ -3,7 +3,6 @@ slug: "generate-unit-tests"
 description: "指定されたファイル/モジュールに対して単体テストを設計→生成→実行→検証（回帰なしの根拠）まで行う。スタックはSoT（brief.md）に従い、外部依存はモック戦略で隔離する。"
 trigger: "manual"
 ---
-
 # 🧪 generate-unit-tests — 単体テスト生成
 
 単体テストは「書いた」ではなく、**仕様の境界を固定し、回帰を防ぐ証拠**です。  

@@ -1,7 +1,7 @@
 ---
-slug: code-review
-description: コードレビュー、PRレビュー、コードの品質チェックを求められた場合に適用する。
-trigger: model_decision
+slug: "code-review"
+description: "コードレビュー、PRレビュー、コードの品質チェックを求められた場合に適用する。"
+trigger: "model_decision"
 ---
 # 🕵️ Code Review Standards
 

@@ -3,7 +3,6 @@ slug: "git-auto-commit"
 description: "git statusとdiffを根拠に、Convoy標準の作業ブランチ作成・粒度の細かいコミット・マージまでを安全に自動化する。"
 trigger: "model_decision"
 ---
-
 # 🤖 git-auto-commit
 
 ## 🌌 Overview

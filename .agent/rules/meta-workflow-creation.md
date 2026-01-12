@@ -1,7 +1,7 @@
 ---
-slug: meta-workflow-creation
-description: 新しいワークフローの作成、タスク自動化の設計、作業手順書の定義について言及された場合に適用する。
-trigger: model_decision
+slug: "meta-workflow-creation"
+description: "新しいワークフローの作成、タスク自動化の設計、作業手順書の定義について言及された場合に適用する。"
+trigger: "model_decision"
 ---
 # 🌊 Workflow Creation Guidelines
 

@@ -3,7 +3,6 @@ slug: "branding-intake"
 description: "製作者への対話的ヒアリングを通じてアプリ別のブランド要件（brief.md / header_prompt.txt）を定義・生成する。"
 trigger: "manual"
 ---
-
 # 🎛 Branding Intake Policy & SOP
 
 ## 🌌 Overview

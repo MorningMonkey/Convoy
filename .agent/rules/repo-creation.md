@@ -3,7 +3,6 @@ slug: "repo-creation"
 description: "Convoy（Mission Control）における新規リポジトリ作成・既存フォルダのリポジトリ化を、統一手順で強制・自動実行する。"
 trigger: "model_decision"
 ---
-
 # 🏗️ Repository Creation Policy
 
 ## 🌌 Overview

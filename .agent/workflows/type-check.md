@@ -3,7 +3,6 @@ slug: "type-check"
 description: "TypeScript の型チェック（tsc 等）をSoT（brief.md）に従って実行し、PASS/FAIL と根拠（主要エラー）を報告する原子ワークフロー。"
 trigger: "manual"
 ---
-
 # 🧷 type-check — 型チェック
 
 このワークフローは **型チェックの実行と報告のみ** を行います。  
