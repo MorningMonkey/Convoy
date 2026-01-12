@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="960" height="640"><style>
+        .box { stroke: #334155; stroke-width: 2; fill: #F8FAFC; rx: 8; ry: 8; }
+        .box-title { font-family: sans-serif; font-weight: bold; font-size: 14px; fill: #0f172a; }
+        .box-label { font-family: sans-serif; font-size: 12px; fill: #475569; }
+        .box-sot { font-family: sans-serif; font-size: 11px; fill: #b91c1c; font-weight: bold; }
+        
+        .agent-box { stroke: #1e3a8a; stroke-width: 2; fill: #eef2ff; }
+        .factory-box { stroke: #064e3b; stroke-width: 2; fill: #ecfdf5; stroke-dasharray: 4; }
+        .repo-box { stroke: #334155; stroke-width: 1; fill: #ffffff; }
+        .boundary-box { stroke: #ef4444; stroke-width: 2; fill: none; stroke-dasharray: 8 4; rx: 0; ry: 0; }
+        
+        .arrow { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+        .arrow-dashed { stroke: #64748b; stroke-width: 1; fill: none; stroke-dasharray: 4; marker-end: url(#arrowhead); }
+    </style><defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7" fill="#64748b" /></marker></defs>
+    
+    <!-- Workspace -->
+    <rect x="20" y="20" width="920" height="600" class="box" />
+    <text x="40" y="50" class="box-title">🛰️ Mission Control Workspace (Root)</text>
+    
+    <!-- Left Column: Brain & SoTs -->
+    
+    <!-- Agent Brain -->
+    <rect x="60" y="80" width="280" height="160" class="box agent-box" />
+    <text x="80" y="110" class="box-title">🧠 .agent (Brain)</text>
+    <text x="80" y="140" class="box-label">• rules/ (Constitution)</text>
+    <text x="80" y="160" class="box-label">• workflows/ (SOPs)</text>
+    <text x="80" y="180" class="box-label">• templates/ &amp; INDEX.md</text>
+    
+    <!-- SoTs -->
+    <rect x="60" y="260" width="280" height="80" class="box" />
+    <text x="70" y="285" class="box-title">⚙️ workspace.config.json</text>
+    <text x="70" y="305" class="box-label">Path Defines → Factory Location</text>
+    <text x="70" y="325" class="box-sot">[Workspace Path SoT]</text>
+
+    <rect x="60" y="360" width="280" height="80" class="box" />
+    <text x="70" y="385" class="box-title">📋 projects/manifest.json</text>
+    <text x="70" y="405" class="box-label">URL/Path → Sync Target</text>
+    <text x="70" y="425" class="box-sot">[Project List SoT]</text>
+
+    <rect x="60" y="460" width="280" height="80" class="box" />
+    <text x="70" y="485" class="box-title">🎨 assets/branding/...</text>
+    <text x="70" y="505" class="box-label">brief.md / header.png</text>
+    <text x="70" y="525" class="box-sot">[Product Spec SoT]</text>
+
+
+    <!-- Right Column: Factory & Safety -->
+    
+    <!-- Factory Container -->
+    <rect x="380" y="80" width="540" height="360" class="box factory-box" />
+    <text x="400" y="110" class="box-title">🏭 CONVOY_PROJECT (Factory)</text>
+    <text x="750" y="110" class="box-sot" style="fill:#065f46">(.gitignore: ignored)</text>
+
+    <!-- Project 1 -->
+    <rect x="410" y="130" width="220" height="120" class="box repo-box" />
+    <text x="420" y="155" class="box-title">📦 My Project A</text>
+    <text x="420" y="180" class="box-label">• .git/ (Independent)</text>
+    <text x="420" y="200" class="box-label">• src/ (App Code)</text>
+    <text x="420" y="220" class="box-sot" style="fill:#059669">Target Scope for Agents</text>
+
+    <!-- Project 2 -->
+    <rect x="660" y="130" width="220" height="120" class="box repo-box" />
+    <text x="670" y="155" class="box-title">📦 My Service B</text>
+    <text x="670" y="180" class="box-label">• .git/ (Independent)</text>
+    <text x="670" y="200" class="box-label">• src/ (App Code)</text>
+    <text x="670" y="220" class="box-sot" style="fill:#059669">Target Scope for Agents</text>
+    
+    <!-- Prompt Repo -->
+    <rect x="410" y="280" width="470" height="130" class="box repo-box" />
+    <text x="420" y="310" class="box-title">📦 Prompt Repository</text>
+    <text x="420" y="335" class="box-label">Manages Prompts as Assets for both apps.</text>
+    <text x="420" y="360" class="box-label" style="font-style:italic; fill:#64748b;">(Example of a shared resource)</text>
+
+    <!-- Docs Container -->
+    <rect x="380" y="460" width="540" height="140" class="box" />
+    <text x="400" y="490" class="box-title">📚 docs/</text>
+    <text x="420" y="520" class="box-label">• architecture.drawio (This Diagram)</text>
+    <text x="420" y="540" class="box-label">• products/&lt;id&gt;/ (Discovery Artifacts)</text>
+    <text x="420" y="560" class="box-label">• adr/ (Architecture Decision Records)</text>
+
+    <!-- Safety Boundary Overlay -->
+    <rect x="370" y="70" width="560" height="380" class="boundary-box" />
+    <text x="670" y="90" style="font-family: sans-serif; font-size: 12px; fill: #ef4444; font-weight: bold; background-color: #fff;">⚠️ Execution Boundary (Safe Zone)</text>
+
+    <!-- Arrows (Improved Routing) -->
+    
+    <!-- Agent -> Factory -->
+    <path d="M 340,160 L 380,160" class="arrow" /> 
+    
+    <!-- Config -> Factory -->
+    <path d="M 340,300 L 360,300 L 360,200 L 380,200" class="arrow" /> 
+    
+    <!-- Manifest -> Docs (Sync Link, Conceptual) -->
+    <path d="M 340,400 L 360,400 L 360,530 L 380,530" class="arrow-dashed" />
+    
+    <!-- Branding -> Docs (Spec Link) -->
+    <path d="M 340,500 L 380,500" class="arrow" />
+    
+    <!-- Docs -> Factory (Implementation Ref) -->
+    <path d="M 650,460 L 650,440" class="arrow" style="stroke-dasharray: 4;" />
+
+</svg>

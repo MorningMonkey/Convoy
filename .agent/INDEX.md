@@ -100,6 +100,7 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 | agent-frontmatter | Agent 資産の Frontmatter 仕様（必須キー、slug 形式、description のクオート）を定義・検証する。 | .agent/rules/agent-frontmatter.md |
 | code-review | コードレビュー、PRレビュー、コードの品質チェックを求められた場合に適用する。 | .agent/rules/code-review.md |
 | command-rules | コマンドの連結実行（&&, ;）を禁止し、1ステップごとの確実な実行と結果確認を義務付けるルール。 | .agent/rules/command-rules.md |
+| convoy-safety-boundary | Convoyにおける作業範囲の境界（Boundary）と情報の正本（SoT）に関する安全規定。 | .agent/rules/convoy-safety-boundary.md |
 | documentation | ドキュメント作成、README更新、API仕様書、技術文書について言及された場合に適用する。 | .agent/rules/documentation.md |
 | git-policy | Convoyプロジェクトのバージョン管理におけるコミット粒度、Push義務、メッセージ規約、および事故防止のための品質基準を定義する。 | .agent/rules/git-policy.md |
 | japanese-rule | エージェントの思考・計画・応答・コミットメッセージなど、全ての出力を日本語に統一するルール。 | .agent/rules/japanese-rule.md |
