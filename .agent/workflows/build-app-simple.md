@@ -3,7 +3,6 @@ slug: "build-app-simple"
 description: "シンプルな Web アプリを迅速に構築するための技術選定基準と実装手順を定義する。"
 trigger: "model_decision"
 ---
-
 # 🏗️ Simple Web App Build Policy & SOP
 
 ## 🌌 Overview

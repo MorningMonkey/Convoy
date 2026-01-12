@@ -3,7 +3,6 @@ slug: "lint-check"
 description: "プロジェクトのLint（スタイル/静的解析）をSoT（brief.md）に従って実行し、PASS/PASS_WITH_WARNINGS/FAIL と根拠（主要エラー）を報告する原子ワークフロー。"
 trigger: "manual"
 ---
-
 # ✅ lint-check — Lintチェック
 
 このワークフローは **読み取り＋検証のみ** を行います。  

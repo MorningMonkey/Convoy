@@ -3,7 +3,6 @@ slug: "visualize-architecture"
 description: "リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。"
 trigger: "model_decision"
 ---
-
 # 🧩 visualize-architecture
 
 ## 🌌 Overview

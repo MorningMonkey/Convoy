@@ -3,7 +3,6 @@ slug: "integrate-discovery-artifacts"
 description: "AntigravityのUI/Data/CI Artifactsをレビューし、衝突解消→Convoy docsへ収束→ADRで決定ログ化する統合SOP。"
 trigger: "manual"
 ---
-
 # 🧩 Discovery Artifacts Integration SOP (Artifacts → Convoy Docs)
 
 ## 🌌 Overview

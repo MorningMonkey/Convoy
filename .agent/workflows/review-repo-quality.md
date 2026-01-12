@@ -3,7 +3,6 @@ slug: "review-repo-quality"
 description: "リポジトリのREADME・設定・構造・実行ゲートを点検し、Pass/Risk/Actionで出荷可否と改善手順を提示する。"
 trigger: "model_decision"
 ---
-
 # ✅ review-repo-quality
 
 ## 🌌 Overview

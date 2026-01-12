@@ -3,7 +3,6 @@ slug: "security-scan"
 description: "依存関係脆弱性・シークレット混入・基本セキュリティ規約違反をSoT（brief.md）と既存ルールに従って検査し、PASS/PASS_WITH_WARNINGS/FAIL を根拠つきで報告する原子ワークフロー。"
 trigger: "manual"
 ---
-
 # 🔐 security-scan — セキュリティスキャン
 
 このワークフローは **検査と報告のみ** を行います。  

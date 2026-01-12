@@ -3,7 +3,6 @@ slug: "setup-product-discovery"
 description: "Convoy内でプロダクトの棚卸し→MVP決定→設計を回すための成果物置き場（SoT/Docs/Decisions）を標準生成する。"
 trigger: "manual"
 ---
-
 # 🗂️ Product Discovery Workspace Setup (Inventory → MVP → Design)
 
 ## 🌌 Overview

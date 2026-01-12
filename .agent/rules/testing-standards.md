@@ -1,7 +1,7 @@
 ---
-slug: testing-standards
-description: テストの作成、テスト戦略、テストカバレッジについて言及された場合に適用する。
-trigger: model_decision
+slug: "testing-standards"
+description: "テストの作成、テスト戦略、テストカバレッジについて言及された場合に適用する。"
+trigger: "model_decision"
 ---
 # 🧪 Testing Standards
 

@@ -3,7 +3,6 @@ slug: "create-prompt-repo"
 description: "プロンプト資産を別リポジトリとして管理するため、既存フォルダをGitHubリポジトリへ変換・同期する。"
 trigger: "model_decision"
 ---
-
 # 📂 create-repo-from-folder — Repository Initialization Policy & SOP
 
 ## 🌌 Overview

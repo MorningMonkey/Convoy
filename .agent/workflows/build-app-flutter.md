@@ -3,7 +3,6 @@ slug: "build-app-flutter"
 description: "Flutter プロジェクトを標準構成（Riverpod/go_router）で生成し、ブランド正本に基づき品質最小ラインを確保する。"
 trigger: "manual"
 ---
-
 # 🐦 Flutter Application Build Policy & SOP
 
 ## 🌌 Overview

@@ -3,7 +3,6 @@ slug: "command-rules"
 description: "コマンドの連結実行（&&, ;）を禁止し、1ステップごとの確実な実行と結果確認を義務付けるルール。"
 trigger: "always_on"
 ---
-
 # 🤖 Command Execution Rules
 
 ## 🛑 コマンド実行の基本方針

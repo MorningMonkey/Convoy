@@ -3,7 +3,6 @@ slug: "create-release"
 description: "Semantic Versioning に基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化する。"
 trigger: "model_decision"
 ---
-
 # 🚀 create-release — Release Creation Policy & SOP
 
 ## 🌌 Overview

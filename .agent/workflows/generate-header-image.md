@@ -3,7 +3,6 @@ slug: "generate-header-image"
 description: "READMEおよびリリース向けのヘッダー画像を生成し、1600x420の規格へクロップして成果物を固定する。"
 trigger: "model_decision"
 ---
-
 # 🖼️ generate-header-image
 
 ## 🌌 Overview

@@ -1,7 +1,7 @@
 ---
-slug: documentation
-description: ドキュメント作成、README更新、API仕様書、技術文書について言及された場合に適用する。
-trigger: model_decision
+slug: "documentation"
+description: "ドキュメント作成、README更新、API仕様書、技術文書について言及された場合に適用する。"
+trigger: "model_decision"
 ---
 # 📝 Documentation Standards
 

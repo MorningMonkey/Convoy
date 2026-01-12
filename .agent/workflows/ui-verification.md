@@ -3,7 +3,6 @@ slug: "ui-verification"
 description: "ローカル（または指定URL）のUIをブラウザ操作で視覚検証し、スクリーンショットとコンソール所見を根拠にPASS/FAILを報告する。スタック/ポートはSoT（brief.md）を優先する。"
 trigger: "manual"
 ---
-
 # 🖥️ ui-verification — UI検証
 
 このワークフローは、単体テストだけでは拾いづらい **レイアウト崩れ・ルーティング欠落・実行時エラー** を、ブラウザ操作で検証します。  

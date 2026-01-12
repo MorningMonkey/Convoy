@@ -3,7 +3,6 @@ slug: "performance-optimization"
 description: "パフォーマンス問題を計測→原因特定→最小最適化→再計測→回帰確認（verify-code）まで一気通貫で行い、改善を数値で証明する専門ワークフロー。"
 trigger: "manual"
 ---
-
 # ⚙️ performance-optimization — パフォーマンス最適化（専門ワークフロー）
 
 このワークフローは、**「遅い」問題を属人化させずに収束**させるための型です。  

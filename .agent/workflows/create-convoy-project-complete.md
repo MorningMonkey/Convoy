@@ -3,7 +3,6 @@ slug: "create-convoy-project-complete"
 description: "リポジトリ作成から品質レビュー、リリースまでを Convoy 標準の一気通貫導線で実行する統合 SOP。"
 trigger: "model_decision"
 ---
-
 # 🚀 Convoy Project Complete (統合導線 / Mission Control)
 
 ## 🌌 Overview

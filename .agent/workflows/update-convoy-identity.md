@@ -3,7 +3,6 @@ slug: "update-convoy-identity"
 description: "READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。"
 trigger: "model_decision"
 ---
-
 # 🧭 update-convoy-identity
 
 ## 🌌 Overview

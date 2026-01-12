@@ -3,7 +3,6 @@ slug: "agent-frontmatter"
 description: "Agent 資産の Frontmatter 仕様（必須キー、slug 形式、description のクオート）を定義・検証する。"
 trigger: "model_decision"
 ---
-
 # 📜 Agent Frontmatter Policy
 
 ## 🌌 Overview
