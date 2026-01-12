@@ -18,8 +18,10 @@ param(
 
 Set-StrictMode -Version Latest
 
-Import-Module (Join-Path $PSScriptRoot "_lib\config.ps1") -Force
-$config = Get-ConvoyConfig
+
+. (Join-Path $PSScriptRoot "_lib/config.ps1")
+$config = Get-ConvoyConfig -AllowLocalOverride
+
 $root   = Get-ConvoyWorkspaceRoot
 $assetsDir = Join-Path $root "assets"
 
@@ -50,14 +52,14 @@ if ((Test-Path $OutputPath) -and (-not $Force) -and ($OutputPath -ne $InputPath)
 }
 
 # フォント存在チェック（存在しないと例外になるのでtry）
-function Pick-FontFamily([string]$preferred, [string[]]$fallbacks) {
+function Get-FontFamily([string]$preferred, [string[]]$fallbacks) {
   try {
-    $ff = New-Object System.Drawing.FontFamily($preferred)
+    $null = New-Object System.Drawing.FontFamily($preferred)
     return $preferred
   } catch {
     foreach ($f in $fallbacks) {
       try {
-        $ff2 = New-Object System.Drawing.FontFamily($f)
+        $null = New-Object System.Drawing.FontFamily($f)
         return $f
       } catch {}
     }
@@ -88,8 +90,8 @@ try {
   $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
 
   # Fonts
-  $pickedTitleFontFamily = Pick-FontFamily $TitleFontFamily @("Yu Mincho", "Georgia", "Times New Roman")
-  $pickedSubtitleFontFamily = Pick-FontFamily $SubtitleFontFamily @("Yu Gothic", "Segoe UI", "Arial")
+  $pickedTitleFontFamily = Get-FontFamily $TitleFontFamily @("Yu Mincho", "Georgia", "Times New Roman")
+  $pickedSubtitleFontFamily = Get-FontFamily $SubtitleFontFamily @("Yu Gothic", "Segoe UI", "Arial")
 
   # Title size auto-fit by height ratio
   $targetTitleHeight = [Math]::Max(1, ($bmp.Height * $TitleHeightRatio))
