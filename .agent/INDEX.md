@@ -23,6 +23,7 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 - `/setup-product-discovery`（設計成果物の置き場を標準化：`docs/products/<productId>/{Docs,Decisions}`）
 - `/parallel-discovery-antigravity`（UI / Data / CI の 3 エージェントで並列棚卸し）
 - `/integrate-discovery-artifacts`（矛盾解消→Convoy標準ドキュメントへ統合）
+- `/define-state-machines`（コアロジックの可視化：Mermaidステートマシン図の生成）
 
 ### Phase 2: Project Setup（プロジェクト立ち上げ）
 目的: **開発対象（リポジトリ／工場／資産分離）** を用意する。
@@ -36,20 +37,44 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 
 - `/build-app-flutter`（Flutter 標準骨格：Riverpod / go_router）
 - `/build-app-simple`（Web で素早く構築するパス）
+- `/generate-unit-tests`（単体テストの設計・生成・実行）
 
 ### Phase 4: Development & Quality（開発・品質維持）
 目的: **日々の変更を安全に積み上げ、品質を落とさない**。
 
-- `/git-auto-commit`（差分根拠で適切な粒度のコミット）
-- `/visualize-architecture`（現状可視化：図の自動生成）
-- `/review-repo-quality`（README/CI/構造の健康診断）
-- `/update-convoy-identity`（README/画像/導線の整流化）
+- **Coding & Review**:
+  - `/git-auto-commit`（差分根拠で適切な粒度のコミット）
+  - `/code-review`（SoT/差分根拠に基づく体系的なレビュー）
+  - `/bug-fix`（バグの調査・修正・検証・コミットを一気通貫）
+
+- **Verification (Atomic)**:
+  - `/lint-check`（スタイル/静的解析）
+  - `/type-check`（型チェック）
+  - `/run-tests`（ユニット/自動テスト）
+  - `/security-scan`（脆弱性/シークレット検査）
+  - `/ui-verification`（ブラウザ操作による視覚検証）
+
+- **Verification (Integrated)**:
+  - `/verify-code`（Lint/Type/Test を順次実行する統合パス）
+  - `/performance-optimization`（計測→特定→最適化→回帰確認）
+
+- **Repository Health**:
+  - `/visualize-architecture`（現状可視化：図の自動生成）
+  - `/review-repo-quality`（README/CI/構造の健康診断）
+  - `/update-convoy-identity`（README/画像/導線の整流化）
 
 ### Phase 5: Release（リリース）
 目的: **公開可能な形に整えて出荷**。
 
 - `/generate-header-image`（ストア／SNS／README 用のヘッダー画像生成）
 - `/create-release`（SemVer 付与→Release 作成）
+
+### Phase 6: Mission Control Operations（運用・拡張）
+目的: **Convoy (Agent) 自体の機能を拡張・維持する**。
+
+- `/create-rule`（新しい `.agent/rules` の作成）
+- `/create-workflow`（新しい `.agent/workflows` の作成）
+- `/health-check`（`.agent` 構成の健全性診断）
 
 ### Special: Integrated Flow（統合）
 - `/create-convoy-project-complete`（上記のプロセス（作成〜リリース）を一気通貫で実行する統合ワークフロー。慣れてきたらこれ一本で管理可能）
@@ -106,21 +131,34 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 | slug | description | trigger | file |
 | --- | --- | --- | --- |
 | branding-intake | 製作者への対話的ヒアリングを通じてアプリ別のブランド要件（brief.md / header_prompt.txt）を定義・生成する。 | manual | .agent/workflows/branding-intake.md |
+| bug-fix | バグの調査→修正→検証→コミット（必要ならPR）までを、差分根拠と安全確認つきで一気通貫に実行する。星来がバグを退治する。 | manual | .agent/workflows/bug-fix.md |
 | build-app-flutter | Flutter プロジェクトを標準構成（Riverpod/go_router）で生成し、ブランド正本に基づき品質最小ラインを確保する。 | manual | .agent/workflows/build-app-flutter.md |
 | build-app-simple | シンプルな Web アプリを迅速に構築するための技術選定基準と実装手順を定義する。 | model_decision | .agent/workflows/build-app-simple.md |
+| code-review | PRやコード変更に対して、SoT参照・差分根拠・安全ガードつきで体系的なレビューを実施し、Must Fix / Should Fix / Suggestion / Good Pointsで報告する。 | manual | .agent/workflows/code-review.md |
 | create-convoy-project-complete | リポジトリ作成から品質レビュー、リリースまでを Convoy 標準の一気通貫導線で実行する統合 SOP。 | model_decision | .agent/workflows/create-convoy-project-complete.md |
 | create-prompt-repo | プロンプト資産を別リポジトリとして管理するため、既存フォルダをGitHubリポジトリへ変換・同期する。 | model_decision | .agent/workflows/create-prompt-repo.md |
 | create-release | Semantic Versioning に基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化する。 | model_decision | .agent/workflows/create-release.md |
 | create-repo-from-folder | 既存フォルダをConvoy規格のGitHubリポジトリへ整流化し、Private作成・origin検証・main標準化までを完了する。 | model_decision | .agent/workflows/create-repo-from-folder.md |
+| create-rule | ユーザーの要求から新しいルール（.agent/rules/*.md）をConvoy標準（SoT参照・trigger方針・整合チェック）で対話的に作成する。 | manual | .agent/workflows/create-rule.md |
+| create-workflow | ユーザー要求から新しいワークフロー（.agent/workflows/*.md）をConvoy標準（SoT参照・安全ガード・再利用・検証）で対話的に作成する。 | manual | .agent/workflows/create-workflow.md |
 | define-state-machines | アプリのコアロジックを解析し、Mermaidステートマシン図とUIマッピング図を生成して整合性を担保する。 | manual | .agent/workflows/define-state-machines.md |
 | generate-header-image | READMEおよびリリース向けのヘッダー画像を生成し、1600x420の規格へクロップして成果物を固定する。 | model_decision | .agent/workflows/generate-header-image.md |
+| generate-unit-tests | 指定されたファイル/モジュールに対して単体テストを設計→生成→実行→検証（回帰なしの根拠）まで行う。スタックはSoT（brief.md）に従い、外部依存はモック戦略で隔離する。 | manual | .agent/workflows/generate-unit-tests.md |
 | git-auto-commit | git statusとdiffを根拠に、Convoy標準の作業ブランチ作成・粒度の細かいコミット・マージまでを安全に自動化する。 | model_decision | .agent/workflows/git-auto-commit.md |
+| health-check | Convoy/GA-Workspace の .agent 構成（rules/workflows/INDEX/README/参照整合・frontmatter・重複・呼び出し依存）を検査し、Pass/Risk/Action の健康診断レポートを出す。 | manual | .agent/workflows/health-check.md |
 | integrate-discovery-artifacts | AntigravityのUI/Data/CI Artifactsをレビューし、衝突解消→Convoy docsへ収束→ADRで決定ログ化する統合SOP。 | manual | .agent/workflows/integrate-discovery-artifacts.md |
+| lint-check | プロジェクトのLint（スタイル/静的解析）をSoT（brief.md）に従って実行し、PASS/PASS_WITH_WARNINGS/FAIL と根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/lint-check.md |
 | parallel-discovery-antigravity | Antigravity Managerで UI/データ/CI の3エージェントを並列稼働し、ArtifactsをConvoyの正本ドキュメント（docs/products/<productId>/）へ収束させる。 | manual | .agent/workflows/parallel-discovery-antigravity.md |
+| performance-optimization | パフォーマンス問題を計測→原因特定→最小最適化→再計測→回帰確認（verify-code）まで一気通貫で行い、改善を数値で証明する専門ワークフロー。 | manual | .agent/workflows/performance-optimization.md |
 | projects-sync | Convoy母艦の manifest を正として、CONVOY_PROJECT 配下の独立プロダクト群を clone/pull で同期する。新規プロダクト追加はGitHub ActionsでPR自動生成する。 | manual | .agent/workflows/projects-sync.md |
 | review-repo-quality | リポジトリのREADME・設定・構造・実行ゲートを点検し、Pass/Risk/Actionで出荷可否と改善手順を提示する。 | model_decision | .agent/workflows/review-repo-quality.md |
+| run-tests | プロジェクトの単体/自動テストをSoT（brief.md）に従って実行し、PASS/FAIL/PASS_WITH_SKIPPED を根拠（失敗/スキップ要約）つきで報告する原子ワークフロー。 | manual | .agent/workflows/run-tests.md |
+| security-scan | 依存関係脆弱性・シークレット混入・基本セキュリティ規約違反をSoT（brief.md）と既存ルールに従って検査し、PASS/PASS_WITH_WARNINGS/FAIL を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/security-scan.md |
 | setup-product-discovery | Convoy内でプロダクトの棚卸し→MVP決定→設計を回すための成果物置き場（SoT/Docs/Decisions）を標準生成する。 | manual | .agent/workflows/setup-product-discovery.md |
+| type-check | TypeScript の型チェック（tsc 等）をSoT（brief.md）に従って実行し、PASS/FAIL と根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/type-check.md |
+| ui-verification | ローカル（または指定URL）のUIをブラウザ操作で視覚検証し、スクリーンショットとコンソール所見を根拠にPASS/FAILを報告する。スタック/ポートはSoT（brief.md）を優先する。 | manual | .agent/workflows/ui-verification.md |
 | update-convoy-identity | READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。 | model_decision | .agent/workflows/update-convoy-identity.md |
+| verify-code | Lint / 型チェック / テスト（任意でセキュリティ）を既存の原子ワークフローで順次実行し、結果を集約してPASS/FAILを判定する統合ワークフロー。 | manual | .agent/workflows/verify-code.md |
 | visualize-architecture | リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。 | model_decision | .agent/workflows/visualize-architecture.md |
 <!-- END: AUTO-GENERATED WORKFLOWS -->
 

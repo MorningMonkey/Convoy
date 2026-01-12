@@ -84,3 +84,5 @@ graph TD
    - 画面とロジックの乖離がないか確認する。
 4. `docs/state_machines.md` (プロジェクトルート配下のdocs) に保存する。
 ```
+
+

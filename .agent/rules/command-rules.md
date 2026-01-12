@@ -50,3 +50,5 @@ npm start
 - パイプ（`|`）を使った出力の受け渡しが必要な場合
   - 例: `cat file.txt | grep "pattern"`
 
+
+

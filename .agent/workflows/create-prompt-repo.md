@@ -153,3 +153,5 @@ trigger: "model_decision"
 - [ ] `origin` URL が意図した接続先である（検証済み）
 - [ ] 既定ブランチが `main` に整流化され、`git push -u origin main` が成功している
 - [ ] `walkthrough.md` に日本語で結果（origin URL 含む）が記録されている
+
+

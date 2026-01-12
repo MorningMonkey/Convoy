@@ -1,7 +1,7 @@
 ---
-trigger: model_decision
-description: ビルド、テスト、デプロイ、運用に関する質問や作業を行う場合に適用する。
 slug: ops
+description: ビルド、テスト、デプロイ、運用に関する質問や作業を行う場合に適用する。
+trigger: model_decision
 ---
 # ⚙️ Operational Procedures
 
@@ -89,4 +89,6 @@ pnpm install
 ```bash
 pnpm store prune
 ```
+
+
 

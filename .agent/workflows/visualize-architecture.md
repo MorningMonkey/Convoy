@@ -83,3 +83,5 @@ Draw.io XMLの生成に加え、READMEでのプレビュー用に SVG ファイ�
 - [ ] 図中のテキストが English only で、Flat design（no gradients）を満たしている
 - [ ] XML が有効（`<mxfile>`〜`</mxfile>`）で、`docs/architecture.drawio` に保存されている
 - [ ] 要素間余白（≥40px）と Flow（矢印接続）が確保され、読みやすい
+
+

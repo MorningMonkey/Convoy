@@ -1,7 +1,7 @@
 ---
-trigger: model_decision
-description: ドキュメント作成、README更新、API仕様書、技術文書について言及された場合に適用する。
 slug: documentation
+description: ドキュメント作成、README更新、API仕様書、技術文書について言及された場合に適用する。
+trigger: model_decision
 ---
 # 📝 Documentation Standards
 
@@ -26,4 +26,6 @@ slug: documentation
 - コード内コメント: 日本語
 - 変数名・関数名: 英語
 - ユーザー向けドキュメント: 日本語
+
+
 

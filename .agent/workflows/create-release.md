@@ -164,3 +164,5 @@ gh release upload [TAG] assets/release_header_[version].png
 - [ ] 生成ヘッダー画像のテキストが English Only で、バージョン番号が正しい
 - [ ] GitHub Release が作成され、（可能なら）アセットが添付されている
 - [ ] `walkthrough.md` に日本語で実行内容とリリース URL が記録されている
+
+

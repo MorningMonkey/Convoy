@@ -44,3 +44,4 @@ trigger: "manual"
 - [ ] 状態管理に Riverpod、ルーティングに go_router が正しく組み込まれているか？
 - [ ] `lib/` のディレクトリ構造は Convoy 標準（app/features/shared）に準拠しているか？
 - [ ] `walkthrough.md` に日本語で実行根拠と生成ファイルの一覧が記録されているか？
+

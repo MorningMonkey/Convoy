@@ -64,3 +64,4 @@ UI 要素が必要な場合のみ、`/build-app-simple` を実行します。
 - [ ] 破壊的操作を行う前に、ユーザーへの明示的な確認を行ったか？
 - [ ] すべての成果物は `CONVOY_PROJECT` 配下に配置されているか？
 - [ ] `review-repo-quality` を通過、または Risk が Action 化されているか？
+

@@ -149,3 +149,5 @@ git branch -d feature/<topic>-<YYYYMMDD>
 - [ ] `COMMIT_MSG.txt` がコミット対象に含まれておらず、必要に応じて削除または `.gitignore` 済み
 - [ ] コミットメッセージが「絵文字 + 日本語 + 3行程度の箇条書き + 正しいType」を満たしている
 - [ ] 統合ブランチへ `--no-ff` でマージし、push まで完了している
+
+
