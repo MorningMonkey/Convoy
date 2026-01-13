@@ -43,6 +43,7 @@ pnpm-debug.log*
 # ------------------------------------------------------------
 *_SPEC.MD
 *_SPEC.md
+!.agent/workflows/**/*.md
 
 # If you keep a local copy of the control spec, ignore it here.
 # (Corrected: removed accidental leading 'A')
@@ -93,6 +94,11 @@ assets/header_cropped.png
 # Convoy Project Factory (generated projects)
 # ------------------------------------------------------------
 CONVOY_PROJECT/
+
+# ------------------------------------------------------------
+# ui-system (generated runs / local logs)
+# ------------------------------------------------------------
+ui-system/runs/
 
 # If you generate versioned release headers, keep them committed by default.
 # (Uncomment to ignore them)
