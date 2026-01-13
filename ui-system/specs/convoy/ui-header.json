@@ -1,0 +1,63 @@
+{
+  "productId": "convoy",
+  "specId": "ui-header",
+  "figma": {
+    "page": "Convoy / UI",
+    "url": "https://www.figma.com/"
+  },
+  "ui": {
+    "surface": "header",
+    "description": "App header for mobile-first UI. Includes title and primary actions."
+  },
+  "dataModel": {
+    "entities": [],
+    "sampleData": {}
+  },
+  "layout": {
+    "structure": [
+      "Header",
+      "Content",
+      "Footer"
+    ],
+    "responsive": {
+      "target": "mobile-first",
+      "minTapHeightPx": 44
+    }
+  },
+  "components": [
+    {
+      "name": "AppHeader",
+      "states": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focus"
+      ],
+      "props": {},
+      "a11y": {
+        "keyboard": true,
+        "labels": true
+      }
+    }
+  ],
+  "implementationRequirements": {
+    "stack": [
+      "React",
+      "TypeScript",
+      "Tailwind"
+    ],
+    "semanticHtml": true,
+    "noAbsolutePositioning": "prefer-auto-layout-equivalent",
+    "notes": [
+      "Map Figma Variables to Tailwind tokens where possible.",
+      "Prefer data-driven rendering for repeated elements."
+    ]
+  },
+  "acceptanceCriteria": [
+    "Smoke gates pass",
+    "UX score meets threshold",
+    "No layout break on long text",
+    "Tap targets >= 44px"
+  ]
+}
