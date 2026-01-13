@@ -98,7 +98,8 @@ CONVOY_PROJECT/
 # ------------------------------------------------------------
 # ui-system (generated runs / local logs)
 # ------------------------------------------------------------
-ui-system/runs/
+ui-system/runs/*
+!ui-system/runs/**/*.md
 
 # If you generate versioned release headers, keep them committed by default.
 # (Uncomment to ignore them)

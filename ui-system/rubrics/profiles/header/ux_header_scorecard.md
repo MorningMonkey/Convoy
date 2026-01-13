@@ -1,4 +1,4 @@
-# UX Scorecard (Standard) — 100 points
+# UX Scorecard (Header Profile) — 100 points
 
 ## 明確性 (Clarity) — 10 pts
 - ラベルは曖昧さがなく明確である

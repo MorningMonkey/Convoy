@@ -24,14 +24,15 @@ trigger: "user_request"
 *   `uxThreshold`: 合格閾値 (デフォルトは後述)
 
 ## デフォルト設定 (Defaults)
+Profileロジックにより自動決定されます。
+
+### Standard Profile (Default)
 *   `gatesPath`: `ui-system/rubrics/smoke_test_gates.md`
 *   `rubricPath`: `ui-system/rubrics/ux_scorecard.md`
-*   `uxThreshold`:
-    *   標準 (Standard): `75`
-    *   Headerプロファイル: `80`
+*   `uxThreshold`: `75`
 
-### Header Profile オーバーライド
-(推奨: `specId` が `ui-header` の場合のみ)
+### Header Profile (specId="ui-header")
+以下の条件で**強制的にオーバーライド**されます:
 *   `gatesPath`: `ui-system/rubrics/profiles/header/smoke_test_header_gates.md`
 *   `rubricPath`: `ui-system/rubrics/profiles/header/ux_header_scorecard.md`
 *   `uxThreshold`: `80`
@@ -41,22 +42,31 @@ trigger: "user_request"
 
 ## 手順 (Steps)
 
-1.  **必須ファイルの検証**
+1.  **Profile 自動選択ロジック**
+    *   **IF** `specId == 'ui-header'`:
+        *   `gatesPath` = `ui-system/rubrics/profiles/header/smoke_test_header_gates.md`
+        *   `rubricPath` = `ui-system/rubrics/profiles/header/ux_header_scorecard.md`
+        *   `uxThreshold` = `80`
+        *   (ユーザー入力の `gatesPath` 等は無視され、Profileが優先されます)
+    *   **ELSE**:
+        *   ユーザー入力があればそれを使用、なければ Standard Profile のデフォルト値を使用。
+
+2.  **必須ファイルの検証**
     以下の存在を確認します:
     *   `ui-system/specs/<productId>/<specId>.json`
     *   `ui-system/prompts/mcp_base_prompt.md`
-    *   選択された `gatesPath`
-    *   選択された `rubricPath`
+    *   決定された `gatesPath`
+    *   決定された `rubricPath`
     *   `ui-system/templates/review.template.md`
 
-2.  **Spec JSONの検証 (最小限)**
+3.  **Spec JSONの検証 (最小限)**
     *   Spec内に `productId`/`specId` が含まれ、入力と一致することを確認。
     *   `figma.url` が https URL であることを確認 (プレースホルダー可)。
 
-3.  **Runディレクトリ作成**
+4.  **Runディレクトリ作成**
     `ui-system/runs/<productId>/<specId>/<YYYYMMDD>/<HHmmss>/` を作成します。
 
-4.  **mcp_prompt.md の生成 (順序厳守)**
+5.  **mcp_prompt.md の生成 (順序厳守)**
     以下の要素を順番に結合して生成します:
     *   **A) Meta Header**:
         *   productId, specId, runId
@@ -67,13 +77,13 @@ trigger: "user_request"
     *   **D) Gates**: (Inline展開)
     *   **E) UX Rubric**: (Inline展開)
 
-5.  **review.md の生成**
+6.  **review.md の生成**
     テンプレートから生成します:
     *   メタフィールド (`productId`/`specId`/`runId`/`page`/`url`) を埋める。
     *   `gatesPath`/`rubricPath`/`threshold` を埋める。
     *   チェックリストを初期化する (PASS/FAIL は空欄).
 
-6.  **出力通知 (Output)**
+7.  **出力通知 (Output)**
     *   Runディレクトリのパスを表示。
     *   `mcp_prompt.md` の冒頭20行を表示。
     *   (Optional) クリップボードへのコピーコマンドを提示:

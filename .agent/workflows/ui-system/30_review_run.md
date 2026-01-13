@@ -37,9 +37,20 @@ trigger: "user_request"
     
     > **ルール**: 1つでも **FAIL** がある場合、Smoke Gates全体を **FAIL** とし、Verdict は自動的に **REDESIGN** となる。
 
+    **【必須確認項目】**
+    以下のHard Gatesは必ず実施し、結果を記録すること:
+    *   `G-KEYBOARD-01`: キーボード操作 (Tab遷移)
+    *   `G-ROUTING-01`: 意図しない404遷移がないか
+    *   `G-SECURITY-01`: 機密情報の混入がないか
+
 3.  **UX Scoring (Rubric)**
     *   各セクションを採点する。
     *   合計スコアを算出する。
+    
+    **【客観評価ルールの厳格化】**
+    *   `P-LCP-01` (Performance) および `V-COLOR-01` (Visual Fidelity) について、実測を行っていない場合は **0点** とする。
+    *   推測での採点は禁止。「未計測」と明記すること。
+
     *   **P0/P1/P2** の課題を特定する (該当する場合、各レベル少なくとも1つ)。
     *   **具体的な修正案 (Concrete fixes)** を記述する:
         *   **Spec-level**: JSONの修正点
