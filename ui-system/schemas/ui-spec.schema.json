@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://convoy.local/schemas/ui-spec.schema.json",
+  "title": "ui-system UI Spec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "productId",
+    "specId",
+    "figma",
+    "ui",
+    "implementationRequirements",
+    "acceptanceCriteria"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "$id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "productId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Product identifier (kebab-case)."
+    },
+    "specId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Spec identifier (kebab-case), e.g. ui-header."
+    },
+    "figma": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page",
+        "url"
+      ],
+      "properties": {
+        "page": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface",
+        "description"
+      ],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "description": "UI surface name (header/login/list/detail/dialog/settings/etc.)."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "dataModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "sampleData": {
+          "type": "object"
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "structure": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "responsive": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string"
+            },
+            "minTapHeightPx": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "states"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "states": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "props": {
+            "type": "object"
+          },
+          "a11y": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "keyboard": {
+                "type": "boolean"
+              },
+              "labels": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "implementationRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stack",
+        "semanticHtml"
+      ],
+      "properties": {
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "semanticHtml": {
+          "type": "boolean"
+        },
+        "noAbsolutePositioning": {
+          "type": [
+            "string",
+            "boolean"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  }
+}
