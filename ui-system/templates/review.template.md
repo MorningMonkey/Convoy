@@ -1,14 +1,14 @@
 # UI Review
 
 ## Meta
-- productId: convoy
-- specId: ui-header
-- runId: YYYYMMDD/HHmmss
-- figmaPage: Convoy / UI
-- figmaUrl: https://www.figma.com/
-- gates: ui-system/rubrics/smoke_test_gates.md
-- rubric: ui-system/rubrics/ux_scorecard.md
-- threshold: 75/100
+- productId: {{productId}}
+- specId: {{specId}}
+- runId: {{runId}}
+- figmaPage: {{figmaPage}}
+- figmaUrl: {{figmaUrl}}
+- gates: {{gatesPath}}
+- rubric: {{rubricPath}}
+- threshold: {{threshold}}
 
 ## Result
 - Smoke Gates: PASS / FAIL
@@ -19,6 +19,7 @@
 
 ## Smoke Gates (Checklist)
 > For each item, mark PASS/FAIL and add 1-line evidence.
+> **Required**: G-KEYBOARD-01, G-ROUTING-01, G-SECURITY-01 must be checked.
 
 - [ ] G1: Tap targets >= 44px — PASS/FAIL — Evidence:
 - [ ] G2: Long text does not break layout — PASS/FAIL — Evidence:
@@ -26,17 +27,27 @@
 - [ ] G4: Semantic structure (Header/Content/Footer) is representable — PASS/FAIL — Evidence:
 - [ ] G5: No accidental absolute positioning for core layout — PASS/FAIL — Evidence:
 
+### Hard Gates
+- [ ] G-KEYBOARD-01: Tab focusable — PASS/FAIL — Evidence:
+- [ ] G-ROUTING-01: No 404s — PASS/FAIL — Evidence:
+- [ ] G-SECURITY-01: No secrets — PASS/FAIL — Evidence:
+
 ---
 
 ## UX Scorecard
 
-### Scores
-- Clarity: __/20
-- Efficiency: __/20
-- Error prevention: __/15
-- Accessibility: __/15
-- Visual hierarchy: __/15
-- Consistency: __/15
+### Scores (Subjective)
+- Clarity: __/10
+- Efficiency: __/10
+- Error prevention: __/10
+- Accessibility: __/10
+- Visual hierarchy: __/10
+- Consistency: __/10
+
+### Scores (Objective)
+> 0 pts if not measured.
+- Performance (LCP): __/20
+- Visual Fidelity (Color): __/20
 
 **Total:** __/100
 
