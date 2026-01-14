@@ -176,6 +176,17 @@ Convoyは複雑な操作を自動化するため、強力な安全装置（Safet
 - **[✅ Review Repo Quality](.agent/workflows/review-repo-quality.md)**: リポジトリの健康診断と改善提案。
 - **[🌸 Update Convoy Identity](.agent/workflows/update-convoy-identity.md)**: 既存リポジトリを「Convoy」ブランドへ改装。
 
+#### ✅ Verification (Atomic) / Quality Gates
+プロジェクトの品質を担保するため、以下の検証ゲートを提供します（SoT: `quality-gates.yml`）。
+
+| Gate Type | 必須区分 | 目的 | Workflow |
+| :--- | :--- | :--- | :--- |
+| **lint** | **必須** | 静的解析 | `lint-check` |
+| **type** | **必須** | 型検査 | `type-check` |
+| **test** | **必須** | テスト実行 | `run-tests` |
+| **security**| 推奨 | 脆弱性検査 | `security-scan` |
+| **ui** | 任意 | UI検証 | `ui-verification` |
+
 ### 🎨 Branding & Assets (意匠)
 - **[🎨 Generate Header Image](.agent/workflows/generate-header-image.md)**: 記事やREADME用のヘッダー画像生成。
 

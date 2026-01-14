@@ -48,11 +48,22 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
   - `/bug-fix`（バグの調査・修正・検証・コミットを一気通貫）
 
 - **Verification (Atomic)**:
+  - 共通基盤: `quality-gates` スキルによる統一実行（SoT: `quality-gates.yml`）
   - `/lint-check`（スタイル/静的解析）
   - `/type-check`（型チェック）
   - `/run-tests`（ユニット/自動テスト）
   - `/security-scan`（脆弱性/シークレット検査）
   - `/ui-verification`（ブラウザ操作による視覚検証）
+
+### 必須ゲート基準 (Quality Gates Mandate)
+
+| Gate Type | 必須区分 | 目的 | 推奨ツール例 |
+| :--- | :--- | :--- | :--- |
+| **lint** | **必須** | コードスタイルと静的エラーの排除 | ESLint, Ruff, flutter analyze |
+| **type** | **必須** | 型整合性の保証（動的言語はSkip可） | tsc, mypy |
+| **test** | **必須** | ロジックの正当性検証 | Vitest, Pytest, flutter test |
+| **security** | 推奨 | 脆弱性とシークレット混入の防止 | Trivy, Gitleaks, pip-audit |
+| **ui** | 任意 | 外観とE2E導線の保証 | Playwright, Screenshot |
 
 - **Verification (Integrated)**:
   - `/verify-code`（Lint/Type/Test を順次実行する統合パス）
