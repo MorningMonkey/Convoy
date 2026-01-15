@@ -171,6 +171,7 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 | type-check | TypeScript の型チェック（tsc 等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/type-check.md |
 | ui-ux-pro-max | UIの計画と実装 | manual | .agent/workflows/ui-ux-pro-max.md |
 | ui-verification | UIの視覚検証（E2E/スクリーンショット比較等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/ui-verification.md |
+| update-agent-index | .agent/INDEX.md を自動更新し、現在の Workflows/Rules/Templates 構成と同期させる。 | manual | .agent/workflows/update-agent-index.md |
 | update-convoy-identity | READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。 | model_decision | .agent/workflows/update-convoy-identity.md |
 | verify-code | Lint / 型チェック / テスト（任意でセキュリティ）を既存の原子ワークフローで順次実行し、結果を集約してPASS/FAILを判定する統合ワークフロー。 | manual | .agent/workflows/verify-code.md |
 | visualize-architecture | リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。 | model_decision | .agent/workflows/visualize-architecture.md |
