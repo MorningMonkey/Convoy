@@ -169,7 +169,7 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 | security-scan | 依存関係脆弱性・シークレット混入・基本セキュリティ規約違反をSoT（quality-gates.yml）に従って検査し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/security-scan.md |
 | setup-product-discovery | Convoy内でプロダクトの棚卸し→MVP決定→設計を回すための成果物置き場（SoT/Docs/Decisions）を標準生成する。 | manual | .agent/workflows/setup-product-discovery.md |
 | type-check | TypeScript の型チェック（tsc 等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/type-check.md |
-| ui-ux-pro-max | UIスタイル、カラーパレット、フォント、ベストプラクティスを検索可能なデータベース。 | manual | .agent/workflows/ui-ux-pro-max.md |
+| ui-ux-pro-max | UIの計画と実装 | manual | .agent/workflows/ui-ux-pro-max.md |
 | ui-verification | UIの視覚検証（E2E/スクリーンショット比較等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/ui-verification.md |
 | update-convoy-identity | READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。 | model_decision | .agent/workflows/update-convoy-identity.md |
 | verify-code | Lint / 型チェック / テスト（任意でセキュリティ）を既存の原子ワークフローで順次実行し、結果を集約してPASS/FAILを判定する統合ワークフロー。 | manual | .agent/workflows/verify-code.md |
