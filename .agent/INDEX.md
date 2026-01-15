@@ -179,6 +179,53 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 
 ---
 
+## Skills
+
+<!-- BEGIN: AUTO-GENERATED SKILLS -->
+| name | description | file |
+| --- | --- | --- |
+| app-store-optimization | Complete App Store Optimization (ASO) toolkit for researching, optimizing, and tracking mobile app performance on Apple App Store and Google Play Store | .agent/skills/app-store-optimization/SKILL.md |
+| core-components | Core component library and design system patterns. Use when building UI, using design tokens, or working with the component library. | .agent/skills/core-components/SKILL.md |
+| frontend-design | Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics. | .agent/skills/frontend-design/SKILL.md |
+| quality-gates | Unified interface for verification gates (lint, type-check, test, security, ui). Use when running quality checks to ensure robustness and consistency across different project stacks. | .agent/skills/quality-gates/SKILL.md |
+| skill-creator | Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. | .agent/skills/skill-creator/SKILL.md |
+<!-- END: AUTO-GENERATED SKILLS -->
+| branding-intake | 製作者への対話的ヒアリングを通じてアプリ別のブランド要件（brief.md / header_prompt.txt）を定義・生成する。 | manual | .agent/workflows/branding-intake.md |
+| bug-fix | バグの調査→修正→検証→コミット（必要ならPR）までを、差分根拠と安全確認つきで一気通貫に実行する。星来がバグを退治する。 | manual | .agent/workflows/bug-fix.md |
+| build-app-flutter | Flutter プロジェクトを標準構成（Riverpod/go_router）で生成し、ブランド正本に基づき品質最小ラインを確保する。 | manual | .agent/workflows/build-app-flutter.md |
+| build-app-simple | シンプルな Web アプリを迅速に構築するための技術選定基準と実装手順を定義する。 | model_decision | .agent/workflows/build-app-simple.md |
+| code-review | PRやコード変更に対して、SoT参照・差分根拠・安全ガードつきで体系的なレビューを実施し、Must Fix / Should Fix / Suggestion / Good Pointsで報告する。 | manual | .agent/workflows/code-review.md |
+| create-convoy-project-complete | リポジトリ作成から品質レビュー、リリースまでを Convoy 標準の一気通貫導線で実行する統合 SOP。 | model_decision | .agent/workflows/create-convoy-project-complete.md |
+| create-prompt-repo | プロンプト資産を別リポジトリとして管理するため、既存フォルダをGitHubリポジトリへ変換・同期する。 | model_decision | .agent/workflows/create-prompt-repo.md |
+| create-release | Semantic Versioning に基づくリリース作成と、バージョン入りヘッダー画像の生成を自動化する。 | model_decision | .agent/workflows/create-release.md |
+| create-repo-from-folder | 既存フォルダをConvoy規格のGitHubリポジトリへ整流化し、Private作成・origin検証・main標準化までを完了する。 | model_decision | .agent/workflows/create-repo-from-folder.md |
+| create-rule | ユーザーの要求から新しいルール（.agent/rules/*.md）をConvoy標準（SoT参照・trigger方針・整合チェック）で対話的に作成する。 | manual | .agent/workflows/create-rule.md |
+| create-workflow | ユーザー要求から新しいワークフロー（.agent/workflows/*.md）をConvoy標準（SoT参照・安全ガード・再利用・検証）で対話的に作成する。 | manual | .agent/workflows/create-workflow.md |
+| define-state-machines | アプリのコアロジックを解析し、Mermaidステートマシン図とUIマッピング図を生成して整合性を担保する。 | manual | .agent/workflows/define-state-machines.md |
+| generate-header-image | READMEおよびリリース向けのヘッダー画像を生成し、1600x420の規格へクロップして成果物を固定する。 | model_decision | .agent/workflows/generate-header-image.md |
+| generate-unit-tests | 指定されたファイル/モジュールに対して単体テストを設計→生成→実行→検証（回帰なしの根拠）まで行う。スタックはSoT（brief.md）に従い、外部依存はモック戦略で隔離する。 | manual | .agent/workflows/generate-unit-tests.md |
+| git-auto-commit | git statusとdiffを根拠に、Convoy標準の作業ブランチ作成・粒度の細かいコミット・マージまでを安全に自動化する。 | model_decision | .agent/workflows/git-auto-commit.md |
+| health-check | Convoy/GA-Workspace の .agent 構成（rules/workflows/INDEX/README/参照整合・frontmatter・重複・呼び出し依存）を検査し、Pass/Risk/Action の健康診断レポートを出す。 | manual | .agent/workflows/health-check.md |
+| integrate-discovery-artifacts | AntigravityのUI/Data/CI Artifactsをレビューし、衝突解消→Convoy docsへ収束→ADRで決定ログ化する統合SOP。 | manual | .agent/workflows/integrate-discovery-artifacts.md |
+| lint-check | プロジェクトのLint（スタイル/静的解析）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/lint-check.md |
+| parallel-discovery-antigravity | Antigravity Managerで UI/データ/CI の3エージェントを並列稼働し、ArtifactsをConvoyの正本ドキュメント（docs/products/<productId>/）へ収束させる。 | manual | .agent/workflows/parallel-discovery-antigravity.md |
+| performance-optimization | パフォーマンス問題を計測→原因特定→最小最適化→再計測→回帰確認（verify-code）まで一気通貫で行い、改善を数値で証明する専門ワークフロー。 | manual | .agent/workflows/performance-optimization.md |
+| projects-sync | Convoy母艦の manifest を正として、CONVOY_PROJECT 配下の独立プロダクト群を clone/pull で同期する。新規プロダクト追加はGitHub ActionsでPR自動生成する。 | manual | .agent/workflows/projects-sync.md |
+| review-repo-quality | リポジトリのREADME・設定・構造・実行ゲートを点検し、Pass/Risk/Actionで出荷可否と改善手順を提示する。 | model_decision | .agent/workflows/review-repo-quality.md |
+| run-tests | プロジェクトのテスト（Unit/Auto）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/run-tests.md |
+| security-scan | 依存関係脆弱性・シークレット混入・基本セキュリティ規約違反をSoT（quality-gates.yml）に従って検査し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/security-scan.md |
+| setup-product-discovery | Convoy内でプロダクトの棚卸し→MVP決定→設計を回すための成果物置き場（SoT/Docs/Decisions）を標準生成する。 | manual | .agent/workflows/setup-product-discovery.md |
+| type-check | TypeScript の型チェック（tsc 等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/type-check.md |
+| ui-ux-pro-max | UIの計画と実装 | manual | .agent/workflows/ui-ux-pro-max.md |
+| ui-verification | UIの視覚検証（E2E/スクリーンショット比較等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/ui-verification.md |
+| update-agent-index | .agent/INDEX.md を自動更新し、現在の Workflows/Rules/Templates 構成と同期させる。 | manual | .agent/workflows/update-agent-index.md |
+| update-convoy-identity | READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。 | model_decision | .agent/workflows/update-convoy-identity.md |
+| verify-code | Lint / 型チェック / テスト（任意でセキュリティ）を既存の原子ワークフローで順次実行し、結果を集約してPASS/FAILを判定する統合ワークフロー。 | manual | .agent/workflows/verify-code.md |
+| visualize-architecture | リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。 | model_decision | .agent/workflows/visualize-architecture.md |
+<!-- END: AUTO-GENERATED WORKFLOWS -->
+
+---
+
 ## 推奨フロー（導入：Discovery起点）
 初期導入は **`/branding-intake`** を先頭とする。
 
