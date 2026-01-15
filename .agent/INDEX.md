@@ -160,16 +160,16 @@ Convoy におけるプロダクト開発は、原則として以下の順序で�
 | git-auto-commit | git statusとdiffを根拠に、Convoy標準の作業ブランチ作成・粒度の細かいコミット・マージまでを安全に自動化する。 | model_decision | .agent/workflows/git-auto-commit.md |
 | health-check | Convoy/GA-Workspace の .agent 構成（rules/workflows/INDEX/README/参照整合・frontmatter・重複・呼び出し依存）を検査し、Pass/Risk/Action の健康診断レポートを出す。 | manual | .agent/workflows/health-check.md |
 | integrate-discovery-artifacts | AntigravityのUI/Data/CI Artifactsをレビューし、衝突解消→Convoy docsへ収束→ADRで決定ログ化する統合SOP。 | manual | .agent/workflows/integrate-discovery-artifacts.md |
-| lint-check | プロジェクトのLint（スタイル/静的解析）をSoT（brief.md）に従って実行し、PASS/PASS_WITH_WARNINGS/FAIL と根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/lint-check.md |
+| lint-check | プロジェクトのLint（スタイル/静的解析）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/lint-check.md |
 | parallel-discovery-antigravity | Antigravity Managerで UI/データ/CI の3エージェントを並列稼働し、ArtifactsをConvoyの正本ドキュメント（docs/products/<productId>/）へ収束させる。 | manual | .agent/workflows/parallel-discovery-antigravity.md |
 | performance-optimization | パフォーマンス問題を計測→原因特定→最小最適化→再計測→回帰確認（verify-code）まで一気通貫で行い、改善を数値で証明する専門ワークフロー。 | manual | .agent/workflows/performance-optimization.md |
 | projects-sync | Convoy母艦の manifest を正として、CONVOY_PROJECT 配下の独立プロダクト群を clone/pull で同期する。新規プロダクト追加はGitHub ActionsでPR自動生成する。 | manual | .agent/workflows/projects-sync.md |
 | review-repo-quality | リポジトリのREADME・設定・構造・実行ゲートを点検し、Pass/Risk/Actionで出荷可否と改善手順を提示する。 | model_decision | .agent/workflows/review-repo-quality.md |
-| run-tests | プロジェクトの単体/自動テストをSoT（brief.md）に従って実行し、PASS/FAIL/PASS_WITH_SKIPPED を根拠（失敗/スキップ要約）つきで報告する原子ワークフロー。 | manual | .agent/workflows/run-tests.md |
-| security-scan | 依存関係脆弱性・シークレット混入・基本セキュリティ規約違反をSoT（brief.md）と既存ルールに従って検査し、PASS/PASS_WITH_WARNINGS/FAIL を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/security-scan.md |
+| run-tests | プロジェクトのテスト（Unit/Auto）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/run-tests.md |
+| security-scan | 依存関係脆弱性・シークレット混入・基本セキュリティ規約違反をSoT（quality-gates.yml）に従って検査し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/security-scan.md |
 | setup-product-discovery | Convoy内でプロダクトの棚卸し→MVP決定→設計を回すための成果物置き場（SoT/Docs/Decisions）を標準生成する。 | manual | .agent/workflows/setup-product-discovery.md |
-| type-check | TypeScript の型チェック（tsc 等）をSoT（brief.md）に従って実行し、PASS/FAIL と根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/type-check.md |
-| ui-verification | ローカル（または指定URL）のUIをブラウザ操作で視覚検証し、スクリーンショットとコンソール所見を根拠にPASS/FAILを報告する。スタック/ポートはSoT（brief.md）を優先する。 | manual | .agent/workflows/ui-verification.md |
+| type-check | TypeScript の型チェック（tsc 等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠（主要エラー）を報告する原子ワークフロー。 | manual | .agent/workflows/type-check.md |
+| ui-verification | UIの視覚検証（E2E/スクリーンショット比較等）をSoT（quality-gates.yml）に従って実行し、PASS/FAIL/SKIP を根拠つきで報告する原子ワークフロー。 | manual | .agent/workflows/ui-verification.md |
 | update-convoy-identity | READMEとヘッダー画像、Alertsと導線をConvoy標準へ整流化し、初見理解と運用到達性を確立する。 | model_decision | .agent/workflows/update-convoy-identity.md |
 | verify-code | Lint / 型チェック / テスト（任意でセキュリティ）を既存の原子ワークフローで順次実行し、結果を集約してPASS/FAILを判定する統合ワークフロー。 | manual | .agent/workflows/verify-code.md |
 | visualize-architecture | リポジトリの論理構成を解析し、Draw.io XMLでアーキテクチャ図を生成してdocs/へ保存する。 | model_decision | .agent/workflows/visualize-architecture.md |
