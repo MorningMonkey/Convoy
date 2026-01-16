@@ -1,0 +1,65 @@
+name: Flutter App Quality Gates
+
+on:
+  push:
+    paths:
+      - "CONVOY_PROJECT/aqua-ritual/app/**"
+      - "CONVOY_PROJECT/Aqua_Ritual/app/**"
+  pull_request:
+    paths:
+      - "CONVOY_PROJECT/aqua-ritual/app/**"
+      - "CONVOY_PROJECT/Aqua_Ritual/app/**"
+
+jobs:
+  flutter-quality-gates:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve Flutter app directory
+        id: appdir
+        run: |
+          set -euo pipefail
+          CANDIDATES=(
+            "CONVOY_PROJECT/aqua-ritual/app"
+            "CONVOY_PROJECT/Aqua_Ritual/app"
+          )
+          for d in "${CANDIDATES[@]}"; do
+            if [ -f "${d}/pubspec.yaml" ]; then
+              echo "dir=${d}" >> "$GITHUB_OUTPUT"
+              echo "Using Flutter app dir: ${d}"
+              exit 0
+            fi
+          done
+          echo "No Flutter app directory found. Expected one of:" >&2
+          printf '  - %s\n' "${CANDIDATES[@]}" >&2
+          exit 1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Pub get
+        working-directory: ${{ steps.appdir.outputs.dir }}
+        run: flutter pub get
+
+      - name: Format check (no changes)
+        working-directory: ${{ steps.appdir.outputs.dir }}
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze
+        working-directory: ${{ steps.appdir.outputs.dir }}
+        run: flutter analyze
+
+      - name: Test
+        working-directory: ${{ steps.appdir.outputs.dir }}
+        run: flutter test
