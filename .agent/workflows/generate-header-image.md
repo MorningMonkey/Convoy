@@ -43,8 +43,12 @@ README 表示のブレをなくすために最終成果物の寸法（SoT）を�
 - `assets/header.png`
 
 ### Step 3: クロップで SoT 固定（Action）
-1. `pnpm header:crop` を実行し、banner モード（既定）で SoT に固定する。
-2. 入力と出力は以下で固定する。  
+1. Convoy 本体の `scripts/header-crop.mjs` を使用してクロップする。
+2. 実行コマンド:
+   ```bash
+   node scripts/header-crop.mjs <target-repo>/assets/header.png <target-repo>/assets/header_cropped.png
+   ```
+3. 入力と出力は以下で固定する。  
    - 入力: `assets/header.png`  
    - 出力: `assets/header_cropped.png`（1600×420）
 
@@ -52,8 +56,12 @@ README 表示のブレをなくすために最終成果物の寸法（SoT）を�
 - `assets/header_cropped.png`（1600×420）
 
 ### Step 4: テキスト重畳（条件付き / Action）
-1. 画像にタイトル等のテキストが必要な場合のみ、`pnpm header:add-text` を実行する。
-2. safe area を確保しつつ、横幅からはみ出さないよう自動フィットさせる。
+1. 画像にタイトル等のテキストが必要な場合のみ、`scripts/header-add-text.mjs` を実行する。
+2. 実行コマンド:
+   ```bash
+   node scripts/header-add-text.mjs <target-repo>/assets/header_cropped.png "Project Name" <target-repo>/assets/header_cropped_text.png
+   ```
+3. safe area を確保しつつ、横幅からはみ出さないよう自動フィットさせる。
 
 **出力**
 - `assets/header_cropped_text.png`（1600×420）
